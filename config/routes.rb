@@ -5,11 +5,12 @@ Uberstory::Application.routes.draw do
       get :continue
     end
   end
-  
+ 
   match '/auth/:provider/callback', to: 'facebook#authenticated'
   
   root :to => 'facebook#init'
   match '/', to: 'facebook#init', method: :post
+  match 'contact-us', to: 'static#contact'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

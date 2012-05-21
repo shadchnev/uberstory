@@ -1,5 +1,9 @@
 %h1= link_to "Uberstory", stories_url
 
+%h2= "Hey there #{current_user.first_name}, feeling creative?"
+
 = link_to "start a new story", new_story_url
 
 = render :partial => "story", :collection => @stories
+
+= link_to "contact us", contact_url
