@@ -16,6 +16,7 @@ class FacebookController < ApplicationController
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
     sign_in user, request.env['omniauth.auth'][:credentials][:token]    
+    # this line means if Rails.env.production? == true, then return the production url, otherwise return "/"
     @redirect_url = Rails.env.production? ? "http://apps.facebook.com/uberstory" : "/"
     render :parent_redirect
   end
