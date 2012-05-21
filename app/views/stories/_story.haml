@@ -1,4 +1,4 @@
-%h3 Started by #{story.user.first_name}
+%p= link_to " ---> Started by #{story.user.first_name}", continue_story_url(story)
 - story.lines.each do |line|
   %p
     = image_tag line.user.image

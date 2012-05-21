@@ -16,12 +16,13 @@ class FacebookController < ApplicationController
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
     sign_in user, request.env['omniauth.auth'][:credentials][:token]    
-    @redirect_url = "http://apps.facebook.com/uberstory" 
+    @redirect_url = Rails.env.production? ? "http://apps.facebook.com/uberstory" : "/"
     render :parent_redirect
   end
   
 private
-
+  
+  # After the user clicks on a request, it's the app's responsibility to delete the request
   def remove_all_requests
     return if params[:request_ids].blank?
     requests = params[:request_ids].split(',')
