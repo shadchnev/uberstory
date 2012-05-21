@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   
   def set_current_user
     @current_user = current_user
-    @current_user.token = session[:fb_token]
   end
 
   def authenticate!
@@ -31,7 +30,10 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    User.find(session[:user_id]) if user_signed_in?
+    return unless user_signed_in?
+    user = User.find(session[:user_id]) 
+    user.token = session[:fb_token]
+    user
   end
 
 end
