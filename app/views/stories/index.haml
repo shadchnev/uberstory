@@ -2,13 +2,4 @@
 
 = link_to "start a new story", new_story_url
 
-- @stories.each do |story|
-  %h3 Started by #{story.user.first_name}
-  - story.lines.each do |line|
-    %p
-      = image_tag line.user.image
-      = line.text
-  - if story.involves?(current_user)
-    = render :partial => "invite"
-  %hr
-
+= render :partial => "story", :collection => @stories

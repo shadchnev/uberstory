@@ -1,0 +1,14 @@
+%h3 Started by #{@story.user.first_name}
+- @story.lines.each do |line|
+  %p
+    = image_tag line.user.image
+    = line.text  
+- if @story.involves?(current_user)
+  %p
+    = form_for @story, :url => story_url(@story) do |f|
+      = f.fields_for :lines, Line.new do |l|
+        Enter the next line
+        = l.text_field :text
+      = f.submit "Continue"
+      
+  %p= render :partial => "invite", :locals => {:story => @story}

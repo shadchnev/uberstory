@@ -1,6 +1,1 @@
-%h3 Invite others!
-%ul
-- current_user.friends.each do |friend|
-  %li
-    = check_box_tag friend["id"]
-    = friend["name"]
+= link_to 'Invite your friends to continue the story', "#", {:id => 'invite-friends'}

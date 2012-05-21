@@ -13,5 +13,5 @@ class Story < ActiveRecord::Base
   def involves?(user)
     users.include? user
   end
-  
+    
 end

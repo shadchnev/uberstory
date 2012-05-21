@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
     @graph ||= User.graph(@token)
   end
   
+  # cache it
   def friends
     graph.get_object("me/friends").slice(0,10)
   end

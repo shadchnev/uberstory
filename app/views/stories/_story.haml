@@ -1,0 +1,10 @@
+%h3 Started by #{story.user.first_name}
+- story.lines.each do |line|
+  %p
+    = image_tag line.user.image
+    = line.text  
+- if story.involves?(current_user)
+  %p= link_to "Continue this story", continue_story_url(story)
+  %p= render :partial => "invite", :locals => {:story => story}
+  
+%hr
