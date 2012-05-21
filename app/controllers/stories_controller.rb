@@ -7,7 +7,7 @@ class StoriesController < ApplicationController
   
   def new
     @story = Story.new
-    @story.lines.build
+    @story.lines.build # not sure this is necessary
   end
   
   def continue

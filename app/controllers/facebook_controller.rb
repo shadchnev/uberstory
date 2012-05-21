@@ -16,7 +16,7 @@ class FacebookController < ApplicationController
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
     sign_in user, request.env['omniauth.auth'][:credentials][:token]    
-    @redirect_url = "/" || "http://apps.facebook.com/uberstory" 
+    @redirect_url = "http://apps.facebook.com/uberstory" 
     render :parent_redirect
   end
   
