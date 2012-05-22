@@ -10,7 +10,7 @@ class StoriesController < ApplicationController
     @story.lines.build # not sure this is necessary
   end
   
-  def continue
+  def show
     @story = Story.find(params[:id])
   end
   
@@ -33,7 +33,7 @@ class StoriesController < ApplicationController
     if @story.save
       redirect_to :action => :index
     else
-      render :continue
+      render :show
     end
   end
   

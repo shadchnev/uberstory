@@ -1,9 +1,19 @@
 .hero-unit
   %h1 Uberstory
   %p= "Hey there #{current_user.first_name}, feeling creative?"
-  %p
-    =link_to "Start a new story", new_story_url, {:class => "btn primary large"}
+  %p= text_field_tag :first_line
+  %p= link_to "Start a new story", '#new-story-dialogue', :class => "btn primary large", "data-toggle" => "modal"
 
+#new-story-dialogue.modal.hide
+  .modal-header
+    %button.close{"data-dismiss" => "modal"} ×
+    %h3 Modal header
+  .modal-body
+    %p One fine body…
+  .modal-footer
+    %a.btn{:href => "#"} Close
+    %a.btn.btn-primary{:href => "#"} Save changes
+  
 - (@stories.size / 3 + 1).times do |row_number|
   .row
     - 3.times do |column_number|

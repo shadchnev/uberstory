@@ -3,10 +3,11 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  $('#invite-friends').click ->
+  $('.invite-friends').click ->
     callback = (response) ->
      console.log response
     FB.ui
       method: 'apprequests'
       message: 'Help me finish a short story on Uberstory!'
       callback
+  

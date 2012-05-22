@@ -1,11 +1,7 @@
 Uberstory::Application.routes.draw do
   
-  resources :stories do
-    member do
-      get :continue
-    end
-  end
- 
+  resources :stories
+   
   match '/auth/:provider/callback', to: 'facebook#authenticated'
   
   root :to => 'facebook#init'
