@@ -7,20 +7,20 @@ $ ->
   $("form#new_story").submit ->
     friendsInvited
   
+  $("form#new_story .new-line input").keypress ->
+    $("form#new_story .new-line").removeClass("error")
+  
   $('a.show-modal').click ->
     newLine = $("form#new_story input.new_line").val()
     if newLine == ''    
+      $("form#new_story .new-line input").focus()
       $("form#new_story .new-line").addClass("error")
     else
       $("#new-story-dialogue").modal("show")
   
-  $('.start-story').click ->
-    $("#new-story-dialogue").modal('hide')
-    callback = (response) ->
-      if response?
-        friendsInvited = true
-        $("form#new_story").submit()
-    checkboxes = $('#new-story-dialogue input[type="checkbox"]:checked')    
+  showFacebookInvite = (callback) ->
+    $(".modal").modal('hide')
+    checkboxes = $('.modal input[type="checkbox"]:checked')    
     userIds = $.map checkboxes, (element, index) ->
       $(element).val()
     userIds = userIds.join(",")
@@ -30,3 +30,17 @@ $ ->
       to: userIds
       callback
   
+  $(".invite-friends").click ->
+    $("#continue-story-dialogue").modal("show")
+  
+  $(".continue-story").click ->
+    showFacebookInvite ->
+      $(".alert").show()
+  
+  $('.start-story').click ->
+    callback = (response) ->
+      if response?
+        friendsInvited = true
+        $("form#new_story").submit()
+    showFacebookInvite(callback)
+      
