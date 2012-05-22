@@ -6,6 +6,14 @@ $ ->
   friendsInvited = false
   $("form#new_story").submit ->
     friendsInvited
+  
+  $('a.show-modal').click ->
+    newLine = $("form#new_story input.new_line").val()
+    if newLine == ''    
+      $("form#new_story .new-line").addClass("error")
+    else
+      $("#new-story-dialogue").modal("show")
+  
   $('.start-story').click ->
     $("#new-story-dialogue").modal('hide')
     callback = (response) ->
