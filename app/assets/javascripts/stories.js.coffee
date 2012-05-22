@@ -3,11 +3,22 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
-  $('.invite-friends').click ->
+  friendsInvited = false
+  $("form#new_story").submit ->
+    friendsInvited
+  $('.start-story').click ->
+    $("#new-story-dialogue").modal('hide')
     callback = (response) ->
-     console.log response
+      if response?
+        friendsInvited = true
+        $("form#new_story").submit()
+    checkboxes = $('#new-story-dialogue input[type="checkbox"]:checked')    
+    userIds = $.map checkboxes, (element, index) ->
+      $(element).val()
+    userIds = userIds.join(",")
     FB.ui
       method: 'apprequests'
       message: 'Help me finish a short story on Uberstory!'
+      to: userIds
       callback
   

@@ -9,4 +9,8 @@
   %body
     .container.canvas
       = render :partial => "layouts/facebook"
+      - if flash[:notice]
+        %p.notice= flash[:notice]
+      - if flash[:error]
+        %p.error= flash[:error]
       = yield

@@ -1,0 +1,13 @@
+#new-story-dialogue.modal.hide
+  .modal-header
+    %button.class{"data-dismiss" => "modal"} ×
+    %h3 Creative title
+  .modal-body
+    %ul
+      - current_user.friends.each do |friend| 
+        %p
+          = check_box_tag :friend_id, friend["id"]
+          = friend["name"]
+  .modal-footer
+    %a.btn{:href => "#", "data-dismiss" => "modal"} Close
+    %a.btn.btn-primary.start-story{:href => "#"} Start your story

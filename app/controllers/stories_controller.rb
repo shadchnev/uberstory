@@ -19,7 +19,8 @@ class StoriesController < ApplicationController
     @story = Story.new(params[:story])
     @story.lines.first.user = current_user
     if @story.save
-      redirect_to :action => :index
+      flash[:notice] = "Story created successfully"
+      redirect_to :action => :show, :id => @story.id
     else
       render :new
     end

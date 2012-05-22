@@ -1,18 +1,12 @@
 .hero-unit
   %h1 Uberstory
   %p= "Hey there #{current_user.first_name}, feeling creative?"
-  %p= text_field_tag :first_line
+  %p
+    = form_for Story.new do |f|
+      = f.fields_for :lines, Line.new do |l|
+        = l.text_field :text
+  = render :partial => 'new_story_modal'
   %p= link_to "Start a new story", '#new-story-dialogue', :class => "btn primary large", "data-toggle" => "modal"
-
-#new-story-dialogue.modal.hide
-  .modal-header
-    %button.close{"data-dismiss" => "modal"} ×
-    %h3 Modal header
-  .modal-body
-    %p One fine body…
-  .modal-footer
-    %a.btn{:href => "#"} Close
-    %a.btn.btn-primary{:href => "#"} Save changes
   
 - (@stories.size / 3 + 1).times do |row_number|
   .row
