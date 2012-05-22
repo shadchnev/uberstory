@@ -5,4 +5,4 @@
     = line.text  
 
 - if story.involves?(current_user)
-  %p= link_to "Continue this story", continue_story_url(story), {:class => "btn"}
+  %p= link_to "Continue this story", story_url(story), {:class => "btn"}
