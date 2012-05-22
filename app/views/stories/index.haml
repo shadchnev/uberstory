@@ -1,9 +1,14 @@
-%h1= link_to "Uberstory", stories_url
+.hero-unit
+  %h1 Uberstory
+  %p= "Hey there #{current_user.first_name}, feeling creative?"
+  %p
+    =link_to "Start a new story", new_story_url, {:class => "btn primary large"}
 
-%h2= "Hey there #{current_user.first_name}, feeling creative?"
-
-= link_to "start a new story", new_story_url
-
-= render :partial => "story", :collection => @stories
-
-= link_to "contact us", contact_url
+- (@stories.size / 3 + 1).times do |row_number|
+  .row
+    - 3.times do |column_number|
+      .span4
+        - story = @stories[row_number * 3 + column_number]
+        - if story
+          = render :partial => "story", :locals => {:story => story}
+        
