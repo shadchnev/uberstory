@@ -1,5 +1,5 @@
 development:
-  adapter: sqlite3
+  adapter: postgresql
   encoding: unicode
   database: uberstory_development
   pool: 5

@@ -8,8 +8,6 @@ class FacebookController < ApplicationController
     if params[:signed_request]
       @oauth = Koala::Facebook::OAuth.new(ENV["APP_ID"], ENV["APP_SECRET"])
       @signed_request = @oauth.parse_signed_request(params[:signed_request]) 
-      puts "got signed request:"
-      puts @signed_request.inspect
       token = @signed_request["oauth_token"]
     end
     if token

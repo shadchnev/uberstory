@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
   end
   
   def involves?(user)
-    users.include?(user) || users.any? {|u| u.friends.include?(user) }
+    !((user.friends + [user]) & users).empty?
   end
     
 end

@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   
   has_many :lines
-  attr_accessor :token
+  attr_writer :token
   
   has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id"
   
@@ -18,9 +18,7 @@ class User < ActiveRecord::Base
   # end
   
   def graph
-    raise "The token is not supplied to user #{self.id}" if @token.blank?
-    puts "Using token #{@token} to access FB Graph"
-    (@graph ||= Koala::Facebook::API.new(@token)).tap{|v| puts "graph object: #{v.inspect}"}    
+    @graph ||= Koala::Facebook::API.new(@token)
   end
   
   # cache it

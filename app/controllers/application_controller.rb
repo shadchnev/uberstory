@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
     return unless user_signed_in?
     user = User.find(session[:user_id]) 
     user.token = session[:fb_token]
-    puts "current user #{user.id} has token #{user.token}"
     user
   end
 
