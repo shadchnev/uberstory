@@ -8,17 +8,19 @@ class User < ActiveRecord::Base
   
   attr_accessible :uid, :first_name, :last_name
     
-  def self.find_by_token(token)
-    begin
-      profile = graph(token).get_object("me")
-    rescue # token expired for whatever reason
-      return nil
-    end
-    User.find_by_uid(profile["id"])
-  end
+  # def self.find_by_token(token)
+  #   begin
+  #     profile = graph(token).get_object("me")
+  #   rescue # token expired for whatever reason
+  #     return nil
+  #   end
+  #   User.find_by_uid(profile["id"])
+  # end
   
   def graph
-    @graph ||= Koala::Facebook::API.new(@token)
+    raise "The token is not supplied" if @token.blank?
+    puts "Using token #{@token} to access FB Graph"
+    (@graph ||= Koala::Facebook::API.new(@token)).tap{|v| puts "graph object: #{v.inspect}"}    
   end
   
   # cache it
