@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   
   before_filter :set_current_user
   before_filter :set_app_id
-  
+    
   def set_app_id
     @app_id = ENV['APP_ID']
   end
@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   end
   
   def sign_in(user, token)
+    raise "Cannot sign in a non-existent user" unless user
     session[:fb_token] = token
     session[:user_id] = user.id
   end
