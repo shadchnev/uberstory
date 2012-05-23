@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
   
   def sign_in(user, token)
-    raise "Cannot sign in a non-existent user" unless user
+    raise "Need both a user (#{user.to_s}) and a token (#{token.to_s}) to sign in" unless user && token
     session[:fb_token] = token
     session[:user_id] = user.id
   end
