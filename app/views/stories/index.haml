@@ -9,11 +9,6 @@
   = render :partial => 'new_story_modal'
   %p= link_to "Start a new story", '#new-story-dialogue', :class => "btn primary large show-modal"
   
-- (@stories.size / 3 + 1).times do |row_number|
-  .row
-    - 3.times do |column_number|
-      .span4
-        - story = @stories[row_number * 3 + column_number]
-        - if story
-          = render :partial => "story", :locals => {:story => story}
-        
+  
+= render :partial => "stories", :locals => {:stories => @by_friends, :title => "Stories by your friends"}
+= render :partial => "stories", :locals => {:stories => @popular, :title => "Popular stories"}

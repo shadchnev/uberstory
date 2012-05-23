@@ -2,7 +2,8 @@ class StoriesController < ApplicationController
   
   def index
     authenticate! and return unless user_signed_in?
-    @stories = Story.all
+    @by_friends = current_user.friends.map{|f| f.stories}.flatten.uniq.sort_by{|s| s.created_at}.reverse.take(6)
+    @popular = (Story.all - @by_friends).take(6) # popular means the number of likes but we don't have that yet
   end
   
   def new
