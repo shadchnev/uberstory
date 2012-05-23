@@ -44,3 +44,4 @@ $ ->
         $("form#new_story").submit()
     showFacebookInvite(callback)
       
+  $(".blurred").popover()
