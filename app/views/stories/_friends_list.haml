@@ -1,5 +1,5 @@
 %ul
   - current_user.friends.each do |friend| 
     %p
-      = check_box_tag :friend_id, friend["id"]
-      = friend["name"]
+      = check_box_tag :friend_id, friend.uid
+      = friend.name

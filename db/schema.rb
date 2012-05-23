@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520164601) do
+ActiveRecord::Schema.define(:version => 20120523092625) do
 
   create_table "lines", :force => true do |t|
     t.string   "text",       :limit => 140
@@ -36,5 +36,12 @@ ActiveRecord::Schema.define(:version => 20120520164601) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "users_friends", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+  end
+
+  add_index "users_friends", ["user_id", "friend_id"], :name => "index_users_friends_on_user_id_and_friend_id"
 
 end

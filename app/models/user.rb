@@ -4,10 +4,10 @@ class User < ActiveRecord::Base
   has_many :lines
   attr_writer :token
   
-  def self.graph(token)
-    Koala::Facebook::API.new(token)    
-  end
+  has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id"
   
+  attr_accessible :uid, :first_name, :last_name
+    
   def self.find_by_token(token)
     begin
       profile = graph(token).get_object("me")
@@ -18,12 +18,22 @@ class User < ActiveRecord::Base
   end
   
   def graph
-    @graph ||= User.graph(@token)
+    @graph ||= Koala::Facebook::API.new(@token)
   end
   
   # cache it
   def friends
-    graph.get_object("me/friends").slice(0,10)
+    return cached_friends unless cached_friends.empty?
+    graph.get_object("me/friends").each do |f|
+      first_name, last_name = f["name"].split(" ", 2) if f["name"]
+      friend = User.create(:uid => f["id"], :first_name => first_name, :last_name => last_name)
+      self.cached_friends << friend
+    end
+    cached_friends
+  end
+  
+  def name
+    "#{first_name} #{last_name}"
   end
   
   def self.find_or_create_by_fb_auth(auth)    
