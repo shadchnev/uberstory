@@ -11,7 +11,7 @@ class Story < ActiveRecord::Base
   end
   
   def involves?(user)
-    !((user.friends + [user]) & users).empty?
+    !((user.friends.map{|f| f.uid } + [user.uid]) & users.map{|u| u.uid}).empty?
   end
     
 end

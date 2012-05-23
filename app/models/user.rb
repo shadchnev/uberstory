@@ -8,26 +8,15 @@ class User < ActiveRecord::Base
   
   attr_accessible :uid, :first_name, :last_name
     
-  # def self.find_by_token(token)
-  #   begin
-  #     profile = graph(token).get_object("me")
-  #   rescue # token expired for whatever reason
-  #     return nil
-  #   end
-  #   User.find_by_uid(profile["id"])
-  # end
-  
   def graph
     @graph ||= Koala::Facebook::API.new(@token)
   end
   
-  # cache it
   def friends
     return cached_friends unless cached_friends.empty?
     graph.get_object("me/friends").each do |f|
-      first_name, last_name = f["name"].split(" ", 2) if f["name"]
-      friend = User.create(:uid => f["id"], :first_name => first_name, :last_name => last_name)
-      self.cached_friends << friend
+      first_name, last_name = f["name"].split(" ", 2)
+      self.cached_friends << User.create(:uid => f["id"], :first_name => first_name, :last_name => last_name)
     end
     cached_friends
   end
