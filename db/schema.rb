@@ -42,6 +42,6 @@ ActiveRecord::Schema.define(:version => 20120523092625) do
     t.integer "friend_id"
   end
 
-  add_index "users_friends", ["user_id", "friend_id"], :name => "index_users_friends_on_user_id_and_friend_id"
+  add_index "users_friends", ["user_id", "friend_id"], :name => "index_users_friends_on_user_id_and_friend_id", :unique => true
 
 end
