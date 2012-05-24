@@ -1,7 +1,9 @@
-- if @story.lines.last.user != current_user
+- if !@story.last_line_by(current_user) && @story.involves?(current_user)
   %p
     = form_for @story, :url => story_url(@story) do |f|
       = f.fields_for :lines, Line.new do |l|
         Enter the next line
         = l.text_field :text
       = f.submit "Continue"
+- else
+  %p You cannot add two lines in a row. Also, to add a line, this story must involve you or your friends.

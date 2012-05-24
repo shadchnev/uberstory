@@ -1,10 +1,8 @@
-.hero-unit
-  %h1 Uberstory
-  %p= "Hey there #{current_user.first_name}, feeling creative?"
-  %p
-    = form_for Story.new do |f|
-      = f.fields_for :lines, Line.new do |l|
-        .control-group.new-line
-          = l.text_field :text, :class => 'new_line'
-  = render :partial => 'new_story_modal'
-  %p= link_to "Start a new story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
+%p= "Hey there #{current_user.first_name}, feeling creative?"
+%p
+  = form_for Story.new do |f|
+    = f.fields_for :lines, Line.new do |l|
+      .control-group.new-line
+        = l.text_field :text, :class => 'new_line'
+= render :partial => 'new_story_modal'
+%p= link_to "Start a new story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
