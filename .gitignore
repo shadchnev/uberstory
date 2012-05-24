@@ -12,6 +12,7 @@
 
 .DS_Store
 uberstory_development
+uberstory_test
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

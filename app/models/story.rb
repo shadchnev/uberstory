@@ -14,7 +14,7 @@ class Story < ActiveRecord::Base
     !((user.friends.map{|f| f.uid } + [user.uid]) & users.map{|u| u.uid}).empty?
   end
   
-  def last_line_by(user)
+  def last_line_by?(user)
     lines.last.user.id == user.id
   end
   
