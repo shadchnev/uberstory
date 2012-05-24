@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
     @current_user = current_user
   end
 
-  def authenticate!
-    redirect_to '/auth/facebook'
+  def authenticate_if_necessary
+    redirect_to '/auth/facebook' unless user_signed_in?
   end
   
   def sign_in(user, token)

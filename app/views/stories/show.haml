@@ -15,14 +15,7 @@
     - else
       %span.blurred{:title => "No sneaking!", "data-content" => "You need to write a new line to read the story"}= garbage(line.text)
 - if @story.involves?(current_user)
-  - if @story.lines.last.user != current_user
-    %p
-      = form_for @story, :url => story_url(@story) do |f|
-        = f.fields_for :lines, Line.new do |l|
-          Enter the next line
-          = l.text_field :text
-        = f.submit "Continue"
+  = render :partial => "add_line"
       
   %p
-    = render :partial => 'continue_story_modal'
-    = render :partial => "invite", :locals => {:story => @story}
+    = link_to 'Invite friends', "#", {:class => 'invite-friends btn primary large'}

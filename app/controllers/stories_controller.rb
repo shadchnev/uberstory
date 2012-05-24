@@ -1,9 +1,13 @@
 class StoriesController < ApplicationController
   
+  NUM_STORIES_TO_SHOW = 6 # number of stories to show in a section on the homepage
+  
+  before_filter :authenticate_if_necessary
+  
   def index
-    authenticate! and return unless user_signed_in?
-    @by_friends = current_user.friends.map{|f| f.stories}.flatten.uniq.sort_by{|s| s.created_at}.reverse.take(6)
-    @popular = (Story.all - @by_friends).take(6) # popular means the number of likes but we don't have that yet
+    stories_by_friends_and_myself = current_user.friends_and_myself.map{|f| f.stories}.flatten.uniq
+    @by_friends = stories_by_friends_and_myself.sort_by{|s| s.created_at}.reverse.take(NUM_STORIES_TO_SHOW)
+    @popular = (Story.all - stories_by_friends_and_myself).take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet
   end
   
   def new
@@ -16,7 +20,6 @@ class StoriesController < ApplicationController
   end
   
   def create
-    authenticate! and return unless user_signed_in?
     @story = Story.new(params[:story])
     @story.lines.first.user = current_user
     if @story.save
@@ -28,7 +31,6 @@ class StoriesController < ApplicationController
   end
   
   def update
-    authenticate! and return unless user_signed_in?
     @story = Story.find(params[:id])
     @story.update_attributes(params[:story])
     @story.lines.last.user = current_user
