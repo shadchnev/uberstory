@@ -6,7 +6,7 @@ Uberstory::Application.routes.draw do
   match '/auth/:provider/callback', to: 'facebook#authenticated'
   
   root :to => 'facebook#init'
-  match "host-application", to: 'facebook#parent_redirect', as: :host
+  match "host-application", to: 'facebook#host_redirect', as: :host
   match '/', to: 'facebook#init', method: :post  
   match 'contact-us', to: 'static#contact'
   match 'privacy', to: 'static#privacy'

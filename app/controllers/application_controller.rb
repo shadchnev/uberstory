@@ -11,8 +11,13 @@ class ApplicationController < ActionController::Base
     @current_user = current_user
   end
 
+  def authenticate!    
+    @redirect_url = '/auth/facebook'
+    render :controller => :facebook, :action => :parent_redirect, :layout => false
+  end
+
   def authenticate_if_necessary
-    redirect_to '/auth/facebook' unless user_signed_in?
+    authenticate! unless user_signed_in?
   end
   
   def sign_in(user, token)
