@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
     @graph ||= Koala::Facebook::API.new(@token)
   end
   
+  def friends_and_myself
+    friends + [self]
+  end
+  
   def friends
     return cached_friends unless cached_friends.empty?
     graph.get_object("me/friends").each do |f|
