@@ -35,7 +35,7 @@ class StoriesController < ApplicationController
     @story.update_attributes(params[:story])
     @story.lines.last.user = current_user
     if @story.save
-      redirect_to :action => :index
+      redirect_to :action => :show
     else
       render :show
     end
