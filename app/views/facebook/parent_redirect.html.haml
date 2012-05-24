@@ -1,2 +1,5 @@
-:javascript
-  window.top.location = "#{@redirect_url}"
+!!!
+%head
+%body
+  :javascript
+    window.top.location = "#{Rails.configuration.host_url}"

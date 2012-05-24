@@ -6,6 +6,7 @@ module StoriesHelper
   
   def can_add_new_line(user, story)
     story.involves?(current_user) && !story.last_line_by?(user)
+    true
   end
-  
+    
 end

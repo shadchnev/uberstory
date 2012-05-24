@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+friendsInvited = false
+
 showFacebookInvite = (callback) ->
   $(".modal").modal('hide')
   checkboxes = $('.modal input[type="checkbox"]:checked')    
@@ -32,8 +34,7 @@ bindNewStoryButton = ->
 bindInviteFriendsButton = ->
   $(".invite-friends").click ->
     showFacebookInvite ->
-      $(".alert").show()
-  
+      $(".alert").show() if response?
   
 bindHeaderForm = ->
   $("form#new_story .new-line input").keypress ->
@@ -46,9 +47,8 @@ bindHeaderForm = ->
       $("form#new_story .new-line").addClass("error")
     else
       $("#new-story-dialogue").modal("show")
-
+      
 $ -> # this is where it all starts
-  friendsInvited = false
   initPopover()
   bindNewStoryForm()
   bindNewStoryButton()

@@ -12,5 +12,9 @@ class Line < ActiveRecord::Base
     return story.lines.last == self if last_line_by_user.nil?
     (created_at <= last_line_by_user.created_at) || story.lines.last == self
   end
+  
+  def number
+    story.lines.count(:conditions => ["created_at <= ?", created_at])
+  end
     
 end

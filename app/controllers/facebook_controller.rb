@@ -3,6 +3,10 @@ class FacebookController < ApplicationController
   
   skip_before_filter :verify_authenticity_token, :only => :init
   
+  def parent_redirect
+    render :layout => false
+  end
+  
   def init
     token = nil
     if params[:signed_request]

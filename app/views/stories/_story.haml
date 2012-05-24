@@ -1,11 +1,11 @@
 .story
-  .title Started by #{story.user.first_name}
-  - story.lines.each do |line|
-    .line
-      = image_tag line.user.image
-      = line.text  
-  .full-story-link= link_to 'Full story', story_url(story)
-  - if can_add_new_line(current_user, story)
-    .new-line= link_to "Continue this story", story_url(story), {:class => "btn"}
+  .wrapper
+    .title= truncate(story.lines.first.text)
+    
+    - story.lines.each do |line|
+      = render :partial => "line", :locals => {:line => line}
+    .full-story-link= link_to 'Full story', story_url(story)
+    
+    = render :partial => "add_line_small", :locals => {:story => story}
   .sharing
-    123 people like this
+    .fb-like{"data-href" => story_url(story), "data-send" => "false", "data-show-faces" => "false", "data-width" => "220"}
