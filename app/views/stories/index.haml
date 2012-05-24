@@ -1,4 +1,4 @@
-= render :partial => "header"  
+- content_for :header do
+  = render :partial => "header"  
 = render :partial => "section", :locals => {:stories => @by_friends, :title => "Stories by your friends"}
 = render :partial => "section", :locals => {:stories => @popular, :title => "Popular stories"}
-= render :partial => "footer"

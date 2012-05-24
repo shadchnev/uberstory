@@ -8,6 +8,7 @@
     = csrf_meta_tags
   %body
     .container.canvas
+      = render :partial => "shared/header"
       = render :partial => "layouts/facebook"
       - if flash[:notice]
         %p.notice= flash[:notice]
