@@ -1,4 +1,4 @@
-- if !@story.last_line_by(current_user) && @story.involves?(current_user)
+- if can_add_new_line(current_user, @story)
   %p
     = form_for @story, :url => story_url(@story) do |f|
       = f.fields_for :lines, Line.new do |l|

@@ -1,8 +1,11 @@
-%h2 Started by #{story.user.first_name}
-- story.lines.each do |line|
-  %p
-    = image_tag line.user.image
-    = line.text  
-
-- if story.involves?(current_user)
-  %p= link_to "Continue this story", story_url(story), {:class => "btn"}
+.story
+  .title Started by #{story.user.first_name}
+  - story.lines.each do |line|
+    .line
+      = image_tag line.user.image
+      = line.text  
+  .full-story-link= link_to 'Full story', story_url(story)
+  - if can_add_new_line(current_user, story)
+    .new-line= link_to "Continue this story", story_url(story), {:class => "btn"}
+  .sharing
+    123 people like this

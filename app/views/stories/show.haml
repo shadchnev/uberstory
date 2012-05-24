@@ -12,7 +12,6 @@
       = line.text
     - else
       %span.blurred{:title => "No sneaking!", "data-content" => "You need to write a new line to read the story"}= garbage(line.text)
-- if @story.involves?(current_user)
   = render :partial => "add_line"
       
   %p
