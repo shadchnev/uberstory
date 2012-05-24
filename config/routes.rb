@@ -7,6 +7,8 @@ Uberstory::Application.routes.draw do
   root :to => 'facebook#init'
   match '/', to: 'facebook#init', method: :post
   match 'contact-us', to: 'static#contact'
+  match 'privacy', to: 'static#privacy'
+  match 'terms', to: 'static#terms'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
