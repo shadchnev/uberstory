@@ -2,12 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :set_current_user
-  before_filter :set_app_id
     
-  def set_app_id
-    @app_id = ENV['APP_ID']
-  end
-  
   def graph
     @graph ||= Koala::Facebook::API.new(session[:fb_token])    
   end

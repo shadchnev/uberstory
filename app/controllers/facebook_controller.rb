@@ -10,7 +10,7 @@ class FacebookController < ApplicationController
   def init
     token = nil
     if params[:signed_request]
-      @oauth = Koala::Facebook::OAuth.new(ENV["APP_ID"], ENV["APP_SECRET"])
+      @oauth = Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)
       @signed_request = @oauth.parse_signed_request(params[:signed_request]) 
       token = @signed_request["oauth_token"]
     end
