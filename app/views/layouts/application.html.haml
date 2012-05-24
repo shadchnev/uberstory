@@ -10,11 +10,8 @@
     .container.canvas
       = render :partial => "shared/header"
       = render :partial => "layouts/facebook"
-      - if flash[:notice]
-        %p.notice= flash[:notice]
-      - if flash[:error]
-        %p.error= flash[:error]
+      = render :partial => "shared/flash", :locals => {:flash => flash}
       = yield
-    
-= render :partial => "/shared/footer"    
-   
+
+      = render :partial => "shared/footer"    
+
