@@ -5,13 +5,15 @@
   %strong Yay!
   Your invitations have been sent. Lets hope they are as skilled as you...
 
-- @story.lines.each do |line|
-  %p
-    = image_tag line.user.image
-    - if line.visible_to?(current_user)
-      = line.text
-    - else
-      %span.blurred{:title => "No sneaking!", "data-content" => "You need to write a new line to read the story"}= garbage(line.text)
+.story
+  - @story.lines.each do |line|
+    %p
+      = image_tag line.user.image
+      - if line.visible_to?(current_user)
+        = line.text
+      - else
+        %span.blurred{:title => "No sneaking!", "data-content" => "You need to write a new line to read the story"}= garbage(line.text)
+
   = render :partial => "add_line"
       
   %p
