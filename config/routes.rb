@@ -1,12 +1,12 @@
 Uberstory::Application.routes.draw do
   
   resources :stories
+  resources :contacts
    
   match '/auth/:provider/callback', to: 'facebook#authenticated'
   
   root :to => 'facebook#init'
   match '/', to: 'facebook#init', method: :post
-  match 'contact-us', to: 'static#contact'
   match 'privacy', to: 'static#privacy'
   match 'terms', to: 'static#terms'
   
