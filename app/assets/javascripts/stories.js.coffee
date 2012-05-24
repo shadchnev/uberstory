@@ -29,6 +29,8 @@ bindNewStoryButton = ->
       if response?
         friendsInvited = true
         $("form#new_story").submit()
+      else 
+        $("#no-friends-dialogue").modal("show")
     showFacebookInvite(callback)
 
 bindInviteFriendsButton = ->
