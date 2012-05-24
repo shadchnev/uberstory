@@ -12,7 +12,7 @@ class ContactsController < ApplicationController
       redirect_to contacts_url
     else
       flash[:notice] = "there were errors"
-      render :index
+      render :contacts
     end
   end
   

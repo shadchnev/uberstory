@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120524135818) do
+ActiveRecord::Schema.define(:version => 20120524143954) do
 
   create_table "contacts", :force => true do |t|
     t.integer  "user_id"
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(:version => 20120524135818) do
     t.integer  "user_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "mattforms", :force => true do |t|
+    t.text     "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "stories", :force => true do |t|
