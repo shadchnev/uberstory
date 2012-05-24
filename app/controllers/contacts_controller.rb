@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
   
-  def new
+  def index
     @contact = Contact.new
   end
   
@@ -9,10 +9,10 @@ class ContactsController < ApplicationController
     @contact.user = current_user
     if @contact.save
       flash[:notice] = "thank you"
-      redirect_to new_contact_url
+      redirect_to contacts_url
     else
       flash[:notice] = "there were errors"
-      render :new
+      render :index
     end
   end
   
