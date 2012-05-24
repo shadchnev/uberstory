@@ -1,0 +1,6 @@
+%h1 Contact Us
+%p Need to get in touch? Drop us a mail with the form below 
+
+= form_for @contact do |f|
+  = f.text_area :message
+  = f.submit
