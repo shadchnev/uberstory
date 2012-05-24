@@ -34,4 +34,9 @@ Uberstory::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.host_url = "http://apps.facebook.com/uberstory-dev"
+  
 end
+
+# Rails.configuration.host_url = "/"
