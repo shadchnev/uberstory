@@ -14,3 +14,9 @@
       - if flash[:error]
         %p.error= flash[:error]
       = yield
+    
+    .footer
+      %ul
+        %li= link_to "Contact Us", "/contact-us"
+        %li= link_to "Privacy Policy", "/privacy"
+        %li= link_to "Terms of Service", "/terms"
