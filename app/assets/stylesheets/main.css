@@ -1,0 +1,19 @@
+footer#pagefooter {
+	margin-top: 45px;
+	padding: 35px 0 36px;
+	border-top: 1px solid #E5E5E5;
+} 
+#pagefooter ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#pagefooter li {
+	display: inline;
+	border-right: 1px solid black;
+	margin: 0;
+	padding: 0 7px 0 4px;
+}
+#pagefooter li:last-child {
+	border: 0;
+}
