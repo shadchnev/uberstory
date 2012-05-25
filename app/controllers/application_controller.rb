@@ -35,7 +35,6 @@ protected
 
   def redirect_url
     story = story_invited_to
-    puts story ? "redirect_url = #{story_url(story)}" : "redirect_url doesn't exist (request_ids = #{params[:request_ids]})"
     story_url(story) if story
   end
 
@@ -43,7 +42,6 @@ private
 
   def story_invited_to
     return if params[:request_ids].blank? 
-    puts "got params, fetching story..."   
     Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
   end
 

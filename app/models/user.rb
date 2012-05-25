@@ -20,8 +20,9 @@ class User < ActiveRecord::Base
   def friends
     return cached_friends unless cached_friends.empty?
     graph.get_object("me/friends").each do |f|
-      first_name, last_name = f["name"].split(" ", 2)
-      self.cached_friends << User.create(:uid => f["id"], :first_name => first_name, :last_name => last_name)
+      user = User.find_or_create_by_uid(f["id"])      
+      user.first_name, user.last_name = f["name"].split(" ", 2) if user.new_record?
+      self.cached_friends << user
     end
     cached_friends
   end
