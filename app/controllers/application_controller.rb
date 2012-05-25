@@ -21,7 +21,7 @@ protected
   end
     
   def authenticate!    
-    @redirect_url = user_omniauth_authorize_path(:facebook, {:origin => redirect_url})
+    @redirect_url = "/auth/facebook?origin=#{redirect_url}"
     render "facebook/parent_redirect", :layout => false
   end
 
