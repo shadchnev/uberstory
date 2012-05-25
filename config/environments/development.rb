@@ -38,5 +38,3 @@ Uberstory::Application.configure do
   config.host_url = "http://apps.facebook.com/uberstory-dev"
   
 end
-
-# Rails.configuration.host_url = "/"

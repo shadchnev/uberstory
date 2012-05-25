@@ -1,45 +1,49 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_current_user
-    
+  before_filter :sign_in_user
+
+  def url_options
+    {:signed_request => params[:signed_request]}.merge(super)
+  end
+  
+protected
+
+  def sign_in_user
+    token, user_id = extract_token_and_user_id
+    authenticate! and return unless token    
+    @current_user = User.find_by_uid(user_id)
+    @current_user.token = token
+  end
+  
+  def current_user
+    @current_user
+  end
+  
   def graph
     @graph ||= Koala::Facebook::API.new(session[:fb_token])    
   end
   
-  def set_current_user
-    @current_user = current_user
-  end
-
   def authenticate!    
-    puts "forcing auth redirect"
     @redirect_url = '/auth/facebook'
     render "facebook/parent_redirect", :layout => false
   end
 
   def authenticate_if_necessary
-    "authenticate_if_necessary"
     authenticate! unless user_signed_in?
   end
   
-  def sign_in(user, token)
-    raise "Need both a user (#{user.to_s}) and a token (#{token.to_s}) to sign in" unless user && token
-    session[:fb_token] = token
-    session[:user_id] = user.id
-    puts "User #{session[:user_id]} signed in: #{session[:fb_token]}"
-    true
-  end
-  
   def user_signed_in?
-    puts "User signed in = #{!session[:user_id].blank?}"
-    !session[:user_id].blank?
+    !!current_user
   end
-  
-  def current_user
-    return unless user_signed_in?
-    user = User.find(session[:user_id])
-    user.token = session[:fb_token]
-    user
-  end
+
+private
+
+  def extract_token_and_user_id
+    return unless params[:signed_request]
+    @oauth = Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)
+    @signed_request = @oauth.parse_signed_request(params[:signed_request]) 
+    [@signed_request["oauth_token"], @signed_request["user_id"]]
+  end  
 
 end

@@ -2,6 +2,7 @@
 class FacebookController < ApplicationController
   
   skip_before_filter :verify_authenticity_token, :only => :init
+  skip_before_filter :sign_in_user, :only => [:authenticated, :host_redirect]
   
   def host_redirect
     @redirect_url = Rails.configuration.host_url
@@ -9,30 +10,16 @@ class FacebookController < ApplicationController
   end
   
   def init
-    token, user_id = extract_token_and_user_id
-    puts "Got token (#{token}) for user #{user_id}"
-    authenticate! and return unless token    
-    user = User.find_by_uid(user_id)
-    puts "User for this user_id: #{user.id} - #{user.name}"
-    sign_in user, token
     remove_all_requests
-    redirect_to "/stories"
+    redirect_to stories_url
   end
   
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
-    sign_in user, request.env['omniauth.auth'][:credentials][:token]    
     redirect_to host_url
   end
   
 private
-
-  def extract_token_and_user_id
-    return unless params[:signed_request]
-    @oauth = Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)
-    @signed_request = @oauth.parse_signed_request(params[:signed_request]) 
-    [@signed_request["oauth_token"], @signed_request["user_id"]]
-  end
   
   # After the user clicks on a request, it's the app's responsibility to delete the request
   def remove_all_requests
