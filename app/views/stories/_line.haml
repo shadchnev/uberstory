@@ -2,5 +2,6 @@
   .line-number # #{line.number}
   .profile-picture= image_tag line.user.image
   .name-text
-    .user-name= line.user.name
-    .line-text= line.text  
+    .user-name= line.user.name    
+    .line-text{:title => "No sneaking!", "data-content" => "You need to write a new line to read the story", :class => ('blurred' unless line.visible_to?(current_user))}
+      = line.visible_to?(current_user) ? line.text : garbage(line.text)
