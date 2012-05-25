@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate!    
     @redirect_url = '/auth/facebook'
-    render :controller => :facebook, :action => :parent_redirect, :layout => false
+    render "facebook/parent_redirect", :layout => false
   end
 
   def authenticate_if_necessary
