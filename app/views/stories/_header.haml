@@ -1,4 +1,4 @@
-%p= "Hey there #{current_user.first_name}, feeling creative?"
+%p= "#{@home_welcome}"
 %p
   = form_for Story.new do |f|
     = f.fields_for :lines, Line.new do |l|

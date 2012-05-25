@@ -7,7 +7,8 @@ class StoriesController < ApplicationController
   def index
     stories_by_friends_and_myself = current_user.friends_and_myself.map{|f| f.stories}.flatten.uniq
     @by_friends = stories_by_friends_and_myself.sort_by{|s| s.created_at}.reverse.take(NUM_STORIES_TO_SHOW)
-    @popular = (Story.all - stories_by_friends_and_myself).take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet
+    @popular = (Story.all - stories_by_friends_and_myself).take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet    
+    @home_welcome = banter
   end
   
   def new
@@ -47,4 +48,15 @@ class StoriesController < ApplicationController
     redirect_to :action => :index
   end
     
+private
+    
+  def banter
+    home_banter = [
+      "Hey there Shakespeare!",
+      "Hey #{current_user.first_name}! Feeling creative today?",
+      "Once upon a time, #{current_user.first_name} started writing a story"
+      ]
+    home_heading = home_banter[rand(home_banter.length)]
+  end
+        
 end
