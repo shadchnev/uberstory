@@ -10,8 +10,10 @@ class FacebookController < ApplicationController
   
   def init
     token, user_id = extract_token_and_user_id
-    authenticate! and return unless token
+    puts "Got token (#{token}) for user #{user_id}"
+    authenticate! and return unless token    
     user = User.find_by_uid(user_id)
+    puts "User for this user_id: #{user.id} - #{user.name}"
     sign_in user, token
     remove_all_requests
     redirect_to "/stories"
