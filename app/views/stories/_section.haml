@@ -6,4 +6,4 @@
         .span4
           - story = stories[row_number * 3 + column_number]
           - if story
-            = render :partial => "story", :locals => {:story => story}
+            = render :partial => "story_intro", :locals => {:story => story}
