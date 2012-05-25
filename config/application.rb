@@ -56,8 +56,8 @@ module Uberstory
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    config.facebook_app_id = ENV["APP_ID"]
-    config.facebook_app_secret = ENV["APP_SECRET"]
+    config.facebook_app_id = ENV["UBERSTORY_APP_ID"]
+    config.facebook_app_secret = ENV["UBERSTORY_APP_SECRET"]
     
   end
 end
