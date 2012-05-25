@@ -4,7 +4,7 @@
     
     - story.lines.each do |line|
       = render :partial => "line", :locals => {:line => line}
-    .full-story-link= link_to 'Full story', story_url(story)
+    .full-story-link= link_to 'Full story', story_url(story), :class => ("full-story-blurred" unless story.last_line_by?(current_user))
     
     = render :partial => "add_line_small", :locals => {:story => story}
   .sharing

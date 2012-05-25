@@ -38,13 +38,15 @@ bindInviteFriendsButton = ->
     showFacebookInvite ->
       $(".alert").show() if response?
   
-storyBanter = ->
-  banter = new Array()
-  banter[0] = "Wow, you really are talented!"
-  banter[1] = "Beautiful. The start of a masterpiece"
-  banter[2] = "Wow, that line will be quoted for centuries to come!"
-  banter[3] = "Amazing! One day this story will be made into a movie."
-  banter
+randomNewStoryBanter = ->
+  banter = new Array(
+    "Wow, you really are talented!",
+    "Beautiful. The start of a masterpiece",
+    "Wow, that line will be quoted for centuries to come!",
+    "Amazing! One day this story will be made into a movie.",
+  )
+  index = Math.floor(Math.random() * banter.length)
+  banter[index]
 
 bindHeaderForm = ->
   $("form#new_story .new-line input").keypress ->
@@ -55,12 +57,11 @@ bindHeaderForm = ->
     if newLine == ''    
       $("form#new_story .new-line input").focus()
       $("form#new_story .new-line").addClass("error")
-    else
-      makeRandom = Math.floor(Math.random() * storyBanter().length)
-      $(".new-story-banter").html(storyBanter()[makeRandom])
+    else      
+      $(".new-story-banter").html(randomNewStoryBanter())
       $("#new-story-dialogue").modal("show")
       
-$ -> # this is where it all starts
+$ ->
   initPopover()
   bindNewStoryForm()
   bindNewStoryButton()

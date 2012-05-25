@@ -10,13 +10,13 @@ class FacebookController < ApplicationController
   end
   
   def init
-    remove_all_requests
-    redirect_to stories_url
+    # remove_all_requests
+    redirect_to redirect_url || stories_url
   end
   
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
-    redirect_to host_url
+    redirect_to request.env['omniauth.origin'] || host_url
   end
   
 private
@@ -26,7 +26,7 @@ private
     return if params[:request_ids].blank?
     requests = params[:request_ids].split(',')
     requests.each do |request|
-      graph.delete_object("#{request}_#{current_user.uid}")
+      current_user.graph.delete_object("#{request}_#{current_user.uid}")
     end
   end
   

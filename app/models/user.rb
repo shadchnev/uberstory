@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   attr_writer :token
   
   has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id"
+  has_and_belongs_to_many :friend_of, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "user_id", :foreign_key => "friend_id"
   
   attr_accessible :uid, :first_name, :last_name
     

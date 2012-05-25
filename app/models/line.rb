@@ -9,12 +9,11 @@ class Line < ActiveRecord::Base
   
   def visible_to?(user)
     last_line_by_user = story.lines.find_all_by_user_id(user.id).last
-    return story.lines.last == self if last_line_by_user.nil?
-    (created_at <= last_line_by_user.created_at) || story.lines.last == self
+    (last_line_by_user && created_at <= last_line_by_user.created_at) || story.lines.last == self
   end
   
   def number
-    story.lines.count(:conditions => ["created_at <= ?", created_at])
+    story.lines.count(:conditions => ["id <= ?", id])
   end
     
 end

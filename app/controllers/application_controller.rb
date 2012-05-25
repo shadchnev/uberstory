@@ -11,21 +11,17 @@ protected
 
   def sign_in_user
     token, user_id = extract_token_and_user_id
+    @current_user = User.find_or_create_by_uid(user_id)
     authenticate! and return unless token    
-    @current_user = User.find_by_uid(user_id)
     @current_user.token = token
   end
   
   def current_user
     @current_user
   end
-  
-  def graph
-    @graph ||= Koala::Facebook::API.new(session[:fb_token])    
-  end
-  
+    
   def authenticate!    
-    @redirect_url = '/auth/facebook'
+    @redirect_url = user_omniauth_authorize_path(:facebook, {:origin => redirect_url})
     render "facebook/parent_redirect", :layout => false
   end
 
@@ -37,7 +33,17 @@ protected
     !!current_user
   end
 
+  def redirect_url
+    story = story_invited_to
+    story_url(story) if story
+  end
+
 private
+
+  def story_invited_to
+    return if params[:request_ids].blank?    
+    Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
+  end
 
   def extract_token_and_user_id
     return unless params[:signed_request]
