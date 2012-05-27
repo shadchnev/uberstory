@@ -19,9 +19,20 @@ showFacebookInvite = (callback) ->
 initPopover = ->
   $(".blurred").popover()
 
+startWritingStory = ->
+  newLine = $("form#new_story input.new_line").val()
+  if newLine == ''    
+    $("form#new_story .new-line input").focus()
+    $("form#new_story .new-line").addClass("error")
+  else      
+    $(".new-story-banter").html(randomNewStoryBanter())
+    $("#new-story-dialogue").modal("show")  
+
 bindNewStoryForm = ->
   $("form#new_story").submit ->
-    friendsInvited  
+    unless friendsInvited
+      startWritingStory()
+      return false
 
 bindNewStoryButton = ->
   $('.start-story').click ->
@@ -53,14 +64,8 @@ bindHeaderForm = ->
     $("form#new_story .new-line").removeClass("error")
   
   $('a.start-new-story').click ->
-    newLine = $("form#new_story input.new_line").val()
-    if newLine == ''    
-      $("form#new_story .new-line input").focus()
-      $("form#new_story .new-line").addClass("error")
-    else      
-      $(".new-story-banter").html(randomNewStoryBanter())
-      $("#new-story-dialogue").modal("show")
-      
+    $("form#new_story").submit()
+    
 $ ->
   initPopover()
   bindNewStoryForm()

@@ -6,6 +6,7 @@ class Line < ActiveRecord::Base
   
   validates_presence_of :user
   validates_presence_of :text
+  validates_length_of :text, :maximum => 140
   
   def visible_to?(user)
     last_line_by_user = story.lines.find_all_by_user_id(user.id).last

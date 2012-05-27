@@ -2,41 +2,100 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.story-intro
-  background-color: #EEE
-  margin-bottom: 20px
-  .wrapper
-    padding: 5px
-  .title
-    text-align: center
-    height: 30px
-  .line-number
-    float: right
-  .name-text, .profile-picture
-    display: inline-block
-  .full-story-link
-    text-align: right
-  .new-line
-    form
-      margin-bottom: 0
-    .profile-picture, .new-line-small
+
+.story
+  background-color: #f9f8f3
+  box-shadow: 0 0 15px #666
+  width: 700px
+  margin: 20px
+  padding: 10px
+  .line
+    margin-top: 5px
+    .profile-picture, .name-text
+      vertical-align: top
       display: inline-block
-    .new-line-small
-      textarea
-        resize: none
-        height: 22px
-        width: 160px
-    .new-line-submit
-      text-align: right
-  .profile-picture
-    width: 50px
-    vertical-align: top
-    text-align: right
+    .user-name
+      color: #51628e
+      font-weight: bold
+      margin-bottom: 5px
+    .line-text
+      font-size: 18px
+  .add-new-line
+    margin-top: 5px
+    & > div
+      display: inline-block
+    .form
+      margin-top: 10px
+
+.story-intro
+  margin-right: 20px
+  margin-bottom: 70px
+  position: relative
+  z-index: 0
+  .cover
+    *
+      text-align: center
+      margin: 0 auto
+    color: white
+    font-weight: bold
+    font-size: 12px
+    width: 241px
+    height: 273px
+    background-image: image-url('black-notebook-bg.png')
+    padding-top: 20px
     img
+      border: 2px solid white
       width: 30px
       height: 30px
-  .sharing
-    background-color: white
+    .started-by
+      border-top: 2px solid white
+    .author-name
+      border-bottom: 2px solid white      
+    .started-by, .author-name
+      width: 140px
+    .started-by, .author-name, .then-by, .other-authors, .add-your-line, .first-line
+      padding: 5px 15px      
+    .then-by, .first-line
+      margin-top: 30px
+  .write-now
+    width: 70px
+    height: 55px
+    border-radius: 3px
+    bottom: -55px
+    position: absolute
+    font-weight: bold
+    padding: 20px 10px 0
+    box-shadow: 0 0 15px #AAA
+    a
+      color: white
+    z-index: -1
+    .feather
+      width: 30px
+      height: 30px
+      margin: 0 auto
+  .write-now-style-1
+    background-color: #3699cc
+    -webkit-transform: rotate(7deg)
+    right: 25px
+    .feather
+      -webkit-transform: rotate(7deg)
+    
+  .write-now-style-2
+    height: 50px
+    background-color: #fe6666
+    -webkit-transform: rotate(-5deg)
+    right: 35px
+    .feather
+      -webkit-transform: rotate(-5deg)
+    
+  .write-now-style-3
+    height: 50px
+    background-color: #55c819
+    -webkit-transform: rotate(-2deg)
+    right: 45px
+    .feather
+      -webkit-transform: rotate(-2deg)
+    
 
 .story, .story-intro
   .blurred

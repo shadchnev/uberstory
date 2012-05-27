@@ -8,9 +8,9 @@ Uberstory::Application.routes.draw do
   root :to => 'facebook#init'
   match "home", to: 'facebook#host_redirect', as: :host
   match '/', to: 'facebook#init', method: :post  
-  match 'contact-us', to: 'static#contact'
-  match 'privacy', to: 'static#privacy'
-  match 'terms', to: 'static#terms'
+  # match 'contact-us', to: 'static#contact'
+  match 'privacy', to: 'static#privacy', as: :privacy
+  match 'terms', to: 'static#terms', as: :terms
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

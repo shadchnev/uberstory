@@ -1,3 +1,14 @@
-.hero-unit
-  %h1= link_to "UberTales", root_url
-  = yield :header
+%header
+  #logo
+    = link_to image_tag("ubertales-logo.png"), root_url
+  %h1= banter
+  .new-story-container.form
+    .new-story-form
+      = form_for Story.new do |f|
+        = f.fields_for :lines, Line.new do |l|
+          .control-group.new-line
+            = l.text_field :text, :class => 'new_line'
+    .form-submit= link_to "Start a story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
+  = render :partial => 'new_story_modal'
+  = render :partial => 'no_friends_modal'
+

@@ -1,9 +1,13 @@
-- if can_add_new_line(current_user, @story)
-  %p
-    = form_for @story, :url => story_url(@story) do |f|
-      = f.fields_for :lines, Line.new do |l|
-        Enter the next line
-        = l.text_field :text
-      = f.submit "Continue"
+- if !can_add_new_line(current_user, @story)
+  .add-new-line
+    .profile-picture
+      = image_tag current_user.image
+    .form
+      .new-line
+        = form_for @story, :url => story_url(@story) do |f|
+          = f.fields_for :lines, Line.new do |l|        
+            = l.text_field :text
+      .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal add-new-line"
+        
 - else
-  %p You cannot add two lines in a row. Also, to add a line, this story must involve you or your friends.
+  = link_to 'Invite friends to continue the story', "#", {:class => 'invite-friends btn primary large'}

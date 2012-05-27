@@ -1,11 +1,31 @@
+- authors = (story.users - [story.user]).take(5) 
+-# authors = (User.all.select{|u| !u.image.nil?} - [story.user]).slice(0, 5)
 .story-intro
-  .wrapper
-    .title= truncate(story.lines.first.text)
-    
-    - story.lines.each do |line|
-      = render :partial => "line", :locals => {:line => line}
-    .full-story-link= link_to 'Full story', story_url(story), :class => ("full-story-blurred" unless story.last_line_by?(current_user))
-    
-    = render :partial => "add_line_small", :locals => {:story => story}
-  .sharing
-    .fb-like{"data-href" => story_url(story), "data-send" => "false", "data-show-faces" => "false", "data-width" => "220"}
+  .cover
+    .started-by A story started by
+    .author-picture= image_tag story.user.image
+    .author-name= story.user.name
+    - if authors.empty?
+      .first-line
+        &bdquo;
+        = story.lines.first.text
+        &ldquo;
+      .add-your-line
+        Be the first to continue the story!
+    - else
+      .then-by and co-written by
+      .other-authors-images
+        - (authors*5).each do |u|
+          = image_tag u.image
+      .other-authors
+        #{authors.first.name}
+        - if story.users.size > 2
+          and #{pluralize story.users.size - 2, 'other'}
+        .add-your-line
+          Help them to continue the story!
+      
+  .write-now{:class => "write-now-style-#{rand(3) + 1}"}
+    %a{:href => story_url(story)}
+      .feather
+        = image_tag 'feather-logo-white.png'
+      Write now!
