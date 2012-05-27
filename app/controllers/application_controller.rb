@@ -14,6 +14,7 @@ protected
     @current_user = User.find_or_create_by_uid(user_id)
     authenticate! and return unless token    
     @current_user.token = token
+    @current_user.refresh_data if @current_user.new_record? # if we somehow delete the user from the db while they are authorised to access it, this will help
   end
   
   def current_user

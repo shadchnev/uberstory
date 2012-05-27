@@ -13,6 +13,16 @@ class User < ActiveRecord::Base
     @graph ||= Koala::Facebook::API.new(@token)
   end
   
+  def refresh_data
+    about_me = graph.get_object("me")
+    self.first_name = about_me["first_name"]
+    self.last_name = about_me["last_name"]
+    self.email = about_me["email"]
+    self.profile_url = about_me["link"]
+    self.image = "https://graph.facebook.com/#{about_me["username"]}/picture"
+    save
+  end
+  
   def friends_and_myself
     friends + [self]
   end
