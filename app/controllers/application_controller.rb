@@ -16,7 +16,7 @@ protected
     @current_user.token = token
     if @current_user.no_data? # if we somehow delete the user from the db while they are authorised to access it, this will help
       @current_user.refresh_data 
-      @current_user.save
+      @current_user.save!
     end
     
   end

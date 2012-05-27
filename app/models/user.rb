@@ -19,11 +19,11 @@ class User < ActiveRecord::Base
     self.last_name = about_me["last_name"]
     self.email = about_me["email"]
     self.profile_url = about_me["link"]
-    self.image = "https://graph.facebook.com/#{about_me["username"]}/picture"
+    self.image = "https://graph.facebook.com/#{about_me["id"]}/picture"
   end
   
   def no_data?
-    !email || !image || !profile_url
+    email.blank? || image.blank? || profile_url.blank?
   end
   
   def friends_and_myself
