@@ -20,7 +20,10 @@ class User < ActiveRecord::Base
     self.email = about_me["email"]
     self.profile_url = about_me["link"]
     self.image = "https://graph.facebook.com/#{about_me["username"]}/picture"
-    save
+  end
+  
+  def no_data?
+    !email || !image || !profile_url
   end
   
   def friends_and_myself
