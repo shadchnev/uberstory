@@ -1,4 +1,4 @@
-- if !can_add_new_line(current_user, @story)
+- if can_add_new_line(current_user, @story)
   .add-new-line
     .profile-picture
       = image_tag current_user.image
@@ -7,7 +7,11 @@
         = form_for @story, :url => story_url(@story) do |f|
           = f.fields_for :lines, Line.new do |l|        
             = l.text_field :text
-      .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal add-new-line"
+      .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal"
         
-- else
-  = link_to 'Invite friends to continue the story', "#", {:class => 'invite-friends btn primary large'}
+- elsif @story.involves?(current_user)
+  .invite-friends-line
+    .profile-picture
+      = image_tag current_user.image
+    .button
+      = link_to 'Invite friends to continue the story', "#", {:class => 'invite-friends btn primary large'}

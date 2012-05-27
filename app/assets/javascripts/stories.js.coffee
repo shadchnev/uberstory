@@ -46,7 +46,7 @@ bindNewStoryButton = ->
 
 bindInviteFriendsButton = ->
   $(".invite-friends").click ->
-    showFacebookInvite ->
+    showFacebookInvite (response)->
       $(".alert").show() if response?
   
 randomNewStoryBanter = ->
@@ -66,12 +66,18 @@ bindHeaderForm = ->
   $('a.start-new-story').click ->
     $("form#new_story").submit()
     
+bindAddNewLine = ->
+  $(".add-new-line a").click ->
+    showFacebookInvite ->
+      $(".add-new-line form").submit()    
+    
 $ ->
   initPopover()
   bindNewStoryForm()
   bindNewStoryButton()
   bindInviteFriendsButton()
   bindHeaderForm()
+  bindAddNewLine()
   
   
       

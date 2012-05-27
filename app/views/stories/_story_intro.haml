@@ -1,5 +1,4 @@
 - authors = (story.users - [story.user]).take(5) 
--# authors = (User.all.select{|u| !u.image.nil?} - [story.user]).slice(0, 5)
 .story-intro
   .cover
     .started-by A story started by
@@ -15,7 +14,7 @@
     - else
       .then-by and co-written by
       .other-authors-images
-        - (authors*5).each do |u|
+        - authors.each do |u|
           = image_tag u.image
       .other-authors
         #{authors.first.name}
