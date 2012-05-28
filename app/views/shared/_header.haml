@@ -10,7 +10,10 @@
             = l.text_field :text, :class => 'new_line', :maxlength => 140
     .form-submit= link_to "Start a story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
   .rules
-    Rules. 1. Start a new story or continue your friend's story. 2. You can read the story only after you add a line.
+    .number 1.
+    Start a new story or continue your friend's story. 
+    .number 2.
+    You can read the story only after you add a line.
   = render :partial => 'new_story_modal'
   = render :partial => 'no_friends_modal'
 

@@ -1,15 +1,12 @@
 - authors = (story.users - [story.user]).take(5) 
 .story-intro
   .cover
-    .started-by A story started by
+    .started-by A story by
     .author-picture= image_tag story.user.image
     .author-name= story.user.name
-    - if authors.empty?
-      .first-line
-        &bdquo;
-        = story.lines.first.text
-        &ldquo;
-    - else
+    .first-line
+      &bdquo;&nbsp;#{truncate story.lines.first.text, :length => 60}&nbsp;&ldquo;
+    - unless authors.empty?
       .then-by and co-written by
       .other-authors-images
         - authors.each do |u|
