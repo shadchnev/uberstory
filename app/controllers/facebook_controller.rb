@@ -10,7 +10,7 @@ class FacebookController < ApplicationController
   end
   
   def init
-    # remove_all_requests
+    remove_all_requests
     redirect_to redirect_url || stories_url
   end
   

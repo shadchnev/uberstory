@@ -11,8 +11,9 @@ protected
 
   def sign_in_user
     token, user_id = extract_token_and_user_id
-    authenticate! and return unless token    
     @current_user = User.find_or_initialize_by_uid(user_id)
+    # we need current_user in time for authentication to figure out the redirect url
+    authenticate! and return unless token    
     @current_user.token = token
     if @current_user.no_data? # if we somehow delete the user from the db while they are authorised to access it, this will help
       @current_user.refresh_data 
