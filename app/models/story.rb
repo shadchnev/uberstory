@@ -1,7 +1,7 @@
 class Story < ActiveRecord::Base
   
   has_many :lines
-  has_many :users, :through => :lines
+  has_many :users, :through => :lines, :uniq => true
   
   accepts_nested_attributes_for :lines, :allow_destroy => true
   attr_accessible :lines_attributes

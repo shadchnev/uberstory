@@ -26,7 +26,7 @@ private
     return if params[:request_ids].blank?
     requests = params[:request_ids].split(',')
     requests.each do |request|
-      current_user.graph.delete_object("#{request}_#{current_user.uid}")
+      current_user.graph.delete_object("#{request}_#{current_user.uid}") rescue nil
     end
   end
   
