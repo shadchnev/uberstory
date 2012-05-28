@@ -7,7 +7,7 @@
       = form_for Story.new do |f|
         = f.fields_for :lines, Line.new do |l|
           .control-group.new-line
-            = l.text_field :text, :class => 'new_line'
+            = l.text_field :text, :class => 'new_line', :maxlength => 140
     .form-submit= link_to "Start a story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
   = render :partial => 'new_story_modal'
   = render :partial => 'no_friends_modal'

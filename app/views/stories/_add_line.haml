@@ -6,7 +6,7 @@
       .new-line
         = form_for @story, :url => story_url(@story) do |f|
           = f.fields_for :lines, Line.new do |l|        
-            = l.text_field :text
+            = l.text_field :text, :maxlength => 140
       .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal"
         
 - elsif @story.involves?(current_user)
