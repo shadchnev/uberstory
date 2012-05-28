@@ -18,7 +18,7 @@
         #{authors.first.name}
         - if story.users.size > 2
           and #{pluralize story.users.size - 2, 'other'}
-  - if story.involves?(current_user)      
+  - if can_add_new_line(current_user, story)
     .write-now{:class => "write-now-style-#{rand(3) + 1}"}
       %a{:href => story_url(story)}
         .feather

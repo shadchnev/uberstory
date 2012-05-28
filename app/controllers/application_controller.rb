@@ -27,7 +27,8 @@ protected
   end
     
   def authenticate!    
-    @redirect_url = "/auth/facebook?origin=#{redirect_url}"
+    redirect = redirect_url
+    @redirect_url = "/auth/facebook#{('?origin=' + redirect) if redirect}"
     render "facebook/parent_redirect", :layout => false
   end
 
