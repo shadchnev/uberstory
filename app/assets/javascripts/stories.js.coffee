@@ -73,7 +73,7 @@ bindAddNewLine = ->
 
 bindCoverClick = ->
   $(".story-intro").click (event) ->
-    document.location = $(".write-now a", this).attr("href");
+    document.location = $(this).attr("data-url");
     
 $ ->
   initPopover()

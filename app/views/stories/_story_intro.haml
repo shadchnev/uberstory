@@ -1,5 +1,5 @@
 - authors = (story.users - [story.user]).take(5) 
-.story-intro
+.story-intro{"data-url" => story_url(story)}
   .cover
     .started-by A story by
     .author-picture= image_tag story.user.image
