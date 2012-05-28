@@ -70,6 +70,10 @@ bindAddNewLine = ->
   $(".add-new-line a").click ->
     showFacebookInvite ->
       $(".add-new-line form").submit()    
+
+bindCoverClick = ->
+  $(".story-intro").click (event) ->
+    document.location = $(".write-now a", this).attr("href");
     
 $ ->
   initPopover()
@@ -78,6 +82,7 @@ $ ->
   bindInviteFriendsButton()
   bindHeaderForm()
   bindAddNewLine()
+  bindCoverClick()
   
   
       
