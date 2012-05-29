@@ -43,28 +43,40 @@
     color: white
     font-weight: bold
     font-size: 12px
-    width: 241px
-    height: 273px
-    background-image: image-url('black-notebook-bg.png')
-    padding-top: 20px
-    img
-      border: 1px solid white
-      width: 30px
-      height: 30px
+    width: 250px
+    height: 281px
+    background-image: image-url('black-notebook-bg.jpg')
+    padding-top: 50px 
+    position: relative
+    &:hover
+      .peel
+        display: block
+    .peel
+      width: 58px
+      height: 58px
+      background: transparent image-url("black_notebook_peel.png") 0 0 no-repeat
+      position: absolute
+      bottom: 2px
+      right: 10px
+      display: none
+    .started-by, .author-name, .then-by
+      width: 140px  
+      font-family: "Damion", Arial, sans-serif
+      font-size: 20px
+      font-weight: normal
+      line-height: 1.3em
     .started-by
-      border-top: 2px solid white
-    .author-name
-      border-bottom: 2px solid white      
-    .started-by, .author-name
-      width: 140px
-    .started-by, .author-name, .then-by, .other-authors, .add-your-line, .first-line
-      padding: 5px 15px      
+      color: #cccccc
     .first-line
       font-size: 14px
       color: #98CBFE
       height: 50px
     .then-by, .first-line
       margin-top: 10px      
+    .other-authors
+      img
+        width: 30px
+        height: 30px
     
   .write-now
     width: 70px

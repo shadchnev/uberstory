@@ -1,13 +1,12 @@
 - authors = (story.users - [story.user]).take(5) 
 .story-intro{"data-url" => story_url(story)}
   .cover
-    .started-by A story by
+    .peel
     .author-picture= image_tag story.user.image
+    .started-by Story started by
     .author-name= story.user.name
-    .first-line
-      &bdquo;&nbsp;#{truncate story.lines.first.text, :length => 60}&nbsp;&ldquo;
     - unless authors.empty?
-      .then-by and co-written by
+      .then-by then co-written by
       .other-authors-images
         - authors.each do |u|
           = image_tag u.image

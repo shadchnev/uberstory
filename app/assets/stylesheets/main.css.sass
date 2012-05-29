@@ -1,13 +1,17 @@
+@import "compass"
+
 h1, h2
   font-family: Damion
   color: #AAA
+  font-weight: normal
 
+h2
+  margin: 1em 0
 
 header
-  background-image: image-url("header-bg.png")
-  background-position: 0 -40px
+  background: transparent image-url("header-bg.jpg") center -20px no-repeat
   width: 760px
-  height: 217px
+  height: 237px
   text-align: center
   padding-top: 5px
   h1
@@ -16,42 +20,53 @@ header
     font-size: 20px
     margin: 5px 0
   .rules
-    margin-top: -23px
     color: white
     .number
       display: inline-block
       font-weight: bold
     
-.form
-  position: relative
-  width: 500px
-  margin: 0 auto
-  vertical-align: top
-  & > div
-    display: inline-block
-  input[type="text"]
-    background-color: #e7e7de
-    border: 3px solid white
-    border-radius: 0
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4)
-    width: 373px
-    padding-right: 120px
-  .form-submit
-    height: 26px    
-    position: absolute
-    right: 0px
-    top: 3px
+  form
+    position: relative
+    width: 500px
+    margin: 0 auto
+    vertical-align: top
+    input[type="text"]
+      background-color: #e7e7de
+      border: 3px solid white
+      border-radius: 0
+      box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4)
+      width: 368px
+      padding: 0.6em 120px 0.4em 0.5em
+      font-size: 18px
+    .form-submit
+      height: 26px    
+      position: absolute
+      top: 4px
+      right: 0
+      a
+        padding: 8px 15px
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.3)
+        border: none
+        color: #fff
+        font-weight: bold
+        @include background-image(linear-gradient(#FE1A00, #CE0100))
+        @include border-radius(0,0)
+        &:hover, &:active
+          color: #fff
+          background-position: 0 -35px
+          background-color: #CE0100
+  ol
+    overflow: hidden
+    width: 650px
+    margin: 0 auto
+    li
+      float: left
+      list-style: decimal
+      padding: 0
+      margin: 0 1em 0 1.8em
 
 .modal
   text-align: left
-
-a.primary
-  margin-top: 0 !important
-  font-weight: bold
-  color: white
-  border-radius: 0
-  border: none
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #FE1A00), color-stop(1, #CE0100))
 
 
 footer#pagefooter
