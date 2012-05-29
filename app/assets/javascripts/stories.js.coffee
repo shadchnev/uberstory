@@ -45,7 +45,7 @@ bindNewStoryButton = ->
     showFacebookInvite(callback)
 
 bindInviteFriendsButton = ->
-  $(".invite-friends").click ->
+  $(".invite-friends", ".invite-friends-line").click ->
     showFacebookInvite (response)->
       $(".alert").show() if response?
   
@@ -68,8 +68,12 @@ bindHeaderForm = ->
     
 bindAddNewLine = ->
   $(".add-new-line a").click ->
+    $("#after-new-line-dialogue").modal('show')
+  $(".invite-friends", "#after-new-line-dialogue").click ->
     showFacebookInvite ->
       $(".add-new-line form").submit()    
+  $(".i-have-no-friends", "#after-new-line-dialogue").click ->
+    $(".add-new-line form").submit()    
 
 bindCoverClick = ->
   $(".story-intro").click (event) ->

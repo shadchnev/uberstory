@@ -18,4 +18,17 @@ class Story < ActiveRecord::Base
     lines.last.user.id == user.id
   end
   
+  def notify_all_users_except(current_user)
+    (users - [current_user]).each do |user|
+      graph.put_connections(user.uid, "apprequests", :message => "Someone added a line to your story on UberTales!")
+    end
+  end
+  
+  def graph
+    return @graph if @graph
+    @oauth= Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)    
+    @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
+  end
+  
+  
 end

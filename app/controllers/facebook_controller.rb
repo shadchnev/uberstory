@@ -16,7 +16,8 @@ class FacebookController < ApplicationController
   
   def authenticated
     user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
-    redirect_to request.env['omniauth.origin'] || host_url
+    # redirect_to request.env['omniauth.origin'] || host_url
+    redirect_to host_url
   end
   
 private
