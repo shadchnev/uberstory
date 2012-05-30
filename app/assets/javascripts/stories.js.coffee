@@ -24,13 +24,14 @@ startWritingStory = ->
   if newLine == ''    
     $("form#new_story .new-line input").focus()
     $("form#new_story .new-line").addClass("error")
-  else      
+  else
+    _kmq.push(['record', 'Entered a new line']);
     $(".new-story-banter").html(randomNewStoryBanter())
     $("#new-story-dialogue").modal("show")  
 
 bindNewStoryForm = ->
   $("form#new_story").submit ->
-    unless friendsInvited
+    unless friendsInvited      
       startWritingStory()
       return false
 
@@ -47,6 +48,7 @@ bindNewStoryButton = ->
 bindInviteFriendsButton = ->
   $(".invite-friends", ".invite-friends-line").click ->
     showFacebookInvite (response)->
+      _kmq.push(['record', 'Invited Friends', {number: response.to.length}]);
       $(".alert").show() if response?
   
 randomNewStoryBanter = ->
@@ -71,12 +73,14 @@ bindAddNewLine = ->
     $(".add-new-line form").submit()
   $(".invite-friends", "#after-new-line-dialogue").click ->
     showFacebookInvite ->
+      _kmq.push(['record', 'Invited Friends To Continue', {number: response.to.length}]);
       friendsInvited = true
       $(".add-new-line form").submit()    
   $(".i-have-no-friends", "#after-new-line-dialogue").click ->
     $(".add-new-line form").submit()    
   $(".add-new-line form").submit ->
     return false if $("input[type='text']", this).val().replace(/\s/, '') == ''
+    _kmq.push(['record', 'Added a new line']);
     unless friendsInvited
       $("#after-new-line-dialogue").modal('show')
       return false

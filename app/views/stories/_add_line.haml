@@ -1,11 +1,11 @@
-- if can_add_new_line(current_user, @story)
+- if !can_add_new_line(current_user, @story)
   = render :partial => "after_new_line_modal"
   .add-new-line
     .profile-picture
       = image_tag current_user.image
     .form
       .new-line
-        = form_for @story, :url => story_url(@story) do |f|
+        = form_for @story, :url => story_url(@story), :html => {:class => "add-line-form"} do |f|
           = f.fields_for :lines, Line.new do |l|        
             = l.text_field :text, :maxlength => 140
       .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal"

@@ -9,6 +9,7 @@
   %body
     .container.canvas
       = render :partial => "shared/header"
+      = render :partial => "layouts/kissmetrics"
       = render :partial => "layouts/facebook"
       = render :partial => "shared/flash", :locals => {:flash => flash}
       = yield

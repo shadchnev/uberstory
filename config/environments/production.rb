@@ -67,4 +67,6 @@ Uberstory::Application.configure do
   
   config.host_url = "http://apps.facebook.com/ubertales"
   
+  config.kissmetrics_key = "9c6b75a64233a1eb153d0b1c7aa314ed57fef0ad"
+  
 end
