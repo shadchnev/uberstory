@@ -1,4 +1,12 @@
 - if flash[:notice]
-  %p.notice= flash[:notice]
+  .alert.alert-info.fade.in
+    %button.close{"data-dismiss" => "alert"} ×
+    %strong Hey!
+    = flash[:notice]
+  
 - if flash[:error]
-  %p.error= flash[:error]
+  .alert.alert-error.fade.in
+    %button.close{"data-dismiss" => "alert"} ×
+    %strong Hey!
+    = flash[:error]
+  
