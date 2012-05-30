@@ -48,7 +48,7 @@ bindNewStoryButton = ->
 bindInviteFriendsButton = ->
   $(".invite-friends", ".invite-friends-line").click ->
     showFacebookInvite (response)->
-      _kmq.push(['record', 'Invited Friends', {number: response.to.length}]);
+      _kmq.push(['record', 'Invited Friends', {number: (if response then response.to.length else 0)}])
       $(".alert").show() if response?
   
 randomNewStoryBanter = ->
@@ -73,7 +73,7 @@ bindAddNewLine = ->
     $(".add-new-line form").submit()
   $(".invite-friends", "#after-new-line-dialogue").click ->
     showFacebookInvite ->
-      _kmq.push(['record', 'Invited Friends To Continue', {number: response.to.length}]);
+      _kmq.push(['record', 'Invited Friends To Continue', {number: (if response then response.to.length else 0)}])
       friendsInvited = true
       $(".add-new-line form").submit()    
   $(".i-have-no-friends", "#after-new-line-dialogue").click ->
