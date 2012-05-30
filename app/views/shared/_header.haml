@@ -1,7 +1,9 @@
 %header
   #logo
     = link_to image_tag("ubertales-logo.png"), root_url
-  %h1= banter
+  %h1
+    Write stories together with friends
+    =#banter
   = form_for Story.new do |f|
     = f.fields_for :lines, Line.new do |l|
       = l.text_field :text, :class => 'new_line', :maxlength => 140
@@ -9,6 +11,6 @@
   %ol.rules
     %li Start a new story or continue your friend's story. 
     %li You can read the story only after you add a line.
-  = render :partial => 'new_story_modal'
-  = render :partial => 'no_friends_modal'
+  = render :partial => 'stories/new_story_modal'
+  = render :partial => 'stories/no_friends_modal'
 

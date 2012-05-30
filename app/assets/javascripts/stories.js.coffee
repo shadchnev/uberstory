@@ -68,12 +68,18 @@ bindHeaderForm = ->
     
 bindAddNewLine = ->
   $(".add-new-line a").click ->
-    $("#after-new-line-dialogue").modal('show')
+    $(".add-new-line form").submit()
   $(".invite-friends", "#after-new-line-dialogue").click ->
     showFacebookInvite ->
+      friendsInvited = true
       $(".add-new-line form").submit()    
   $(".i-have-no-friends", "#after-new-line-dialogue").click ->
     $(".add-new-line form").submit()    
+  $(".add-new-line form").submit ->
+    return false if $("input[type='text']", this).val().replace(/\s/, '') == ''
+    unless friendsInvited
+      $("#after-new-line-dialogue").modal('show')
+      return false
 
 bindCoverClick = ->
   $(".story-intro").click (event) ->

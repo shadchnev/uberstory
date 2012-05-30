@@ -1,5 +1,11 @@
-- authors = (story.users - [story.user]).take(5) 
+- authors = (story.users - [story.user]).take(3) 
 .story-intro{"data-url" => story_url(story)}
+  - if can_add_new_line(current_user, story)
+    .write-now{:class => "write-now-style-3"}
+      %a{:href => story_url(story)}
+        .feather
+          = image_tag 'feather-logo-white.png'
+        Write now!
   .cover
     .peel
     .author-picture= image_tag story.user.image
@@ -14,9 +20,4 @@
         #{authors.first.name}
         - if story.users.size > 2
           and #{pluralize story.users.size - 2, 'other'}
-  - if can_add_new_line(current_user, story)
-    .write-now{:class => "write-now-style-#{rand(3) + 1}"}
-      %a{:href => story_url(story)}
-        .feather
-          = image_tag 'feather-logo-white.png'
-        Write now!
+        
