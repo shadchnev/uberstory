@@ -9,7 +9,7 @@ gem 'pg'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'haml'
-
+gem 'km'
 
 group :development do
   gem 'sqlite3'
