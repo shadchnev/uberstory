@@ -1,5 +1,4 @@
 :javascript
-  
   var _kmq = _kmq || [];
   var _kmk = _kmk || '#{Rails.configuration.kissmetrics_key}';
   function _kms(u){
@@ -12,9 +11,3 @@
   }
   _kms('//i.kissmetrics.com/i.js');
   _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
-  
-  
-  $(function() {
-    _kmq.push(['identify', '#{current_user.uid}']);
-    _kmq.push(['alias', '#{current_user.name}', '#{current_user.uid}']);
-  });
