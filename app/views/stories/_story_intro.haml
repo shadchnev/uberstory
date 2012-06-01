@@ -15,7 +15,7 @@
       .then-by then co-written by
       .other-authors-images
         - authors.each do |u|
-          = image_tag u.image
+          = image_tag u.image, :alt => ""
       .other-authors
         #{authors.first.name}
         - if story.users.size > 2

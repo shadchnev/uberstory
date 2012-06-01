@@ -1,6 +1,6 @@
 - if can_add_new_line(current_user, story)
   .new-line
-    .profile-picture= image_tag current_user.image
+    .profile-picture= image_tag current_user.image, :alt => ""
     .new-line-small
       = form_for story, :url => story_url(story) do |f|
         = f.fields_for :lines, Line.new do |l|

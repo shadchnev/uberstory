@@ -1,6 +1,6 @@
 .line
-  .profile-picture= image_tag line.user.image
+  .profile-picture= image_tag line.user.image, :alt => ""
   .name-text
     .user-name= line.user.name    
-    .line-text{:title => "No peeking!", "data-content" => "You need to write a new line to read the story", :class => ('blurred' unless line.visible_to?(current_user))}
+    %p.line-text{:title => "No peeking!", "data-content" => "You need to write a new line to read the story", :class => ('blurred' unless line.visible_to?(current_user))}
       = line.visible_to?(current_user) ? line.text : garbage(line.text)
