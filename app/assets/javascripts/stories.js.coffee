@@ -15,7 +15,7 @@ showFacebookInvite = (callback, friendsToInvite) ->
     callback
 
 initPopover = ->
-  $(".blurred").popover()
+  $(".blurred").popover({placement: "bottom"})
 
 startWritingStory = ->
   newLine = $("form#new_story input.new_line").val()
