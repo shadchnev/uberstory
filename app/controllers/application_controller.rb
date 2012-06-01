@@ -51,7 +51,9 @@ private
 
   def story_invited_to
     return if params[:request_ids].blank? 
-    Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
+    request = current_user.graph.get_connections("me", "apprequests").reject{|r| r["data"].nil? }.sort_by{|r| Time.parse(r["created_time"])}.last
+    story_id = JSON.parse(request["data"])["story_id"]
+    story_id ? Story.find(story_id) : Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
   end
 
   def extract_token_and_user_id
