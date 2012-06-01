@@ -8,8 +8,7 @@
   margin: 20px 20px 20px 10px
   padding: 10px 0
   .line
-    margin-top: 5px
-    padding: 10px
+    padding: 15px 10px
     @include pie-clearfix
     -webkit-box-shadow: inset 0 8px 10px -6px rgba(0,0,0,0.1)
     -moz-box-shadow: inset 0 8px 10px -6px rgba(0,0,0,0.1)
@@ -31,6 +30,7 @@
       margin-bottom: 5px
     .line-text
       font-size: 18px
+      line-height: 1.2em
   .add-new-line, .invite-friends-line
     margin-top: 5px    
     padding: 10px
@@ -41,6 +41,18 @@
   .new-line, .form-submit
     display: inline-block
     vertical-align: top
+  .add-new-line
+    padding: 10px
+    .profile-picture
+      float: left
+      width: 60px
+    input[type="text"]
+      padding: 0.7em 0.8em
+      width: 570px
+    .form
+      margin-top: 5px
+    .form-submit
+      display: block
 
 
 .story-intro
