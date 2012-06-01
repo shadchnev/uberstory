@@ -18,5 +18,5 @@
       .button
         = link_to "Invite #{friends_to_invite_names(@story)} back to the story", "#", {:class => 'invite-friends-back btn primary large', "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))}
     .button
-      = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn btn-primary btn-large'}
+      = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn btn-success btn-large'}
       
