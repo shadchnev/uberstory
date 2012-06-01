@@ -2,7 +2,7 @@
   = render :partial => "after_new_line_modal"
   .add-new-line
     .profile-picture
-      = image_tag current_user.image
+      = image_tag current_user.image, :alt => ""
     .form
       .new-line
         = form_for @story, :url => story_url(@story), :html => {:class => "add-line-form"} do |f|
@@ -13,7 +13,7 @@
 - elsif @story.involves?(current_user)
   .invite-friends-line
     .profile-picture
-      = image_tag current_user.image
+      = image_tag current_user.image, :alt => ""
     - if @story.users.count > 1
       .button
         = link_to "Invite #{friends_to_invite_names(@story)} back to the story", "#", {:class => 'invite-friends-back btn btn-success btn-large', "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))}
