@@ -32,12 +32,13 @@ class StoriesController < ApplicationController
   
   def update
     @story = Story.find(params[:id])
-    @story.update_attributes(params[:story])
+    @story.attributes = params[:story]
     @story.lines.last.user = current_user
     if @story.save
       @story.notify_all_users_except(current_user)
       redirect_to :action => :show
     else
+      @story.reload
       render :show
     end
   end

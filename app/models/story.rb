@@ -40,13 +40,12 @@ class Story < ActiveRecord::Base
   
   def graph
     return @graph if @graph
-    @oauth= Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)    
+    @oauth = Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)    
     @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
   end
   
   def writable_by(user)
     self.involves?(user) && !self.last_line_by?(user)
   end
-  
   
 end
