@@ -164,5 +164,7 @@
   .blurred
     color: transparent
     text-shadow: 0 0 15px rgba(0,0,0,0.8)
-    filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=6)
+    .ie7 &, .ie8 &
+      color: #999
+      filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=6)
     
