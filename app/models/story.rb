@@ -27,6 +27,7 @@ class Story < ActiveRecord::Base
       graph.put_connections(user.uid, "apprequests", {:data => {:story_id => self.id}.to_json, :message => "#{lines.last.user.first_name || "Someone"} added a line to your story on UberTales!"})
     end
   end
+  handle_asynchronously :notify_all_users_except
   
   def graph
     return @graph if @graph

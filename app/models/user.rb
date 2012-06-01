@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
     self.image = "https://graph.facebook.com/#{about_me["id"]}/picture"
   end
   
+  def delete_request(request)
+    graph.delete_object("#{request}_#{self.uid}") rescue nil
+  end
+  handle_asynchronously :delete_request
+  
   def no_data?
     email.blank? || image.blank? || profile_url.blank?
   end
