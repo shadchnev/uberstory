@@ -52,7 +52,7 @@ private
   def story_invited_to
     return if params[:request_ids].blank? 
     request = current_user.graph.get_connections("me", "apprequests").reject{|r| r["data"].nil? }.sort_by{|r| Time.parse(r["created_time"])}.last
-    story_id = JSON.parse(request["data"])["story_id"]
+    story_id = request ? JSON.parse(request["data"])["story_id"] : nil
     story_id ? Story.find(story_id) : Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
   end
 
