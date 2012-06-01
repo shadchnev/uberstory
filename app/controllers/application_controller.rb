@@ -27,8 +27,6 @@ protected
   end
     
   def authenticate!    
-    # KM.identify(current_user.uid); # isn't always available!
-    # KM.record('Starting authentication');
     redirect = redirect_url
     @redirect_url = "/auth/facebook#{('?origin=' + redirect) if redirect}"
     render "facebook/parent_redirect", :layout => false
