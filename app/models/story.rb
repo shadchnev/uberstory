@@ -6,6 +6,15 @@ class Story < ActiveRecord::Base
   accepts_nested_attributes_for :lines, :allow_destroy => true
   attr_accessible :lines_attributes
   
+  validate :last_line_by_a_new_user
+  
+  def last_line_by_a_new_user
+    return if lines.count < 2
+    if lines.last.user.id == lines[lines.count-2].user.id
+      errors.add(:lines, "Sorry, you cannot add two lines in a row")
+    end
+  end
+  
   def user
     lines.first.user unless lines.empty?
   end

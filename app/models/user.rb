@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   end
   
   def delete_request(request)
-    graph.delete_object("#{request}_#{self.uid}") rescue nil
+    graph.delete_object("#{request}_#{self.uid}")
   end
   handle_asynchronously :delete_request
   

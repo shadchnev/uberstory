@@ -35,7 +35,7 @@ class StoriesController < ApplicationController
     @story.update_attributes(params[:story])
     @story.lines.last.user = current_user
     if @story.save
-      @story.notify_all_users_except(current_user) # must go to the bg!
+      @story.notify_all_users_except(current_user)
       redirect_to :action => :show
     else
       render :show
