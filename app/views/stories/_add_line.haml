@@ -8,7 +8,7 @@
         = form_for @story, :url => story_url(@story), :html => {:class => "add-line-form"} do |f|
           = f.fields_for :lines, Line.new do |l|        
             = l.text_field :text, :maxlength => 140
-      .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn primary large show-modal"
+      .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn show-modal"
         
 - elsif @story.involves?(current_user)
   .invite-friends-line
@@ -18,5 +18,5 @@
       .button
         = link_to "Invite #{friends_to_invite_names(@story)} back to the story", "#", {:class => 'invite-friends-back btn primary large', "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))}
     .button
-      = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn primary large'}
+      = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn btn-primary btn-large'}
       
