@@ -1,9 +1,9 @@
-.alert.fade.in.hide
+.alert.alert-info.fade.in.hide
   %button.close{"data-dismiss" => "alert"} ×
   %strong Yay!
   Your invitations have been sent. Lets hope they are as skilled as you...
 
-%h2 Story by #{@story.user.first_name}
+%h2 A story started by #{@story.user.first_name}
 
 .story
   - @story.lines.each do |line|
