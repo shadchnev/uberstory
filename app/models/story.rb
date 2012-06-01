@@ -19,10 +19,10 @@ class Story < ActiveRecord::Base
   end
   
   def notify_all_users_except(current_user)
-    return unless Rails.env.production?
+    # return unless Rails.env.production?
     (users - [current_user]).each do |user|
       # skip those with invitations!
-      requests = graph.get_connections(user.uid, "apprequests")
+      requests = current_user.graph.get_connections(user.uid, "apprequests")
       next unless requests.empty?
       graph.put_connections(user.uid, "apprequests", {:data => {:story_id => self.id}.to_json, :message => "#{lines.last.user.first_name || "Someone"} added a line to your story on UberTales!"})
     end

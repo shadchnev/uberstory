@@ -9,7 +9,7 @@ showFacebookInvite = (callback, friendsToInvite) ->
   userIds = friendsToInvite || []
   FB.ui
     method: 'apprequests'
-    message: 'Help me finish a short story on Uberstory!'
+    message: 'Help me finish a short story on UberTales!'
     title: "Let's write a story together!"
     to: userIds
     callback
