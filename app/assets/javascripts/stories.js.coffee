@@ -69,12 +69,12 @@ bindHeaderForm = ->
 bindAddNewLine = ->
   $(".add-new-line a").click ->
     $(".add-new-line form").submit()
-  $(".invite-friends", "#after-new-line-dialogue").click ->
+  $(".invite-friends", $("#after-new-line-dialogue")).click ->
     showFacebookInvite (response) ->
       _kmq.push(['record', 'Invited Friends To Continue', {number: (if response then response.to.length else 0)}])
       friendsInvited = true
       $(".add-new-line form").submit()    
-  $(".i-have-no-friends", "#after-new-line-dialogue").click ->
+  $(".i-have-no-friends", $("#after-new-line-dialogue")).click ->
     $(".add-new-line form").submit()    
   $(".add-new-line form").submit ->
     return false if $("input[type='text']", this).val().replace(/\s/, '') == ''
@@ -82,13 +82,23 @@ bindAddNewLine = ->
     unless friendsInvited
       $("#after-new-line-dialogue").modal('show')
       return false
+  $("#after-new-line-dialogue .invite-friends-back").click ->
+    friends = $(this).attr("data-friend-ids").split(',')
+    callback = (response) ->
+      _kmq.push(['record', 'Invited Friends Back', {number: (if response then response.to.length else 0)}])
+      friendsInvited = true
+      $(".add-new-line form").submit()    
+    showFacebookInvite(callback, friends)
+  $("#after-new-line-dialogue").on "hidden", ->
+    friendsInvited = true
+    $(".add-new-line form").submit()        
 
 bindCoverClick = ->
   $(".story-intro").click (event) ->
     document.location = $(this).attr("data-url");
     
 bindInviteFriendsBack = ->
-  $(".invite-friends-back").click ->
+  $(".invite-friends-line .invite-friends-back").click ->
     friends = $(this).attr("data-friend-ids").split(',')
     callback = (response) ->
       _kmq.push(['record', 'Invited Friends Back', {number: (if response then response.to.length else 0)}])

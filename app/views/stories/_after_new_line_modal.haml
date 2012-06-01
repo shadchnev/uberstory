@@ -5,5 +5,6 @@
   .modal-body
     %h4 On UberTales everyone gets a chance to write a line in the stories. Invite some friends to make sure your story gets finished!
   .modal-footer
-    %a.btn.i-have-no-friends{:href => "#", "data-dismiss" => "modal"} I have no more friends
+    - if @story.users.count > 1
+      %a.btn.btn-primary.invite-friends-back{:href => "#", "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))} Invite #{friends_to_invite_names(@story)} back to the story
     %a.btn.btn-primary.invite-friends{:href => "#"} Invite more friends
