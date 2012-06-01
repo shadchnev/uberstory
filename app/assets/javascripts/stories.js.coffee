@@ -4,15 +4,13 @@
 
 friendsInvited = false
 
-showFacebookInvite = (callback) ->
+showFacebookInvite = (callback, friendsToInvite) ->
   $(".modal").modal('hide')
-  checkboxes = $('.modal input[type="checkbox"]:checked')    
-  userIds = $.map checkboxes, (element, index) ->
-    $(element).val()
-  userIds = userIds.join(",")
+  userIds = friendsToInvite || []
   FB.ui
     method: 'apprequests'
     message: 'Help me finish a short story on Uberstory!'
+    title: "Let's write a story together!"
     to: userIds
     callback
 
@@ -89,6 +87,14 @@ bindCoverClick = ->
   $(".story-intro").click (event) ->
     document.location = $(this).attr("data-url");
     
+bindInviteFriendsBack = ->
+  $(".invite-friends-back").click ->
+    friends = $(this).attr("data-friend-ids").split(',')
+    callback = (response) ->
+      _kmq.push(['record', 'Invited Friends Back', {number: (if response then response.to.length else 0)}])
+      $(".alert").show() if response?
+    showFacebookInvite(callback, friends)
+
 $ ->
   initPopover()
   bindNewStoryForm()
@@ -97,6 +103,7 @@ $ ->
   bindHeaderForm()
   bindAddNewLine()
   bindCoverClick()
+  bindInviteFriendsBack()
   
   
       

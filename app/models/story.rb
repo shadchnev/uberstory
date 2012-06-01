@@ -20,7 +20,7 @@ class Story < ActiveRecord::Base
   
   def notify_all_users_except(current_user)
     (users - [current_user]).each do |user|
-      graph.put_connections(user.uid, "apprequests", :data => {:story_id => self.id}.to_json, :message => "#{lines.last.user.first_name || lines.last.user.name || "Someone"} added a line to your story on UberTales!") if Rails.env.production?
+      graph.put_connections(user.uid, "apprequests", {:data => {:story_id => self.id}.to_json, :message => "#{lines.last.user.first_name || lines.last.user.name || "Someone"} added a line to your story on UberTales!"}) if Rails.env.production?
     end
   end
   
