@@ -52,12 +52,15 @@ module Uberstory
 
     # Enable the asset pipeline
     config.assets.enabled = true
+    
+    config.assets.initialize_on_precompile = false
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
     config.facebook_app_id = ENV["UBERSTORY_APP_ID"]
     config.facebook_app_secret = ENV["UBERSTORY_APP_SECRET"]
+    
     
   end
 end
