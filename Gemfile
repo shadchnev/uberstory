@@ -10,6 +10,7 @@ gem 'omniauth-facebook'
 gem 'koala'
 gem 'haml'
 gem 'km'
+gem 'delayed_job_active_record'
 
 group :development do
   gem 'sqlite3'
