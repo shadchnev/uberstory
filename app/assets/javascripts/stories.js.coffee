@@ -70,10 +70,11 @@ bindAddNewLine = ->
   $(".add-new-line a").click ->
     $(".add-new-line form").submit()
   $(".invite-friends", $("#after-new-line-dialogue")).click ->
-    showFacebookInvite (response) ->
+    callback = (response) ->      
       _kmq.push(['record', 'Invited Friends To Continue', {number: (if response then response.to.length else 0)}])
       friendsInvited = true
-      $(".add-new-line form").submit()    
+      $(".add-new-line form").submit()
+    showFacebookInvite(callback, [])
   $(".i-have-no-friends", $("#after-new-line-dialogue")).click ->
     $(".add-new-line form").submit()    
   $(".add-new-line form").submit ->
