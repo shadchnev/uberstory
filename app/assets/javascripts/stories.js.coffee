@@ -90,7 +90,7 @@ bindAddNewLine = ->
       friendsInvited = true
       $(".add-new-line form").submit()    
     showFacebookInvite(callback, friends)
-  $("#after-new-line-dialogue").on "hidden", ->
+  $("#after-new-line-dialogue .close-modal").click ->
     friendsInvited = true
     $(".add-new-line form").submit()        
 
