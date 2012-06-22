@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
   
 protected
 
+  def fire(event, payload)
+    payload[:current_user_id] = user_signed_in && current_user.id
+    DelayedJob::enqueue GamificationJob.new(event, payload)
+  end
+
   def sign_in_user
     token, user_id = extract_token_and_user_id
     @current_user = User.find_or_initialize_by_uid(user_id)

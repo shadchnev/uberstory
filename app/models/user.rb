@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :stories, :through => :lines
   has_many :lines
+  has_many :scores
+  has_many :badges
   # attr_writer :token
   
   has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id"
@@ -11,6 +13,10 @@ class User < ActiveRecord::Base
     
   def graph
     @graph ||= Koala::Facebook::API.new(token)
+  end
+  
+  def score
+    scores.inject(0) {|sum, score| sum += score.value }
   end
   
   def refresh_data

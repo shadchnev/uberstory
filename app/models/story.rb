@@ -8,6 +8,10 @@ class Story < ActiveRecord::Base
   
   validate :last_line_by_a_new_user
   
+  def abandoned?
+    updated_at < Time.now - 1.month
+  end
+  
   def last_line_by_a_new_user
     return if lines.count < 2
     if lines.last.user.id == lines[lines.count-2].user.id

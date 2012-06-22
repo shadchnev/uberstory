@@ -35,6 +35,7 @@ class StoriesController < ApplicationController
     @story.attributes = params[:story]
     @story.lines.last.user = current_user
     if @story.save
+      fire 'line.added', :target_id => @story.lines.last.id
       @story.notify_all_users_except(current_user)
       redirect_to :action => :show
     else
