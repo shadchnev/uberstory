@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
 protected
 
   def fire(event, payload)
-    payload[:current_user_id] = user_signed_in && current_user.id
-    DelayedJob::enqueue GamificationJob.new(event, payload)
+    payload[:user_id] = user_signed_in? && current_user.id
+    Delayed::Job.enqueue GamificationJob.new(event, payload)
   end
 
   def sign_in_user
