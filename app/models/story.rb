@@ -7,9 +7,22 @@ class Story < ActiveRecord::Base
   attr_accessible :lines_attributes
   
   validate :last_line_by_a_new_user
+  validate :story_is_of_correct_length
+  
+  after_initialize :set_defaults
+  
+  DEFAULT_MAX_LENGTH = 10
+  
+  def set_defaults
+    self.max_length ||= DEFAULT_MAX_LENGTH
+  end
   
   def abandoned?
     updated_at < Time.now - 1.month
+  end
+  
+  def story_is_of_correct_length
+    errors.add(:lines, "Sorry, this story is getting too long") if lines.length > max_length
   end
   
   def last_line_by_a_new_user
@@ -48,8 +61,12 @@ class Story < ActiveRecord::Base
     @graph = Koala::Facebook::API.new(@oauth.get_app_access_token)
   end
   
+  def finished?
+    lines.length >= max_length
+  end
+  
   def writable_by(user)
-    self.involves?(user) && !self.last_line_by?(user)
+    !finished? && involves?(user) && !last_line_by?(user)
   end
   
 end
