@@ -9,8 +9,9 @@ class Line < ActiveRecord::Base
   validates_length_of :text, :maximum => 140
   
   def visible_to?(user)
-    last_line_by_user = story.lines.find_all_by_user_id(user.id).last
-    new_record? || (last_line_by_user and created_at and created_at <= last_line_by_user.created_at) || story.lines.last == self || !story.involves?(user)
+    # last_line_by_user = story.lines.find_all_by_user_id(user.id).last
+    # new_record? || (last_line_by_user and created_at and created_at <= last_line_by_user.created_at) || story.lines.last == self || !story.involves?(user)
+    story.finished? || story.lines.last == self
   end
   
   def number
