@@ -10,13 +10,17 @@
             = l.text_field :text, :maxlength => 140
       .form-submit= link_to "Add next line", '#new-line-dialogue', :class => "btn show-modal"
         
-- elsif @story.involves?(current_user)
-  .invite-friends-line
-    .profile-picture
-      = image_tag current_user.image, :alt => ""
-    - if @story.users.count > 1
+- else
+  - if @story.finished?
+    .finished
+      This story is finished, it's got too long. Start a new one instead!  
+  - elsif @story.involves?(current_user)
+    .invite-friends-line
+      .profile-picture
+        = image_tag current_user.image, :alt => ""
+      - if @story.users.count > 1
+        .button
+          = link_to "Invite #{friends_to_invite_names(@story)} back to the story", "#", {:class => 'invite-friends-back btn btn-success btn-large', "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))}
       .button
-        = link_to "Invite #{friends_to_invite_names(@story)} back to the story", "#", {:class => 'invite-friends-back btn btn-success btn-large', "data-friend-ids" => (@story.users.reject{|u| u.id == current_user.id }.map(&:uid).join(","))}
-    .button
-      = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn btn-success btn-large'}
+        = link_to 'Invite more friends to continue the story', "#", {:class => 'invite-friends btn btn-success btn-large'}
       
