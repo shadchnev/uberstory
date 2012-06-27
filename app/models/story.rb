@@ -13,8 +13,8 @@ class Story < ActiveRecord::Base
   end
   
   def last_line_by_a_new_user
-    return if lines.count < 2
-    if lines.last.user.id == lines[lines.count-2].user.id
+    return if lines.size < 2
+    if lines.last.user.id == lines[lines.size-2].user.id
       errors.add(:lines, "Sorry, you cannot add two lines in a row")
     end
   end

@@ -11,7 +11,8 @@ protected
 
   def fire(event, payload)
     payload[:user_id] = user_signed_in? && current_user.id
-    Delayed::Job.enqueue GamificationJob.new(event, payload)
+    # Delayed::Job.enqueue GamificationJob.new(event, payload)
+    GamificationJob.new(event, payload).perform
   end
 
   def sign_in_user
