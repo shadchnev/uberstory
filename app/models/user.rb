@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
     return cached_friends unless cached_friends.empty?
     graph.get_object("me/friends").each do |f|
       user = User.find_or_create_by_uid(f["id"])      
-      user.first_name, user.last_name = f["name"].split(" ", 2) if user.new_record?
+      user.first_name, user.last_name = f["name"].split(" ", 2) #if user.new_record?
+      user.save
       self.cached_friends << user
     end
     cached_friends
@@ -64,6 +65,11 @@ class User < ActiveRecord::Base
     user.image = auth[:info][:image]
     user.save
     user    
+  end
+  
+  def as_json(options={})
+    defaults = {:only => [:id, :first_name, :last_name, :image, :email]}.merge options
+    super defaults
   end
   
 end

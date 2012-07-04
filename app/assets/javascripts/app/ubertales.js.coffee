@@ -2,6 +2,7 @@ window.App =
   Views: {}
   Routers: {}
   Collections: {}
+  Models: {}
   init: ->
     new App.Routers.Stories()
     Backbone.history.start()

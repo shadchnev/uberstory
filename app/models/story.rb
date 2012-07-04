@@ -70,7 +70,7 @@ class Story < ActiveRecord::Base
   end
   
   def as_json(options)
-    json = super(:include => {:user => {:methods => :name, :only => [:image, :id]}, :lines => {:include => :user}, :users => {:methods => :name, :only => [:image, :id]}})
+    json = super(:include => {:user => {:methods => :name, :only => [:image, :id, :email]}, :lines => {:only => [:text, :id], :include => {:user => {:methods => :name, :only => [:image, :id, :email]}}}})
     json["writable"] = false#writable_by options[:current_user]
     json["finished"] = finished?
     json["one_line_story"] = lines.count == 1

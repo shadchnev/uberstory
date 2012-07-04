@@ -18,4 +18,6 @@
 //= require 'lib/backbone.js'
 //= require 'app/ubertales.js'
 //= require 'app/models/story.js'
+//= require 'app/models/user.js'
+//= require 'app/models/line.js'
 //= require_tree .

@@ -18,9 +18,9 @@
       .invite-friends-line
         .profile-picture
           %img{:src => hb("currentUserImage"), :alt => ''}
-        = hb 'if attributes.one_line_story' do
+        = hb 'unless attributes.one_line_story' do
           .button
-            %a.invite-friends.btn.btn-success.btn-large{:href => '#'}= hb 'friendsToInviteBack'              
+            %a.invite-friends.btn.btn-success.btn-large{:href => '#'}= hb 'friendsToInvite'              
         .button
           %a.invite-friends.btn.btn-success.btn-large{:href => '#'} Invite more friends to continue the story
       

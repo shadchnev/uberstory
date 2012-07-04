@@ -1,5 +1,5 @@
 .story-intro
-  %input{:type=>'hidden', :name => 'story-id', :value => hb('attributes.id')}
+  %input{:type=>'hidden', :name => 'story-id', :value => hb('id')}
   = hb 'if canAddNewLine' do
     .write-now.write-now-style-3
       %a{:href => '#'}
@@ -9,9 +9,9 @@
   .cover
     .peel
     .author-picture
-      %img{:src => hb('attributes.user.image')}
+      %img{:src => hb('authorImage')}
     .started-by Story started by
-    .author-name= hb 'attributes.user.name'
+    .author-name= hb 'authorName'
     .then-by
       then co-written by
     .other-authors-images
