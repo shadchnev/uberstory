@@ -1,0 +1,24 @@
+.story-intro
+  %input{:type=>'hidden', :name => 'story-id', :value => hb('attributes.id')}
+  = hb 'if canAddNewLine' do
+    .write-now.write-now-style-3
+      %a{:href => '#'}
+        .feather
+          %img{:src => 'feather-small-black.png', :alt => ''}
+        Write now!
+  .cover
+    .peel
+    .author-picture
+      %img{:src => hb('attributes.user.image')}
+    .started-by Story started by
+    .author-name= hb 'attributes.user.name'
+    .then-by
+      then co-written by
+    .other-authors-images
+      = hb 'each coAuthors' do
+        %img{:src => hb("this.image"), :alt => ''}
+    .other-authors
+      = hb 'coAuthorsCount'
+
+
+

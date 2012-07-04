@@ -1,0 +1,8 @@
+= hb 'if rows.length' do
+  %h2
+    = hb 'title'
+  = hb 'each rows' do
+    .row
+      = hb 'each this.stories' do
+        .span4
+          = hb '> app.templates.story_intro'

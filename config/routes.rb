@@ -7,7 +7,10 @@ Uberstory::Application.routes.draw do
   
   root :to => 'facebook#init'
   match "home", to: 'facebook#host_redirect', as: :host
-  match '/', to: 'facebook#init', method: :post  
+  match '/', to: 'facebook#init', method: :post
+  
+  match '/canvas', to: 'canvas#index', as: :canvas
+  
   match 'contact-us', to: 'static#contact', as: :contact_us
   match 'privacy', to: 'static#privacy', as: :privacy
   match 'terms', to: 'static#terms', as: :terms

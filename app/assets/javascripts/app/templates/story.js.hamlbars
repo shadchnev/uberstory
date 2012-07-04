@@ -1,0 +1,8 @@
+%h2
+  A story started by
+  = hb "attributes.user.name"
+
+.story
+  = hb 'each attributes.lines' do
+    = hb '> app.templates.line'
+  = hb '> app.templates.add_line'

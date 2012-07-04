@@ -69,4 +69,19 @@ class Story < ActiveRecord::Base
     !finished? && involves?(user) && !last_line_by?(user)
   end
   
+  def as_json(options)
+    json = super(:include => {:user => {:methods => :name, :only => [:image, :id]}, :lines => {:include => :user}, :users => {:methods => :name, :only => [:image, :id]}})
+    json["writable"] = false#writable_by options[:current_user]
+    json["finished"] = finished?
+    json["one_line_story"] = lines.count == 1
+    json["involves_current_user"] = involves?(options[:current_user])
+    json[:lines].map! do |line|
+      l = Line.find(line["id"])
+      line["visible"] = l.visible_to?(options[:current_user])
+      line["text"] = l.visible_to?(options[:current_user]) ? l.text : l.text.gsub(/\w/) { ('a'..'z').to_a[rand(26)] }
+      line
+    end
+    json
+  end
+  
 end

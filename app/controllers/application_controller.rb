@@ -2,11 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   
   before_filter :sign_in_user
+  before_filter :set_signed_request
+  
+  def set_signed_request
+    @signed_request = params[:signed_request]
+  end
 
   def url_options
     {:signed_request => params[:signed_request]}.merge(super)
   end
   
+    
 protected
 
   def fire(event, payload)

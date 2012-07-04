@@ -14,6 +14,8 @@
     = csrf_meta_tags
     = render :partial => "layouts/kissmetrics"
   %body
+    - if @signed_request
+      #signed-request=@signed_request
     - if user_signed_in?
       #user-uid.hide= current_user.uid
       #user-name.hide= current_user.name
@@ -21,6 +23,8 @@
       = render :partial => "shared/header"
       = render :partial => "layouts/facebook"
       = render :partial => "shared/flash", :locals => {:flash => flash}
-      = yield
+      = render :partial => "shared/templates"
+      #container
+        = yield
       = render :partial => "shared/footer"    
 

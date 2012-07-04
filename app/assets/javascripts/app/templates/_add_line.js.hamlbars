@@ -1,0 +1,26 @@
+= hb 'if attributes.writable' do
+  =# render :partial => "after_new_line_modal"
+  .add-new-line
+    .profile-picture
+      %img{:src => hb("currentUserImage"), :alt => ''}
+    .form
+      .new-line
+        %input{:type => "text", :maxlength => 140}
+      .form-submit
+        %a#new-line-dialogue.btn.show-modal{:href => '#'} Add next line
+        
+  = hb 'else'
+  = hb 'if attributes.finished' do
+    .finished
+      This story is finished, it's got too long. Start a new one instead!  
+    = hb 'else'
+    = hb 'if attributes.involves_current_user' do
+      .invite-friends-line
+        .profile-picture
+          %img{:src => hb("currentUserImage"), :alt => ''}
+        = hb 'if attributes.one_line_story' do
+          .button
+            %a.invite-friends.btn.btn-success.btn-large{:href => '#'}= hb 'friendsToInviteBack'              
+        .button
+          %a.invite-friends.btn.btn-success.btn-large{:href => '#'} Invite more friends to continue the story
+      

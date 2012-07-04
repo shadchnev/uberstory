@@ -1,0 +1,3 @@
+- %w(section story story-intro line add-line).each do |template|
+  %script{:type => "x-handlebars-template", :id => "template-#{template}"}
+    =# render :partial => "js/#{template.gsub(/-/, '_')}"

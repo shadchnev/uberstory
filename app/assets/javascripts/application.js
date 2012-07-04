@@ -10,7 +10,12 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require 'google_fonts.js'
+//= require 'lib/google_fonts.js'
 //= require jquery
 //= require jquery_ujs
+//= require 'lib/underscore.js'
+//= require 'lib/handlebars-1.0.0.beta.6.js'
+//= require 'lib/backbone.js'
+//= require 'app/ubertales.js'
+//= require 'app/models/story.js'
 //= require_tree .

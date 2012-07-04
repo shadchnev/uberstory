@@ -1,0 +1,8 @@
+.line
+  .profile-picture
+    %img{:alt => "", :src => hb('user.image')}
+  .name-text
+    .user-name
+      = hb "user.name"
+    %p{:class => "line-text {{#unless visible}} blurred {{/unless}}", "data-content" => "You need to write a new line to read the story", :title => "No peeking!"}
+      = hb 'text'
