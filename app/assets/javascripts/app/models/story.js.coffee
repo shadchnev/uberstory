@@ -33,20 +33,20 @@ window.Story = Backbone.Model.extend
     coAuthors = @users.reject ((u) => u.id == @user.id)
     @coAuthors = _.first(coAuthors, 3)
   
-  extraUsers: ->
-    # return if story.users.count == 2
-    # extra_friends = story.users - [current_user] - [current_user.friends]
-    # return extra_friends.first.first_name if extra_friends.length == 1
-    # return "#{extra_friends.count - mentioned_users_number} others"
-          
-  friendsToInviteBack: (currentUser)->    
-    "invite the best friends of #{currentUser.id} back"
-    # friendsToMention = @story.users
-    # friends_to_mention = story.users & current_user.friends
-    # friends_not_to_mention = story.users - [current_user] - friends_to_mention
-    # names_to_mention = friends_to_mention.take(2)
-    # names = names_to_mention.map{|u| u.first_name }.join(", ")
-    # names = [names, extra_users(story, names_to_mention.size)].compact.join(" and ")
-    # names
+  friendsToInviteBack: (currentUser) ->
+    extraUsers = (mentionedUsersNumber) =>
+      return if @users.length == 2
+      extraFriends = _.difference(@users.filter((u) -> u.id isnt currentUser.id), currentUser.friends)
+      return extraFriends[0].get('first_name') if extraFriends.length == 1
+      namesNumber = extraFriends.length - mentionedUsersNumber
+      s = if namesNumber is 1 then '' else 's'
+      "#{namesNumber} other#{s}"
+      
+    friendsToMention = @users.select ((e)=> currentUser.friends.any((u) -> e.id == u.id) )
+    namesToMention = _.first friendsToMention, 2
+    names = _.map namesToMention, ((u) -> u.get('first_name'))
+    names = names.join(", ")
+    names = _.compact([names, extraUsers(namesToMention.length)]).join(' and ')
+    "Invite #{names} back"
 
   
