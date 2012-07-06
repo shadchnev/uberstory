@@ -6,12 +6,17 @@ class Story < ActiveRecord::Base
   accepts_nested_attributes_for :lines, :allow_destroy => true
   attr_accessible :lines_attributes
   
-  validate :last_line_by_a_new_user
+  # validate :last_line_by_a_new_user
   validate :story_is_of_correct_length
+  validate :story_writable_by_new_users
   
   after_initialize :set_defaults
   
   DEFAULT_MAX_LENGTH = 10
+  
+  def story_writable_by_new_users
+    errors.add(:lines, "Sorry, some users don't have access to this story") unless users.all? {|user| writable_by user}
+  end
   
   def set_defaults
     self.max_length ||= DEFAULT_MAX_LENGTH
@@ -63,15 +68,17 @@ class Story < ActiveRecord::Base
   
   def finished?
     lines.length >= max_length
+    false
   end
   
   def writable_by(user)
     !finished? && involves?(user) && !last_line_by?(user)
+    true
   end
   
   def as_json(options)
     json = super(:include => {:user => {:methods => :name, :only => [:image, :id, :email, :first_name, :last_name]}, :lines => {:only => [:text, :id], :include => {:user => {:methods => :name, :only => [:image, :id, :email, :first_name, :last_name]}}}})
-    json["writable"] = false#writable_by options[:current_user]
+    json["writable"] = writable_by options[:current_user]
     json["finished"] = finished?
     json["one_line_story"] = lines.count == 1
     json["involves_current_user"] = involves?(options[:current_user])

@@ -6,6 +6,10 @@ window.Story = Backbone.Model.extend
     base + '/' + @id
   
   initialize: ->   
+    @on 'change', (=> @updateModels())
+    @updateModels()
+  
+  updateModels: ->
     @initUser() 
     @initLines()    
     @initUsers() 
@@ -48,5 +52,3 @@ window.Story = Backbone.Model.extend
     names = names.join(", ")
     names = _.compact([names, extraUsers(namesToMention.length)]).join(' and ')
     "Invite #{names} back"
-
-  

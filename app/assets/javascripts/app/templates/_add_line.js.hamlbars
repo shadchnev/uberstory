@@ -1,5 +1,5 @@
 = hb 'if attributes.writable' do
-  =# render :partial => "after_new_line_modal"
+  = hb "> app.templates.after_new_line_modal"
   .add-new-line
     .profile-picture
       %img{:src => hb("currentUserImage"), :alt => ''}
@@ -7,7 +7,7 @@
       .new-line
         %input{:type => "text", :maxlength => 140}
       .form-submit
-        %a#new-line-dialogue.btn.show-modal{:href => '#'} Add next line
+        %a#new-line-dialogue.btn.show-modal.disabled{:href => '#after-new-line-dialogue'} Add next line
         
   = hb 'else'
   = hb 'if attributes.finished' do

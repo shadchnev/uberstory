@@ -1,6 +1,7 @@
 Uberstory::Application.routes.draw do
   
   resources :stories
+  resources :lines
   # resources :contacts
    
   match '/auth/:provider/callback', to: 'facebook#authenticated'

@@ -17,6 +17,7 @@ class StoriesController < ApplicationController
   
   def show
     @story = Story.find(params[:id])
+    render :json => @story.as_json(:current_user => current_user)
   end
   
   def create
