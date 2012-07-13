@@ -1,16 +1,8 @@
-#header
-  #logo
-    = link_to image_tag("ubertales-logo.png", :alt => "UberTales"), '#'
-  %h1
-    Write stories together with friends
-    =#banter
-  - if user_signed_in?
-    = form_for Story.new do |f|
-      = f.fields_for :lines, Line.new do |l|
-        = l.text_field :text, :class => 'new_line', :maxlength => 140
-      .form-submit= link_to "Start a story", '#new-story-dialogue', :class => "btn primary large show-modal start-new-story"
-    %ol.rules
-      %li Start a new story or continue your friend's story. 
-      %li You can read the story only after you add a line.
-    = render :partial => 'stories/new_story_modal'
-    = render :partial => 'stories/no_friends_modal'
+#score
+  0
+#logo
+  %h1 UberTales
+  %h2 Write stories together with friends
+  #homelink
+#badge
+  0 Badges

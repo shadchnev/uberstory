@@ -1,93 +1,94 @@
 @import "compass"
 
-h1, h2
-  font-family: Damion
-  color: #AAA
-  font-weight: normal
+$width: 750px
+$height: 550px
+$headerHeight: 60px
+$footerHeight: 60px
+$sidebarWidth: 250px
 
-h2
-  margin: 1em 0
-
-#signed-request
+#seed, .hide
   display: none
-
-#header
-  background: transparent image-url("header-bg.jpg") center -20px no-repeat
-  width: 760px
-  height: 237px
-  text-align: center
-  padding-top: 5px
-  h1
-    color: white
-    font-family: Helvetica
-    font-size: 20px
-    margin: 5px 0
-  .rules
-    color: white
-    .number
-      display: inline-block
-      font-weight: bold
+  
+header > div, #container > *, footer li
+  display: inline-block
     
-  form
-    position: relative
-    width: 500px
-    margin: 0 auto
-    vertical-align: top
-    input[type="text"]
-      background-color: #e7e7de
-      border: 3px solid white
-      border-radius: 0
-      box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4)
-      width: 368px
-      padding: 0.6em 120px 0.4em 0.5em
-      font-size: 18px
-    .form-submit
-      height: 26px    
-      position: absolute
-      top: 4px
-      right: 0
-      a
-        padding: 8px 15px
-        text-shadow: 0 -1px 0 rgba(0,0,0,0.3)
-        border: none
-        color: #fff
-        font-weight: bold
-        background: #FE1A00
-        @include background-image(linear-gradient(#FE1A00, #CE0100))
-        @include border-radius(0,0)
-        &:hover, &:active
-          color: #fff
-          background-position: 0 -35px
-          background-color: #CE0100
-  ol
-    overflow: hidden
-    width: 650px
-    margin: 0 auto
-    li
-      float: left
-      list-style: decimal
-      padding: 0
-      margin: 0 1em 0 1.8em
-
-.modal
-  text-align: left
-  .close-modal
-    float: right
-
-#pagefooter
-  margin-top: 45px
-  padding: 5px 0 35px
-  border-top: 1px solid #E5E5E5
+#game
+  width: 750px
+  height: 550px
+  overflow: hidden
+  border: 1px solid red
+  margin: 0 auto
+  
+header, footer
   text-align: center
-  color: #AAA
-  ul
+
+header
+  height: $headerHeight
+  h1
+    font-size: 24px
+    margin: 0.2em 0 0
+    line-height: 1.1em
+  h2
+    font-size: 14px
     margin: 0
-    padding: 0
-    list-style: none
-  li
-    display: inline
-    border-right: 1px solid black
-    margin: 0
-    padding: 0 7px 0 4px
-    &:last-child
-      border: 0
+    line-height: 1.2em
+  
+footer
+  height: $footerHeight
+  clear: both
+  
+#content
+  height: $height - $headerHeight - $footerHeight
+  width: $width - $sidebarWidth
+  overflow: scroll
+  float: left
+  
+  .story
+    .line
+      overflow: hidden
+      padding: 20px 20px 0
+    .profile-picture
+      width: 40px
+      height: 40px
+      float: left
+      img
+        width: 100%
+        height: 100%
+        
+    .name-text
+      width: 400px
+      float: left
+      margin-left: 20px
+      p
+        margin: 0
+        
+  
+#sidebar
+  vertical-align: top
+  overflow: scroll
+  height: $height - $headerHeight - $footerHeight
+  width: $sidebarWidth
+  float: right
+  
+  #sidebar-bottom
+    .author
+      overflow: hidden
+      padding-top: 10px
+    .photo
+      width: 30px
+      height: 30px
+      float: left
+      img
+        width: 100%
+        height: 100%
+    .name
+      width: 210px
+      float: right
+      
+  
+.close-modal
+  float: right
+
+.story-intro
+  & > div
+    display: inline-block

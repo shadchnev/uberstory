@@ -1,0 +1,7 @@
+%h3 Writing this story
+= hb 'each authors' do
+  .author
+    .photo
+      %img{:src => hb('image')}
+    .name
+      = hb 'attributes.name'

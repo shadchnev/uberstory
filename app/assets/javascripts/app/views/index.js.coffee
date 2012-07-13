@@ -2,34 +2,26 @@
 App.Views.Index = Backbone.View.extend
 
   events:
-    'click .cover': "show"
+    'click .read-story, .your-turn': "show"
 
   initialize: ->
-    @storiesByFriends = @options.stories
+    @stories = @options.stories
     @render()
     
   show: (event)->
     id = $('[name="story-id"]', $(event.target).parents(".story-intro")).val()
     document.location.hash = "#stories/" + id
+    false
     
   render: ->
-    storiesByFriendsHtml = @renderStoriesSection('Stories by your friends', 'section', @storiesByFriends)
-    $(@el).html(storiesByFriendsHtml)
-    $("#container").html(@el)
-    @
-    
-  renderStoriesSection: (title, name, stories)->    
     Handlebars.registerHelper "coAuthorsCount", ->
       numberOfAuthors = @users.length - 1
       res = @users.at(0).get("name")
       if numberOfAuthors > 1
         res += " and #{numberOfAuthors - 1} others" 
       res      
-    rows = []
-    addToRow = (story, index) ->
-      i = Math.floor(index / 3)
-      rows[i] ||= {stories: []}
-      rows[i].stories.push story
-    addToRow(story, index) for story, index in stories
-    Handlebars.templates['app/templates/section'] {title: title, rows: rows}
+    storiesHtml = Handlebars.templates['app/templates/stories'] {stories: @stories}
+    $(@el).html(storiesHtml)
+    $("#content").html(@el)
+    @
     

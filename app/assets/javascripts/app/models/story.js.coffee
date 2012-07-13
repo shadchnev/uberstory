@@ -8,6 +8,7 @@ window.Story = Backbone.Model.extend
   initialize: ->   
     @on 'change', (=> @updateModels())
     @updateModels()
+    @finished = @get('finished')
   
   updateModels: ->
     @initUser() 

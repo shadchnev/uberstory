@@ -1,24 +1,14 @@
 .story-intro
   %input{:type=>'hidden', :name => 'story-id', :value => hb('id')}
-  = hb 'if canAddNewLine' do
-    .write-now.write-now-style-3
-      %a{:href => '#'}
-        .feather
-          %img{:src => 'feather-small-black.png', :alt => ''}
-        Write now!
-  .cover
-    .peel
-    .author-picture
-      %img{:src => hb('authorImage')}
-    .started-by Story started by
-    .author-name= hb 'authorName'
-    .then-by
-      then co-written by
-    .other-authors-images
-      = hb 'each coAuthors' do
-        %img{:src => hb("this.image"), :alt => ''}
-    .other-authors
-      = hb 'coAuthorsCount'
-
-
-
+  .author-picture
+    %img{:src => hb('authorImage')}
+  .other-authors
+    = hb 'coAuthorsCount'
+    
+  = hb 'if attributes.finished' do
+    %a.btn.read-story{:href => '#'} Read
+    = hb 'else'
+    = hb 'if attributes.writable' do
+      %a.btn.your-turn{:href => '#'} Your turn    
+      = hb 'else'
+      %a.btn.nudge{:href => '#'} Nudge

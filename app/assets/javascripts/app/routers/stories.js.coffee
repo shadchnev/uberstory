@@ -5,13 +5,17 @@ App.Routers.Stories = Backbone.Router.extend
   
   show: (id)->
     story = @stories.get(id)    
-    new App.Views.Show 
-      story: story
-      user: @user
+    new App.Views.Show story: story, user: @user
+    new App.Views.ShareStory(story: story)
+    new App.Views.StoryAuthors(story: story)
+    new App.Views.Homelink(story: story)
     
   index: ->
-    @user ?= new User(JSON.parse $('#current-user-seed').text())
+    @user ?= new User(JSON.parse $('#seed #current-user').text())
     @stories ?= new App.Collections.Stories()    
-    @stories.reset(JSON.parse $('#stories-by-friends-seed').text()) if @stories.isEmpty()
+    @stories.reset(JSON.parse $('#seed #stories-by-friends').text()) if @stories.isEmpty()
     new App.Views.Index stories: @stories.models      
+    new App.Views.NewStoryLink()
+    new App.Views.Leaderboard()
+    new App.Views.Homelink()
     

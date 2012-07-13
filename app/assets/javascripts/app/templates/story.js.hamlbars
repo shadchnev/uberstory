@@ -1,8 +1,12 @@
-%h2
-  A story started by
-  = hb "user.name"
-
 .story
-  = hb 'each lines.models' do
-    = hb '> app.templates.line'
+  = hb 'if finished' do
+    = hb 'each lines.models' do
+      = hb '> app.templates.line'
+    = hb 'else'
+    = hb 'first lines.models' do 
+      = hb '> app.templates.line'
+    = hb 'if showSeparator' do
+      dot dot dot
+    = hb 'slice lines.models' do
+      = hb '> app.templates.line'
   = hb '> app.templates.add_line'
