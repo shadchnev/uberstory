@@ -4,6 +4,8 @@
     %img{:src => hb('authorImage')}
   .other-authors
     = hb 'coAuthorsCount'
+    %br
+    = hb 'teaser'
     
   = hb 'if attributes.finished' do
     %a.btn.read-story{:href => '#'} Read

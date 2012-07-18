@@ -2,8 +2,9 @@
   - if @signed_request
     #signed-request=@signed_request
 
-  #stories-by-friends
-    = @by_friends.as_json(:current_user => current_user).to_json.html_safe
+  - %w(in_play_stories top_stories your_stories friends_stories).each do |v|
+    %div{:id => v}
+      = instance_variable_get("@#{v}").as_json(:current_user => current_user).to_json.html_safe
 
   #current-user
-    = current_user.as_json(:include => {:friends => {:only => [:id, :email, :image, :name, :first_name, :last_name]}}).to_json.html_safe
+    = current_user.as_json(:include => {:friends => {:methods => :name, :only => [:id, :uid, :email, :image, :first_name, :last_name]}}).to_json.html_safe

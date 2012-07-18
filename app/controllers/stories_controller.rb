@@ -3,13 +3,6 @@ class StoriesController < ApplicationController
   
   before_filter :authenticate_if_necessary
   
-  def index
-    # stories_by_friends_and_myself = current_user.friends_and_myself.map{|f| f.stories}.flatten.uniq
-    # @by_friends = stories_by_friends_and_myself.sort_by{|s| s.writable_by(current_user) ? 0 : 1 }.take(NUM_STORIES_TO_SHOW)
-    # @popular = (Story.all - stories_by_friends_and_myself).take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet
-    raise "old code moved to canvas controller, new code isn't written yet"
-  end
-  
   def new
     @story = Story.new
     @story.lines.build # not sure this is necessary
@@ -49,6 +42,22 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
     @story.invite(params[:invitees])
     redirect_to :action => :index
+  end
+
+  def in_play
+    render :json => Story.in_play(:current_user => current_user).as_json(:current_user => current_user).to_json
+  end
+
+  def top
+    render :json => Story.top(:limit => 20).as_json(:current_user => current_user).to_json
+  end
+
+  def yours
+    render :json => Story.yours(:current_user => current_user).as_json(:current_user => current_user).to_json
+  end
+
+  def friends
+    render :json => Story.friends(:current_user => current_user).as_json(:current_user => current_user).to_json
   end
         
 end

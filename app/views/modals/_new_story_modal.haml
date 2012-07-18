@@ -3,6 +3,7 @@
     %button.close-modal{"data-dismiss" => "modal"} ×
     %h3.new-story-banter Write the first line of your story below, and invite friends to get the ball rolling. You'll get extra points for each line they write too!
   .modal-body
+    .flash
     = text_field_tag 'first-line'
   .modal-footer
-    %a.btn.btn-primary.start-story{:href => "#"} Start the story
+    %a.btn.btn-primary.start-story.disabled{:href => "#"} Start the story

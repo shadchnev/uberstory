@@ -7,7 +7,7 @@ window.App =
     new App.Routers.Stories()
     Backbone.history.start()
 
-Handlebars.templates = {}; # for hamlbars to puts templates into
+Handlebars.templates = {}; # for hamlbars to puts templates into  
 
 $ ->
   if $('#signed-request').text().length

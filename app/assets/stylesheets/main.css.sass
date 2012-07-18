@@ -36,6 +36,21 @@ header
 footer
   height: $footerHeight
   clear: both
+
+.friends-list
+  height: 250px
+  overflow: scroll
+  .friend
+    height: 50px
+    width: 250px
+    overflow: hidden
+    display: inline-block
+    .checkbox, .photo, .name
+      display: inline-block
+    .checkbox
+      width: 20px
+    .photo
+      width: 40px
   
 #content
   height: $height - $headerHeight - $footerHeight

@@ -9,6 +9,7 @@ window.Story = Backbone.Model.extend
     @on 'change', (=> @updateModels())
     @updateModels()
     @finished = @get('finished')
+    @teaser = @get('teaser')
   
   updateModels: ->
     @initUser() 
@@ -17,7 +18,7 @@ window.Story = Backbone.Model.extend
     @setCoAuthors()
     
   initUser: ->
-    @user = new User(@attributes.user)    
+    @user = new User(@attributes.user)
     
   initLines: ->
     @lines = new App.Collections.Lines()
@@ -27,12 +28,20 @@ window.Story = Backbone.Model.extend
     @users = new App.Collections.Users()
     users = _.pluck @lines.models, 'user'
     @users.reset(users)
+  
+  toJSON: ->
+    json = {story: _.clone(@attributes)}
+    _.extend(json.story, {lines_attributes: _.map(@lines.toJSON(), (l)-> delete l.signed_request; l)})    
+    _.extend(json, $.ajaxSettings.data)
+    
     
   authorName: ->
     @user.get('name')
   
   authorImage: ->
     @user.get("image")
+  
+  
      
   setCoAuthors: ->
     coAuthors = @users.reject ((u) => u.id == @user.id)

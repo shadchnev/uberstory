@@ -3,7 +3,8 @@
     %button.close-modal{"data-dismiss" => "modal"} ×
     %h3.new-story-banter Select your friends
   .modal-body
-    Let's pretend you see the list of your friends here
+    .filter= text_field_tag :filter    
+    .friends-list
   .modal-footer
     %a.btn.go-back{:href => "#"} Go back
-    %a.btn.btn-primary.add-friends{:href => "#"} Add these friends
+    %a.btn.btn-primary.add-friends.disabled{:href => "#"} Add these friends

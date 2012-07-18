@@ -6,7 +6,7 @@
     
 .tab-content
   #in-play.tab-pane.active
-    = hb 'each stories' do
+    = hb 'each inPlayStories' do
       = hb "> app.templates.story_intro"
   #completed.tab-pane
     %ul.nav.nav-tabs
@@ -19,14 +19,14 @@
     .tab-content
       #everyones-stories.tab-pane.active
         Everyone's stories!
-        = hb 'each stories' do
+        = hb 'each topStories' do
           = hb "> app.templates.story_intro"
       #your-stories.tab-pane
         Your stories!
-        = hb 'each stories' do
+        = hb 'each yourStories' do
           = hb "> app.templates.story_intro"
       #friends-stories.tab-pane
         Friends' stories!
-        = hb 'each stories' do
+        = hb 'each friendsStories' do
           = hb "> app.templates.story_intro"
     

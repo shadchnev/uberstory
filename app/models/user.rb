@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
     self.first_name = about_me["first_name"]
     self.last_name = about_me["last_name"]
     self.email = about_me["email"]
-    self.profile_url = about_me["link"]
-    self.image = "https://graph.facebook.com/#{about_me["id"]}/picture"
+    # self.profile_url = about_me["link"]
+    # self.image = "https://graph.facebook.com/#{about_me["id"]}/picture"
   end
   
   def delete_request(request)
@@ -40,10 +40,19 @@ class User < ActiveRecord::Base
   def friends_and_myself
     friends + [self]
   end
+
+  def image
+    "https://graph.facebook.com/#{uid}/picture"
+  end
+
+  def profile_url
+    "https://www.facebook.com/#{uid}"
+  end
   
   def friends
     return cached_friends unless cached_friends.empty?
     graph.get_object("me/friends").each do |f|
+      puts f.inspect
       user = User.find_or_create_by_uid(f["id"])      
       user.first_name, user.last_name = f["name"].split(" ", 2) #if user.new_record?
       user.save

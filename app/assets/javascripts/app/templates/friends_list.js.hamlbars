@@ -1,0 +1,8 @@
+= hb 'friends' do
+  .friend
+    .uid.hide= hb 'uid'
+    .checkbox
+      %input{:type => 'checkbox'}
+    .photo
+      %img{:src => hb('image')}
+    .name= hb 'name'

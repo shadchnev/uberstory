@@ -1,6 +1,13 @@
 Uberstory::Application.routes.draw do
   
-  resources :stories
+  resources :stories do
+    collection do
+      get :in_play
+      get :top
+      get :yours
+      get :friends
+    end
+  end
   resources :lines
   # resources :contacts
    
