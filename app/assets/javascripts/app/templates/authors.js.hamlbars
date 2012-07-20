@@ -4,4 +4,4 @@
     .photo
       %img{:src => hb('image')}
     .name
-      = hb 'attributes.name'
+      = hb 'name'

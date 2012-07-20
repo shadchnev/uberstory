@@ -26,11 +26,19 @@ class User < ActiveRecord::Base
   end
 
   def own_stories    
-    lines.select{|l| l.story.lines.first == l}.map(&:story).select{|s| s.finished? }
+    @own_stories ||= lines.select{|l| l.story.lines.first == l}.map(&:story)
+  end
+
+  def finished_own_stories
+    own_stories.select{|s| s.finished? }
   end
 
   def friends_stories
-    stories_by_friends.select {|s| s.lines.first.user != self && s.finished? }
+    @friends_stories ||= stories_by_friends.select {|s| s.lines.first.user != self }
+  end
+
+  def finished_friends_stories
+    friends_stories.select{|s| s.finished? }
   end
 
   def in_play_stories
@@ -50,8 +58,6 @@ class User < ActiveRecord::Base
     self.first_name = about_me["first_name"]
     self.last_name = about_me["last_name"]
     self.email = about_me["email"]
-    # self.profile_url = about_me["link"]
-    # self.image = "https://graph.facebook.com/#{about_me["id"]}/picture"
   end
   
   def delete_request(request)

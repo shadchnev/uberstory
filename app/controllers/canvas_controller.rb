@@ -4,9 +4,9 @@ class CanvasController < ApplicationController
   
   def index
     @in_play_stories = current_user.in_play_stories
-    @friends_stories = current_user.friends_stories
+    @friends_stories = current_user.finished_friends_stories
     @top_stories = current_user.top_stories
-    @your_stories = current_user.own_stories
+    @your_stories = current_user.finished_own_stories
   end
   
 end

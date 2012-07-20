@@ -36,7 +36,8 @@ App.Routers.Stories = Backbone.Router.extend
     @friendsStories.reset(JSON.parse $('#seed #friends_stories').text()) if $('#seed #friends_stories').length
         
   index: ->
-    @contentView.render new App.Views.Index inPlayStories: @inPlayStories.models, topStories: @topStories.models, yourStories: @yourStories.models, friendsStories: @friendsStories.models
+    @indexView = new App.Views.Index inPlayStories: @inPlayStories.models, topStories: @topStories.models, yourStories: @yourStories.models, friendsStories: @friendsStories.models
+    @contentView.render @indexView
 
     @newStoryLinkView = new App.Views.NewStoryLink(user: @user)
     @sidebarTopView.render @newStoryLinkView

@@ -45,19 +45,19 @@ class StoriesController < ApplicationController
   end
 
   def in_play
-    render :json => Story.in_play(:current_user => current_user).as_json(:current_user => current_user).to_json
+    render :json => current_user.in_play_stories.as_json(:current_user => current_user).to_json
   end
 
   def top
-    render :json => Story.top(:limit => 20).as_json(:current_user => current_user).to_json
+    render :json => current_user.top_stories.as_json(:current_user => current_user).to_json
   end
 
   def yours
-    render :json => Story.yours(:current_user => current_user).as_json(:current_user => current_user).to_json
+    render :json => current_user.finished_own_stories.as_json(:current_user => current_user).to_json
   end
 
   def friends
-    render :json => Story.friends(:current_user => current_user).as_json(:current_user => current_user).to_json
+    render :json => current_user.finished_friends_stories.as_json(:current_user => current_user).to_json
   end
         
 end

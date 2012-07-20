@@ -9,6 +9,12 @@ window.Line = Backbone.Model.extend
     @user = new User(@attributes.user)
     @text = @get("text")
     @visible = @get('visible')
+
+  authorImage: ->
+    @user.image()
+
+  authorName: ->
+    @user.name()
     
   toJSON: ->
     json = JSON.parse(JSON.stringify(@attributes))
