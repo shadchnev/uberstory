@@ -1,15 +1,41 @@
 class User < ActiveRecord::Base
   # attr_accessible :title, :body
   has_many :stories, :through => :lines
-  has_many :lines
+  has_many :lines, :include => [:story => :lines]
   has_many :scores
   has_many :badges
   # attr_writer :token
   
-  has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id"
+  has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id", :include => [:scores, {:stories => [{:lines => :user}, :users]}]
   has_and_belongs_to_many :friend_of, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "user_id", :foreign_key => "friend_id"
   
   attr_accessible :uid, :first_name, :last_name
+
+   NUM_STORIES_TO_SHOW = 20
+
+  def stories_by_friends
+    @stories_by_friends ||= friends.map{|f| f.stories}.flatten.uniq
+  end
+
+  def stories_by_friends_and_myself
+    @stories_by_friends_and_myself ||= (stories_by_friends + own_stories).uniq
+  end
+
+  def top_stories
+    (Story.all(:include => [:lines, :users]) - stories_by_friends_and_myself).select{|s| s.finished? }.take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet    
+  end
+
+  def own_stories    
+    lines.select{|l| l.story.lines.first == l}.map(&:story).select{|s| s.finished? }
+  end
+
+  def friends_stories
+    stories_by_friends.select {|s| s.lines.first.user != self && s.finished? }
+  end
+
+  def in_play_stories
+    stories_by_friends_and_myself.reject{|s| s.finished? }.sort_by{|s| s.created_at}.reverse
+  end
     
   def graph
     @graph ||= Koala::Facebook::API.new(token)

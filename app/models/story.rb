@@ -1,6 +1,6 @@
 class Story < ActiveRecord::Base
   
-  has_many :lines, :dependent => :destroy
+  has_many :lines, :dependent => :destroy, :include => :user
   has_many :users, :through => :lines, :uniq => true
   
   accepts_nested_attributes_for :lines, :allow_destroy => true
@@ -13,33 +13,8 @@ class Story < ActiveRecord::Base
   after_initialize :set_defaults
   
   DEFAULT_MAX_LENGTH = 10
-  NUM_STORIES_TO_SHOW = 20
 
-  def self.top(options = {})
-    current_user = options[:current_user]
-    stories_by_friends = current_user.friends.map{|f| f.stories}.flatten.uniq
-    stories_by_friends_and_myself = stories_by_friends + current_user.stories
-    (Story.all - stories_by_friends_and_myself).select{|s| s.finished? }.take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet    
-  end
 
-  def self.yours(options = {})
-    current_user = options[:current_user]
-    current_user.stories.select {|s| s.lines.first.user == current_user && s.finished? }
-  end
-
-  def self.friends(options = {})
-    current_user = options[:current_user]
-    stories_by_friends = current_user.friends.map{|f| f.stories}.flatten.uniq
-    stories_by_friends.select {|s| s.lines.first.user != current_user && s.finished? }
-  end
-
-  def self.in_play(options = {})
-    current_user = options[:current_user]
-       stories_by_friends = current_user.friends.map{|f| f.stories}.flatten.uniq
-    stories_by_friends_and_myself = stories_by_friends + current_user.stories
-
-    stories_by_friends_and_myself.reject{|s| s.finished? }.sort_by{|s| s.created_at}.reverse
-  end
   
   def story_writable_by_new_users
     errors.add(:lines, "Sorry, some users don't have access to this story") unless users.all? {|user| writable_by user}
@@ -104,16 +79,17 @@ class Story < ActiveRecord::Base
   end
   
   def as_json(options)
-    json = super(:include => {:user => {:methods => :name, :only => [:image, :id, :email, :first_name, :last_name]}, :lines => {:only => [:text, :id], :include => {:user => {:methods => :name, :only => [:image, :id, :email, :first_name, :last_name]}}}})
+    user_fields = {:only => [:uid, :first_name, :last_name]}
+    lines_fields = {:only => [:text, :id], :include => {:user => user_fields}}
+    json = super(:include => {:user => user_fields, :lines => lines_fields})
     json["writable"] = writable_by options[:current_user]
     json["finished"] = finished?
     json["teaser"] = "#{lines.first.text.slice(0, 20)}#{'...' if lines.first.text.length > 20}"
-    json["one_line_story"] = lines.count == 1
+    json["one_line_story"] = lines.size == 1
     json["involves_current_user"] = involves?(options[:current_user])
     json[:lines].map! do |line|
-      l = Line.find(line["id"])
-      line["visible"] = l.visible_to?(options[:current_user])
-      line["text"] = l.visible_to?(options[:current_user]) ? l.text : l.text.gsub(/\w/) { ('a'..'z').to_a[rand(26)] }
+      line["text"] = line["text"].gsub(/\w/) { ('a'..'z').to_a[rand(26)] } unless finished? || lines.last.id == line["id"]
+      line.delete('id')
       line
     end
     json

@@ -20,6 +20,8 @@ App.Routers.Stories = Backbone.Router.extend
 
   loadSeed: ->
     @user ?= new User(JSON.parse $('#seed #current-user').text())
+    @leaders ?= JSON.parse($('#seed #leaders').text())
+
     
     @inPlayStories ?= new App.Collections.InPlayStories()    
     @inPlayStories.reset(JSON.parse $('#seed #in_play_stories').text()) if $('#seed #in_play_stories').length
@@ -45,6 +47,6 @@ App.Routers.Stories = Backbone.Router.extend
         @indexView.inPlayStories = @inPlayStories.models # fuck me, that's some ugly code. As if a setter would solve my problems, though
         @indexView.render()
 
-    @sidebarBottomView.render new App.Views.Leaderboard()
+    @sidebarBottomView.render new App.Views.Leaderboard(leaders: @leaders)
     @homeLinkView.render new App.Views.Homelink()
       

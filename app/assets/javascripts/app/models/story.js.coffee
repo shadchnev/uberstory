@@ -39,9 +39,7 @@ window.Story = Backbone.Model.extend
     @user.get('name')
   
   authorImage: ->
-    @user.get("image")
-  
-  
+    @user.image()
      
   setCoAuthors: ->
     coAuthors = @users.reject ((u) => u.id == @user.id)

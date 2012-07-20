@@ -1,0 +1,4 @@
+= hb('each leaders') do
+  .leader
+    .name= hb("name")
+    .score= hb("score")
