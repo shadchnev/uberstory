@@ -1,1 +1,4 @@
-Share this story
+%fb:like{:href => hb('url'), :layout => "button_count", :send => "false", :show_faces => "false", :width => "200"}
+
+%a.btn.share{:href => '#'} Share with your friends
+  

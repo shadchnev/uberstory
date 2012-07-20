@@ -5,8 +5,6 @@ App.Views.NewStoryLink = Backbone.View.extend
   
   initialize: -> 
     @user = @options.user
-    @setElement $('#sidebar-top')
-    @render()
     
   showNewStoryView: ->
     @view = new App.Views.NewStory(user: @user)

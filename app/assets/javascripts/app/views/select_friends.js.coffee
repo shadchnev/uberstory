@@ -1,9 +1,10 @@
 App.Views.SelectFriends = Backbone.View.extend
 
   events:
-    'click .add-friends:not(".disabled")' : "invokeCallback"
+    'click .add-friends' : "invokeCallback"
     'keyup #filter'      : "filterFriends"
     'click .checkbox input' : "toggleButtonState"
+    'click .go-back': "cancelRequest" 
 
   initialize: ->
     @user = @options.user
@@ -34,11 +35,16 @@ App.Views.SelectFriends = Backbone.View.extend
       title: "Let's write a story together!"
       to: friends
       callback
+
+  cancelRequest: ->
+    @callback()
+    $(@el).modal('hide')
+    false  
     
-  invokeCallback: ->
+  invokeCallback: (event)->
+    return false if $(event.target).hasClass("disabled")
     friends = _.map $(".friend .checkbox input:checked", @el).parents('.friend').find(".uid"), (e) -> $(e).text()
-    @inviteFacebookFriends friends, @callback
-    # @callback()
+    @inviteFacebookFriends friends, @callback    
     $(@el).modal('hide')
     @remove()
     false

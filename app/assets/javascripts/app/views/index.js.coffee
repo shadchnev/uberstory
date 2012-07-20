@@ -9,8 +9,7 @@ App.Views.Index = Backbone.View.extend
     @inPlayStories = @options.inPlayStories
     @topStories = @options.topStories
     @yourStories = @options.yourStories
-    @friendsStories = @options.friendsStories
-    @render()
+    @friendsStories = @options.friendsStories    
     
   show: (event)->    
     document.location.hash = "#stories/" + @id(event.target)
@@ -32,7 +31,7 @@ App.Views.Index = Backbone.View.extend
       res      
     storiesHtml = Handlebars.templates['app/templates/stories'] {inPlayStories: @inPlayStories, topStories: @topStories, yourStories: @yourStories, friendsStories: @friendsStories}
     $(@el).html(storiesHtml)
-    $("#content").html(@el)
+    # $(@el).html(@el)
     @delegateEvents()
     @
     

@@ -7,4 +7,4 @@
       = instance_variable_get("@#{v}").as_json(:current_user => current_user).to_json.html_safe
 
   #current-user
-    = current_user.as_json(:include => {:friends => {:methods => :name, :only => [:id, :uid, :email, :image, :first_name, :last_name]}}).to_json.html_safe
+    = current_user.as_json(:methods => :name, :only => [:id, :uid, :email, :image, :first_name, :last_name] ,:include => {:friends => {:methods => :name, :only => [:id, :uid, :email, :image, :first_name, :last_name]}}).to_json.html_safe
