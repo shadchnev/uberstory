@@ -26,7 +26,7 @@ window.Story = Backbone.Model.extend
   
   initUsers: ->
     @users = new App.Collections.Users()
-    users = _.pluck @lines.models, 'user'
+    users = _.uniq _.pluck(@lines.models, 'user'), false, (u)-> u.get("uid")
     @users.reset(users)
   
   toJSON: ->

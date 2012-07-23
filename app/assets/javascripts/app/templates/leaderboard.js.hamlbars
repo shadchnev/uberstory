@@ -1,3 +1,4 @@
+Leaderboard:
 = hb('each leaders') do
   .leader
     .name= hb("name")

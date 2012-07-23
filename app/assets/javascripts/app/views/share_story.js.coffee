@@ -11,7 +11,7 @@ App.Views.ShareStory = Backbone.View.extend
     console.log "sharing " + "http://uberstory.herokuapp.com/#stories/#{@story.id}"
     FB.ui
       method: 'send'
-      name: "A story by #{@user.name}"
+      name: "A story by #{@user.name()}"
       description: @story.teaser
       link: "http://uberstory.herokuapp.com/#stories/#{@story.id}"
     false
