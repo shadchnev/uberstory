@@ -2,10 +2,11 @@
   %input{:type=>'hidden', :name => 'story-id', :value => hb('id')}
   .author-picture
     %img{:src => hb('authorImage')}
-  .other-authors
-    = hb 'coAuthorsCount'
-    %br
-    = hb 'teaser'
+  .detail
+    %h2= hb 'teaser'
+    .other-authors
+      = hb 'coAuthorsCount'
+    
     
   = hb 'if attributes.finished' do
     %a.btn.read-story{:href => '#'} Read
