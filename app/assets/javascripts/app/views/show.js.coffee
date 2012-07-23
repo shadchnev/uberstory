@@ -47,9 +47,9 @@ App.Views.Show = Backbone.View.extend
     Handlebars.registerHelper 'showSeparator', (=> @story.lines.length > 4)
     Handlebars.registerHelper 'slice', (context, block) ->
       ret = ""
-      offset = Math.max(context.length - 3, 1)
       limit = 3
-      i = (if (offset < context.length) then offset else 0)
+      offset = Math.max(context.length - limit, 1)
+      i = (if (offset < context.length) then offset else 1) # don't ever take the first line, it's always displayed
       j = (if ((limit + offset) < context.length) then (limit + offset) else context.length)
       ret += block(context[i++]) while i < j
       ret    
