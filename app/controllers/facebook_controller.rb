@@ -5,20 +5,22 @@ class FacebookController < ApplicationController
   skip_before_filter :sign_in_user, :only => [:authenticated, :host_redirect]
   
   def host_redirect
-    @redirect_url = Rails.configuration.host_url
+    query_string = "/?story_id=#{params[:story_id]}" if params[:story_id]
+    @redirect_url = Rails.configuration.host_url + query_string.to_s
+    puts "Host redirect to #{@redirect_url}"
     render :parent_redirect, :layout => false
   end
   
   def init
     remove_all_requests # push to the bg!
     # redirect_to redirect_url || stories_url
-    redirect_to canvas_url
+    redirect_to redirect_url || canvas_url
   end
   
   def authenticated
-    user = User.find_or_create_by_fb_auth(request.env['omniauth.auth'])
-    # redirect_to request.env['omniauth.origin'] || host_url
-    redirect_to host_url
+    puts request.env.inspect
+    User.find_or_create_by_fb_auth(request.env['omniauth.auth'])    
+    redirect_to host_url(:story_id => request.env['omniauth.params']["story_id"])    
   end
   
 private

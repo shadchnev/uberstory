@@ -1,3 +1,5 @@
+- content_for :js_include do
+  = javascript_include_tag "application"
 #seed
   - if @signed_request
     #signed-request=@signed_request

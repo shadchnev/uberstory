@@ -8,6 +8,8 @@ App.Views.SelectFriends = Backbone.View.extend
 
   initialize: ->
     @user = @options.user
+    @data = @options.data
+    @message = @options.message
     @setElement $("#select-friends").clone()
     @showBackButton = @options.showBackButton
     @callback = @options.callback
@@ -31,7 +33,8 @@ App.Views.SelectFriends = Backbone.View.extend
   inviteFacebookFriends: (friends, callback)->    
     FB.ui
       method: 'apprequests'
-      message: 'Help me finish a short story on UberTales!'
+      data: @data
+      message: @message or 'Help me finish a short story on UberTales!'
       title: "Let's write a story together!"
       to: friends
       callback

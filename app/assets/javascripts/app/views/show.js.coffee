@@ -24,7 +24,7 @@ App.Views.Show = Backbone.View.extend
   showNewLineModal: ->
     text = $(".add-new-line .new-line input").val().trim()
     return false if text is ''
-    new App.Views.SelectFriends(showBackButton: true, callback: (=> @addLine()), user: @user)
+    new App.Views.SelectFriends(showBackButton: true, callback: (=> @addLine()), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
     false
     
   checkButtonState: ->

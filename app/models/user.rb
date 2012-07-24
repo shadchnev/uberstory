@@ -44,6 +44,13 @@ class User < ActiveRecord::Base
   def in_play_stories
     stories_by_friends_and_myself.reject{|s| s.finished? }.sort_by{|s| s.created_at}.reverse
   end
+
+  def token=(new_token)
+    @graph = nil
+    self[:token] = new_token
+    puts "flushed the graph and assigned the token to #{new_token} (#{token})"
+    new_token
+  end
     
   def graph
     @graph ||= Koala::Facebook::API.new(token)

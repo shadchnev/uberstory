@@ -30,7 +30,7 @@ App.Views.NewStory = Backbone.View.extend
       else
         @flash = "Sorry, you need to invite your friends so that they could get a chance to write new lines! It's not fun otherwise :)"
         @render()
-    new App.Views.SelectFriends(callback: callback, user: @user)
+    new App.Views.SelectFriends(callback: callback, user: @user, message: "I started writing a new story, help me finish it!")
 
     
   createStory: ->

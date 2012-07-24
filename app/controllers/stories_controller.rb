@@ -10,7 +10,15 @@ class StoriesController < ApplicationController
   
   def show
     @story = Story.find(params[:id])
-    render :json => @story.as_json(:current_user => current_user)
+    respond_to do |format|
+      format.html do
+        @redirect_url = canvas_url(:anchor => "stories/#{@story.id}")
+        render :show, :layout => false
+      end
+      format.json  do
+        render :json => @story.as_json(:current_user => current_user)
+      end
+    end
   end
   
   def create
