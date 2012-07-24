@@ -4,7 +4,7 @@ App.Views.NudgeFriends = Backbone.View.extend
     'click .nudge': 'nudge'
     
   initialize: -> 
-    @setElement $('#story-nudge-dialogue').clone()
+    @setElement $('#story-nudge-dialogue')
     @render()
     
   nudge: ->

@@ -3,12 +3,12 @@ App.Views.SelectFriends = Backbone.View.extend
   events:
     'click .add-friends' : "invokeCallback"
     'keyup #filter'      : "filterFriends"
-    'click .checkbox input' : "toggleButtonState"
+    'click .checkbox input' : "handleFriendSelect"
     'click .go-back': "cancelRequest" 
 
   initialize: ->
     @user = @options.user
-    @setElement $("#select-friends").clone()
+    @setElement $("#select-friends")
     @showBackButton = @options.showBackButton
     @callback = @options.callback
     @render()
@@ -18,6 +18,18 @@ App.Views.SelectFriends = Backbone.View.extend
       $(".add-friends", @el).removeClass("disabled")      
     else
       $(".add-friends", @el).addClass("disabled")
+
+  setSelectedState: (ev)->
+    target = $(ev.target)
+    parent = target.parents(".friend")
+    if target.is(":checked")
+      parent.addClass("selected")
+    else
+      parent.removeClass("selected")
+
+  handleFriendSelect: (ev)->
+    @toggleButtonState()
+    @setSelectedState(ev)
 
   filterFriends: ->
     filter = $("#filter", @el).val().toLowerCase()

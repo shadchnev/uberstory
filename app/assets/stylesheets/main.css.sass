@@ -7,6 +7,10 @@ $footerHeight: 25px
 $sidebarWidth: 320px
 $headingFont: "Comfortaa", Arial, sans-serif
 
+body
+  margin: 0
+  padding: 0
+
 #seed, .hide
   display: none
     
@@ -123,6 +127,7 @@ header
     padding: 10px 14px 8px 10px
     background: #93c0e0
     @include border-radius(10px)
+    margin-bottom: 10px
     .author-picture
       width: 50px
       float: left
@@ -139,22 +144,6 @@ header
     .btn
       float: right
       margin-top: 4px
-
-
-.friends-list
-  height: 250px
-  overflow: scroll
-  .friend
-    height: 50px
-    width: 250px
-    overflow: hidden
-    display: inline-block
-    .checkbox, .photo, .name
-      display: inline-block
-    .checkbox
-      width: 20px
-    .photo
-      width: 40px
   
 #sidebar
   vertical-align: top

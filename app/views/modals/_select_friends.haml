@@ -1,10 +1,11 @@
 #select-friends.modal.hide
   .modal-header
     %button.close-modal{"data-dismiss" => "modal"} ×
-    %h3.new-story-banter Select your friends
+    %h3.speech Invite friends and get their creative juices flowing!
   .modal-body
-    .filter= text_field_tag :filter    
+    .filter
+      %label(for="filter") Search for friends: 
+      = text_field_tag :filter    
     .friends-list
   .modal-footer
-    %a.btn.go-back{:href => "#"} Don't add more players
     %a.btn.btn-primary.add-friends.disabled{:href => "#"} Add these friends
