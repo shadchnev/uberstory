@@ -6,9 +6,15 @@
       %a{:href => "#completed"} Completed stories
       
   #list-panes
-    #in-play.list-pane.active
-      = hb 'each inPlayStories' do
-        = hb "> app.templates.story_intro"
+    #in-play.list-pane.active.scrollPane
+      .scrollbar
+        .track
+          .thumb
+            .end
+      .viewport
+        .overview
+          = hb 'each inPlayStories' do
+            = hb "> app.templates.story_intro"
     #completed.list-pane
       %ul.nav-tabs
         %li.active

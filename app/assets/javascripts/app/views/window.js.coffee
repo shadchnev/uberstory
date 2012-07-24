@@ -8,3 +8,4 @@ App.Views.Window = Backbone.View.extend
     @view = view
     @view.render()
     $(@el).html(@view.el)
+    $(".scrollPane", @el).tinyscrollbar()

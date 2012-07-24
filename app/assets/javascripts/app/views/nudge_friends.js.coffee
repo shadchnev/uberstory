@@ -10,7 +10,7 @@ App.Views.NudgeFriends = Backbone.View.extend
   nudge: ->
     $(@el).modal('hide')
     @remove()
-    console.log("started pestering friends...")
+    # console.log("started pestering friends...")
 
   render: ->
     $(@el).modal('show')

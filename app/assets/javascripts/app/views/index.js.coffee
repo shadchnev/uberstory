@@ -26,8 +26,6 @@ App.Views.Index = Backbone.View.extend
     target = $(ev.target)
     link = target.parent().addClass("active").siblings().removeClass("active")
     pane = target.attr("href")
-    console.log(target.parent())
-    console.log(pane)
     $(pane).show().siblings().hide()
     false
     
