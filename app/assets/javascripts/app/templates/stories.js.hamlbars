@@ -24,16 +24,31 @@
         %li
           %a{:href => '#friends-stories', "data-toggle" => 'tab'} Friends' stories
       #completed-panes
-        #everyones-stories.tab-pane.active
-          Everyone's stories!
-          = hb 'each topStories' do
-            = hb "> app.templates.story_intro"
-        #your-stories.tab-pane
-          Your stories!
-          = hb 'each yourStories' do
-            = hb "> app.templates.story_intro"
-        #friends-stories.tab-pane
-          Friends' stories!
-          = hb 'each friendsStories' do
-            = hb "> app.templates.story_intro"
-        
+        #everyones-stories.tab-pane.active.scrollPane
+          .scrollbar
+            .track
+              .thumb
+                .end
+          .viewport
+            .overview
+              = hb 'each topStories' do
+                = hb "> app.templates.story_intro"
+        #your-stories.tab-pane.scrollPane
+          .scrollbar
+            .track
+              .thumb
+                .end
+          .viewport
+            .overview
+              = hb 'each yourStories' do
+                = hb "> app.templates.story_intro"
+        #friends-stories.tab-pane.scrollPane
+          .scrollbar
+            .track
+              .thumb
+                .end
+          .viewport
+            .overview
+              = hb 'each friendsStories' do
+                = hb "> app.templates.story_intro"
+            

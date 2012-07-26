@@ -39,8 +39,7 @@ App.Views.NewStory = Backbone.View.extend
     line = new Line(text: @firstLine)
     story.lines.add(line)
     story.save null,
-      success: => 
-        console.log('story added')
+      success: =>         
         @trigger 'storyCreated', story    
 
   render: ->

@@ -27,6 +27,7 @@ App.Views.Index = Backbone.View.extend
     link = target.parent().addClass("active").siblings().removeClass("active")
     pane = target.attr("href")
     $(pane).show().siblings().hide()
+    $(".scrollPane").tinyscrollbar()
     false
     
   render: ->
@@ -38,6 +39,7 @@ App.Views.Index = Backbone.View.extend
       res      
     storiesHtml = Handlebars.templates['app/templates/stories'] {inPlayStories: @inPlayStories, topStories: @topStories, yourStories: @yourStories, friendsStories: @friendsStories}
     $(@el).html(storiesHtml)
+    $(".scrollPane", @el).tinyscrollbar()
     # $(@el).html(@el)
     @delegateEvents()
     @

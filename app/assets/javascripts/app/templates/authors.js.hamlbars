@@ -1,7 +1,9 @@
-%h3 Writing this story
-= hb 'each authors' do
-  .author
-    .photo
-      %img{:src => hb('image')}
-    .name
-      = hb 'name'
+#authors
+  %h3 Writing this story
+  #author-list
+    = hb 'each authors' do
+      .author
+        .photo
+          %img{:src => hb('image')}
+        .name
+          = hb 'name'

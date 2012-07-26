@@ -70,6 +70,7 @@ class Story < ActiveRecord::Base
   
   def finished?
     lines.length >= max_length
+    true
   end
   
   def writable_by(user)

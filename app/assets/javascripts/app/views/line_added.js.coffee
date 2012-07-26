@@ -6,7 +6,7 @@ App.Views.LineAdded = Backbone.View.extend
   initialize: ->
     @scores = @options.scores
     @user = @options.user
-    @setElement $("#line-added-dialogue").clone()
+    @setElement $("#line-added-dialogue")
     @render()
 
   goHome: ->
