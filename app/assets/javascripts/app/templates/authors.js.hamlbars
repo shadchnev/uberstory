@@ -1,9 +1,15 @@
 #authors
   %h3 Writing this story
-  #author-list
-    = hb 'each authors' do
-      .author
-        .photo
-          %img{:src => hb('image')}
-        .name
-          = hb 'name'
+  #author-list.scrollPane
+    .scrollbar
+      .track
+        .thumb
+          .end
+    .viewport
+      .overview
+        = hb 'each authors' do
+          .author
+            .photo
+              %img{:src => hb('image')}
+            .name
+              = hb 'name'
