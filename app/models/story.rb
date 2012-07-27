@@ -70,10 +70,12 @@ class Story < ActiveRecord::Base
   
   def finished?
     lines.length >= max_length
+    # false
   end
   
   def writable_by(user)
     !finished? && involves?(user) && !last_line_by?(user)
+    # true
   end
   
   def as_json(options)
