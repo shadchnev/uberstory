@@ -1,5 +1,7 @@
-Leaderboard:
-= hb('each leaders') do
-  .leader
-    .name= hb("name")
-    .score= hb("score")
+#leaderboard
+  %h3 Leaderboard
+  #leaders-list
+    = hb('each leaders') do
+      .leader
+        .name= hb("name")
+        .score= hb("score")

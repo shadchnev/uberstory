@@ -10,7 +10,7 @@ App.Views.StoryStarted = Backbone.View.extend
   showSharingDialogue: ->
     $(@el).modal('hide')
     @remove()
-    console.log("showing facebook sharing dialogue")
+    # console.log("showing facebook sharing dialogue")
 
   render: ->
     $(@el).modal('show')

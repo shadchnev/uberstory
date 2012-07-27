@@ -70,12 +70,19 @@ class Story < ActiveRecord::Base
   
   def finished?
     lines.length >= max_length
+<<<<<<< HEAD
    # false
+=======
+    true
+>>>>>>> 3bc555a3e3a28d8fea6a6253671a869611f95d79
   end
   
   def writable_by(user)
     !finished? && involves?(user) && !last_line_by?(user)
+<<<<<<< HEAD
    # true
+=======
+>>>>>>> 3bc555a3e3a28d8fea6a6253671a869611f95d79
   end
   
   def as_json(options)

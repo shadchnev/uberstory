@@ -4,7 +4,7 @@ App.Views.SelectFriends = Backbone.View.extend
     'click .add-friends' : "invokeCallback"
     'keyup #filter'      : "filterFriends"
     'click .checkbox input' : "handleFriendSelect"
-    'click .go-back': "cancelRequest" 
+    'click .go-back': "cancelRequest"
 
   initialize: ->
     @user = @options.user

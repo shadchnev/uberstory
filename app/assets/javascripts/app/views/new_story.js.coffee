@@ -21,7 +21,7 @@ App.Views.NewStory = Backbone.View.extend
   showFriendsSelector: (event)->
     # return if $(event.target).hasClass('disabled')
     @firstLine = @getFirstLine()
-    console.log("first line: " + @firstLine)    
+    # console.log("first line: " + @firstLine)    
     $(@el).modal('hide')
     @remove()
     callback = (response) =>
@@ -35,12 +35,11 @@ App.Views.NewStory = Backbone.View.extend
     
   createStory: ->
     story = new Story()
-    console.log("first line again: " + @firstLine)
+    # console.log("first line again: " + @firstLine)
     line = new Line(text: @firstLine)
     story.lines.add(line)
     story.save null,
-      success: => 
-        console.log('story added')
+      success: =>         
         @trigger 'storyCreated', story    
 
   render: ->

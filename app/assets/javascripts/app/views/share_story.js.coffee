@@ -8,7 +8,7 @@ App.Views.ShareStory = Backbone.View.extend
     @story = @options.story
 
   shareStory: (event)-> 
-    console.log "sharing " + "http://uberstory.herokuapp.com/#stories/#{@story.id}"
+    # console.log "sharing " + "http://uberstory.herokuapp.com/#stories/#{@story.id}"
     FB.ui
       method: 'send'
       name: "A story by #{@user.name()}"

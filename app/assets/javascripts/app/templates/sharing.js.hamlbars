@@ -1,4 +1,6 @@
-%fb:like{:href => hb('url'), :layout => "button_count", :send => "false", :show_faces => "false", :width => "200"}
+.facebook
+  %fb:like{:href => hb('url'), :layout => "button_count", :send => "false", :show_faces => "false", :font => "arial", :width => "100"}
 
-%a.btn.share{:href => '#'} Share with your friends
+.share
+  %a.btn{:href => '#'} Share with your friends
   
