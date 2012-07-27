@@ -1,0 +1,176 @@
+@import "compass"
+
+.modal-backdrop
+  position: absolute
+  width: 750px
+  height: 550px
+  margin-left: -375px
+  top: 20px
+  left: 50%
+  z-index: 200
+  background-color: #000
+  border: 1px solid #000
+  &.fade
+    @include opacity(0)
+
+.modal-backdrop,
+.modal-backdrop.fade.in
+  @include opacity(0.4)
+
+
+.close-modal
+  position: absolute
+  top: -12px
+  right: -12px
+  width: 44px
+  height: 44px
+  overflow: hidden
+  text-indent: 120%
+  border: 0
+  background: transparent image-url("global/modal-close.png") 0 0 no-repeat
+  cursor: pointer
+
+
+.modal
+  position: absolute
+  top: 180px
+  left: 50%
+  width: 480px
+  margin-left: -250px
+  background: #baf9b8
+  z-index: 201
+  @include border-radius(20px)
+  @include single-box-shadow(rgba(0,0,0,0.8),3px,3px,0)
+
+.modal-header
+  padding: 10px 10px 0 10px
+  h3
+    font-size: 14px
+    margin: 0
+
+.speech
+  background: #e7f1ff
+  @include border-radius(15px)
+  @include single-box-shadow(rgba(0,0,0,0.3),2px,2px,0)
+  padding: 10px 15px
+  font-weight: normal
+  position: relative
+  &:after, &:before
+    left: 100%
+    border: solid transparent
+    content: " "
+    height: 0
+    width: 0
+    position: absolute
+    pointer-events: none
+
+  &:after 
+    border-left-color: #e7f1ff
+    border-width: 10px
+    top: 50%
+    margin-top: -10px
+
+  &:before
+    border-left-color: #aaa
+    border-width: 12px
+    top: 50%
+    margin-top: -12px
+
+.modal-body
+  padding: 5px 10px 10px 10px
+
+
+#new-story-dialogue
+  .modal-header
+    padding-right: 120px
+    background: transparent image-url("fox/med.png") 95% 10px no-repeat
+    min-height: 110px
+  .modal-body
+    a
+      vertical-align: middle
+    textarea
+      border: 1px solid #6eb45a
+      padding: 5px
+      min-height: 35px
+      width: 295px
+      margin-right: 10px
+      font-size: 14px
+      vertical-align: middle
+      background: #ecf1f7
+      @include single-box-shadow(rgba(0,0,0,0.2), 0, 0, 10px, 0, true)
+
+#select-friends
+  top: 80px
+  .modal-header
+    padding-right: 120px
+    background: transparent image-url("fox/small.png") 90% 10px no-repeat
+    min-height: 75px
+    .speech
+      padding: 17px 15px
+
+  .filter
+    background: rgba(0,0,0,0.1)
+    padding: 3px 7px
+    overflow: hidden
+    label
+      font-size: 14px
+      float: left
+      margin-top: 6px
+    input
+      border: 1px solid #6eb45a
+      font-size: 14px
+      padding: 0.4em 0.6em
+      float: right
+      width: 300px
+
+  .friends-list
+    height: 200px
+    padding: 10px
+    margin: 15px 0 0 0
+    overflow-y: scroll
+    background: #fff
+    @include single-box-shadow(rgba(0,0,0,0.2), 0, 0, 10px, 0, true)
+    .friend
+      overflow: hidden
+      width: 195px
+      margin: 0 5px 5px 0
+      float: left
+      font-size: 14px
+      min-height: 35px
+      padding: 5px
+      &.selected
+        background: #eee
+      .checkbox
+        width: 30px
+        float: left
+        input
+          margin-top: 5px
+      .photo
+        width: 30px
+        float: left
+        margin-right: 8px
+        @include single-box-shadow(rgba(0,0,0,0.4),2px,2px,0)
+        img
+          width: 100%
+          display: block
+
+  .modal-footer
+    padding: 0 0 10px 0
+    text-align: center
+    a
+      margin: 0 auto
+
+#story-started-dialogue
+  .modal-header
+    padding-right: 120px
+    background: transparent image-url("fox/large.png") 96% 10px no-repeat
+    min-height: 75px
+    h3
+      font-size: 20px
+    .speech
+      padding: 17px 15px
+    p
+      padding: 0 10px
+  .modal-footer
+    text-align: center
+    padding: 0 0 10px 0

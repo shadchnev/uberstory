@@ -2,61 +2,65 @@
 
 $width: 750px
 $height: 550px
-$headerHeight: 60px
-$footerHeight: 60px
-$sidebarWidth: 250px
+$headerHeight: 95px
+$footerHeight: 25px
+$sidebarWidth: 320px
+$headingFont: "Comfortaa", Arial, sans-serif
+
+body
+  margin: 0
+  padding: 0
 
 #seed, .hide
   display: none
-  
-header > div, #container > *, footer li
-  display: inline-block
     
 #game
   width: 750px
   height: 550px
   overflow: hidden
-  border: 1px solid red
-  margin: 0 auto
-  
-header, footer
-  text-align: center
+  background: #591b00 image-url("global/background-main.jpg") 0 0 no-repeat
+  margin: 20px auto 0 auto
+  border: 1px solid #000
 
 header
   height: $headerHeight
-  h1
-    font-size: 24px
-    margin: 0.2em 0 0
-    line-height: 1.1em
-  h2
-    font-size: 14px
-    margin: 0
-    line-height: 1.2em
-  
-footer
-  height: $footerHeight
-  clear: both
+  overflow: hidden
+  font-family: $headingFont
+  font-size: 24px
+  font-weight: bold
+  text-shadow: 2px 2px 0 #000
+  #score
+    width: 190px
+    float: left
+    text-align: center
+    color: #ffc400
+    margin-top: 10px
 
-.friends-list
-  height: 250px
-  overflow: scroll
-  .friend
-    height: 50px
-    width: 250px
-    overflow: hidden
-    display: inline-block
-    .checkbox, .photo, .name
-      display: inline-block
-    .checkbox
-      width: 20px
-    .photo
-      width: 40px
+  #badges
+    width: 190px
+    float: right
+    text-align: center
+    color: #ffc400
+    margin-top: 10px
+  #score-count, #badge-list
+    width: 80%
+    margin: 5px auto 0 auto
+    border: 2px solid #531d00
+    @include border-radius(20px)
+    @include background-image(linear-gradient(#4f1a00,#913600))
+    @include single-box-shadow(#531d00, 0, 0, 10px, 0, true)
+    padding: 6px 0
+    color: #fff
+  #logo
+    float: left
+    width: 291px
+    margin: 5px 0 0 45px
   
 #content
-  height: $height - $headerHeight - $footerHeight
-  width: $width - $sidebarWidth
-  overflow: scroll
+  height: $height - $headerHeight - $footerHeight - 40px
+  width: $width - $sidebarWidth - 40px
   float: left
+  padding: 20px
   
   .story
     .line
@@ -76,15 +80,84 @@ footer
       margin-left: 20px
       p
         margin: 0
-        
+
+  #list-nav
+    margin: 0 0 0 0
+    padding: 0
+    list-style: none
+    overflow: hidden
+    @include background-image(linear-gradient(#4f1a00,#913600))
+    @include single-box-shadow(#531d00, 0, 0, 10px, 0, true)
+    width: 90%
+    li
+      float: left
+      width: 50%
+      text-align: center
+      a
+        display: block
+        text-decoration: none
+        padding: 0.6em 0
+        width: 100%
+        color: #999
+        text-shadow: 1px 1px 0 #000
+      &.active
+        a
+          color: #4f1a00
+          background-color: #cdd4df
+          text-shadow: 0 1px 0 rgba(255,255,255,1)
+
+
+  #list-panes
+    @include single-box-shadow(rgba(0,0,0,0.8), 3px, 3px, 0)
+    height: 340px
+    overflow: hidden
+    .list-pane
+      background: #cdd4df
+      height: 320px
+      padding: 10px
+
+  .list-pane, .tab-pane
+    display: none
+    &.active
+      display: block
+
+
+  .story-intro
+    overflow: hidden
+    padding: 10px 14px 8px 10px
+    background: #93c0e0
+    @include border-radius(10px)
+    margin-bottom: 10px
+    .author-picture
+      width: 50px
+      float: left
+      margin-right: 10px
+      img
+        @include single-box-shadow(rgba(0,0,0,0.4), 2px, 2px, 0)
+    .detail
+      width: 170px
+      float: left
+      font-size: 14px
+      h2
+        font-size: 16px
+        margin: 0
+    .btn
+      float: right
+      margin-top: 4px
   
 #sidebar
   vertical-align: top
-  overflow: scroll
   height: $height - $headerHeight - $footerHeight
   width: $sidebarWidth
   float: right
-  
+  #sidebar-top
+    .btn
+      display: block
+      width: 50%
+      margin: 20px auto 0 auto
+      font-size: 16px
+      padding: 15px 20px
+
   #sidebar-bottom
     .author
       overflow: hidden
@@ -104,6 +177,22 @@ footer
 .close-modal
   float: right
 
-.story-intro
-  & > div
-    display: inline-block
+  
+footer
+  height: $footerHeight
+  clear: both
+  color: #fff
+  text-align: center
+  font-size: 11px
+  a:link, a:visited, a:hover, a:active
+    color: #ccc
+  p, nav, ul, li
+    display: inline
+    margin: 0
+    padding: 0
+  p
+    padding: 0 3px 0 0 
+  li
+    border-left: 1px solid #666
+    padding: 0 4px 0 8px
+

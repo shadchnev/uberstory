@@ -6,7 +6,7 @@ App.Views.NewStory = Backbone.View.extend
 
   initialize: -> 
     @user = @options.user
-    @setElement $('#new-story-dialogue').clone()
+    @setElement $('#new-story-dialogue')
     @render()
 
   toggleButtonState: -> 

@@ -4,6 +4,7 @@ App.Views.Index = Backbone.View.extend
   events:
     'click .read-story, .your-turn': "show"
     'click .nudge': 'showNudgeDialogue'
+    'click #list-nav a, #completed .nav-tabs a': 'storyListTabs'
 
   initialize: ->
     @inPlayStories = @options.inPlayStories
@@ -20,9 +21,17 @@ App.Views.Index = Backbone.View.extend
 
   showNudgeDialogue: ->
     new App.Views.NudgeFriends(id: @id(event.target))
+
+  storyListTabs: (ev)->
+    target = $(ev.target)
+    link = target.parent().addClass("active").siblings().removeClass("active")
+    pane = target.attr("href")
+    console.log(target.parent())
+    console.log(pane)
+    $(pane).show().siblings().hide()
+    false
     
   render: ->
-    console.log("rendering index")
     Handlebars.registerHelper "coAuthorsCount", ->
       numberOfAuthors = @users.length - 1
       res = @users.at(0).name()
