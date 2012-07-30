@@ -19,7 +19,7 @@ window.Story = Backbone.Model.extend
     @setCoAuthors()
 
   invite: (invitees) ->
-    @set(invitees: invitees)
+    @set(newInviteesUids: invitees)    
     
   initUser: ->
     @user = new User(@attributes.user)
@@ -39,8 +39,9 @@ window.Story = Backbone.Model.extend
 
   
   toJSON: ->
-    json = {story: _.clone(@attributes)}
-    _.extend(json.story, {lines_attributes: _.map(@lines.toJSON(), (l)-> delete l.signed_request; l)})    
+    # json = {story: _.clone(@attributes)}
+    json = {story: {}}
+    _.extend(json.story, {invitees: @.get("newInviteesUids"), lines_attributes: [{text: @lines.last().text}]})
     _.extend(json, $.ajaxSettings.data)
     
   authorName: ->

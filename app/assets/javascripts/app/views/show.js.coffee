@@ -17,7 +17,8 @@ App.Views.Show = Backbone.View.extend
     @story.lines.off()
     @story.lines.on "add", (line) =>
       # TODO: you need to save the story here with the updated list of invitees!
-      line.save null, 
+      @story.save null,
+      # line.save null, 
         success: (reply)=>
           new App.Views.LineAdded(scores: reply, user: @user) 
           @story.fetch()

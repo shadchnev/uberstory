@@ -17,7 +17,7 @@ window.Line = Backbone.Model.extend
     @user.name()
     
   toJSON: ->
-    json = JSON.parse(JSON.stringify(@attributes))
+    json = JSON.parse(JSON.stringify(@attributes))    
     json.user = undefined
     _.extend(json, $.ajaxSettings.data)
     

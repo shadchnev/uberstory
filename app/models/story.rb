@@ -10,7 +10,7 @@ class Story < ActiveRecord::Base
   
   # validate :last_line_by_a_new_user
   validate :story_is_of_correct_length
-  validate :story_writable_by_new_users
+  # validate :story_writable_by_new_users
   
   after_initialize :set_defaults
   
@@ -18,9 +18,9 @@ class Story < ActiveRecord::Base
 
 
   
-  def story_writable_by_new_users
-    errors.add(:lines, "Sorry, some users don't have access to this story") unless users.all? {|user| writable_by user}
-  end
+  # def story_writable_by_new_users
+  #   errors.add(:lines, "Sorry, some users don't have access to this story") unless users.all? {|user| writable_by user}
+  # end
   
   def set_defaults
     self.max_length ||= DEFAULT_MAX_LENGTH

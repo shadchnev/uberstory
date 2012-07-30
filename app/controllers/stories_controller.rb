@@ -26,27 +26,27 @@ class StoriesController < ApplicationController
     @story = Story.new(params[:story])    
     @story.lines.first.user = current_user
     if @story.save
-      flash[:notice] = "Boom, one shiny new story! Check back soon and watch the story grow."
-      redirect_to :action => :show, :id => @story.id
+      # flash[:notice] = "Boom, one shiny new story! Check back soon and watch the story grow."
+      # redirect_to :action => :show, :id => @story.id
+      head :ok
     else
-      render :new
+      head :bad_request
     end
   end
   
   def update
-    new_invitees = params[:story][:invitees].map{|uid| User.find_by_uid uid} if params[:story][:invitees] && !params[:story][:invitees].empty?
-    params[:story].delete(:invitees)
+    new_invitees = params[:story][:invitees].map{|uid| User.find_by_uid uid} if params[:story][:invitees] 
+    new_line = Line.new(params[:story][:lines_attributes].first)
+    new_line.user = current_user 
     @story = Story.find(params[:id])
-    @story.attributes = params[:story]
-    @story.invitees << new_invitees
-    @story.lines.last.user = current_user
+    @story.lines << new_line
+    @story.invitees << new_invitees    
     if @story.save
       fire 'line.added', :target_id => @story.lines.last.id
       @story.notify_all_users_except(current_user)
-      redirect_to :action => :show
-    else
-      @story.reload
-      render :show
+      head :ok
+    else      
+      head :bad_request
     end
   end
   
