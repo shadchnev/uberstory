@@ -16,13 +16,11 @@ App.Views.Show = Backbone.View.extend
   initLineChangeHander: ->
     @story.lines.off()
     @story.lines.on "add", (line) =>
-      # TODO: you need to save the story here with the updated list of invitees!
       @story.save null,
-      # line.save null, 
         success: (reply)=>
           new App.Views.LineAdded(scores: reply, user: @user) 
-          @story.fetch()
-    
+          @trigger 'storyUpdated', @story
+
   showNewLineModal: ->
     text = $(".add-new-line .new-line input").val().trim()
     return false if text is ''
@@ -40,7 +38,7 @@ App.Views.Show = Backbone.View.extend
     text = $(".add-new-line .new-line input").val().trim()
     line = new Line({text: text, story_id: @story.get('id')})
     @story.invite(response.to) if response?.to?.length
-    @story.lines.add(line)        
+    @story.lines.add(line)         
     false
 
   registerHelpers: ->

@@ -12,11 +12,15 @@ App.Routers.Stories = Backbone.Router.extend
 
   show: (id)->
     story = @inPlayStories.get(id) or @topStories.get(id) or @yourStories.get(id) or @friendsStories.get(id)
-
-    @contentView.render         new App.Views.Show story: story, user: @user
+    showStoryView = new App.Views.Show story: story, user: @user
+    @contentView.render         showStoryView
     @sidebarTopView.render      new App.Views.ShareStory(story: story, user: @user)
     @sidebarBottomView.render   new App.Views.StoryAuthors(story: story)
-    @homeLinkView.render        new App.Views.Homelink(story: story)
+    @homeLinkView.render        new App.Views.Homelink(story: story)    
+    showStoryView.on "storyUpdated", (story) =>      
+      console.log("catching the storyUpdated event")
+      @inPlayStories.fetch success: => 
+        @index()
 
   loadSeed: ->
     @user ?= new User(JSON.parse $('#seed #current-user').text())
@@ -43,7 +47,7 @@ App.Routers.Stories = Backbone.Router.extend
     @sidebarTopView.render @newStoryLinkView
 
     @newStoryLinkView.on "storyCreated", (story)=>
-      @storyStartedView = new App.Views.StoryStarted()
+      # @storyStartedView = new App.Views.StoryStarted()
       @inPlayStories.fetch success: => 
         @indexView.inPlayStories = @inPlayStories.models # fuck me, that's some ugly code. As if a setter would solve my problems, though
         @indexView.render()

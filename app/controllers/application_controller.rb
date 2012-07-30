@@ -40,7 +40,7 @@ protected
   def authenticate!    
     redirect = redirect_url
     story_id = params[:id] if params[:controller] == 'stories' && params[:action] == 'show'
-    story = story_invited_to.tap{|v| puts "got story_invited_to: #{v.id if v}"}
+    story = story_invited_to
     story_id = story.id if story
     query_string = "?story_id=#{story_id}" if story_id
     @redirect_url = "/auth/facebook#{query_string if query_string}"
@@ -71,19 +71,22 @@ private
 
 
   def story_invited_to
-    return if params[:request_ids].blank?
+    puts "getting story_invited_to"
+    return if params[:request_ids].blank?    
     request_ids = params[:request_ids].split(',')
-    request = graph.get_object(request_ids.first)
+    puts "got ids: #{request_ids.inspect}"
+    request = graph.get_object(request_ids.last)
+    puts "chose one: #{request.inspect}"
     story_id = request ? !request["data"].nil? && JSON.parse(request["data"])["story_id"] : nil
+    puts "extracted story_id: #{story_id}"
     story_id ? Story.find(story_id) : nil #Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
   end
 
   def extract_token_and_user_id
     return unless params[:signed_request]
     @oauth = Koala::Facebook::OAuth.new(Rails.configuration.facebook_app_id, Rails.configuration.facebook_app_secret)
-    @signed_request = @oauth.parse_signed_request(params[:signed_request]) 
-    puts @signed_request.inspect
-    [@signed_request["oauth_token"], @signed_request["user_id"]].tap{|v| puts "extracted from signed_request: #{v.inspect}"}
+    @signed_request = @oauth.parse_signed_request(params[:signed_request])     
+    [@signed_request["oauth_token"], @signed_request["user_id"]]
   end  
 
 end

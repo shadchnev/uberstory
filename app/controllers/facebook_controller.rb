@@ -12,9 +12,9 @@ class FacebookController < ApplicationController
   end
   
   def init
-    remove_all_requests # push to the bg!
     # redirect_to redirect_url || stories_url
     redirect_to redirect_url || canvas_url
+    remove_all_requests # push to the bg!
   end
   
   def authenticated
