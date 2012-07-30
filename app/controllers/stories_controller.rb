@@ -22,7 +22,8 @@ class StoriesController < ApplicationController
   end
   
   def create
-    @story = Story.new(params[:story])
+    params[:story][:invitees].map!{|uid| User.find_by_uid uid} if params[:story][:invitees] && !params[:story][:invitees].empty?
+    @story = Story.new(params[:story])    
     @story.lines.first.user = current_user
     if @story.save
       flash[:notice] = "Boom, one shiny new story! Check back soon and watch the story grow."
@@ -33,8 +34,11 @@ class StoriesController < ApplicationController
   end
   
   def update
+    new_invitees = params[:story][:invitees].map{|uid| User.find_by_uid uid} if params[:story][:invitees] && !params[:story][:invitees].empty?
+    params[:story].delete(:invitees)
     @story = Story.find(params[:id])
     @story.attributes = params[:story]
+    @story.invitees << new_invitees
     @story.lines.last.user = current_user
     if @story.save
       fire 'line.added', :target_id => @story.lines.last.id

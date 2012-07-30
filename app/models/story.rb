@@ -2,9 +2,11 @@ class Story < ActiveRecord::Base
   
   has_many :lines, :dependent => :destroy, :include => :user
   has_many :users, :through => :lines, :uniq => true
+
+  has_and_belongs_to_many :invitees, :class_name => "User", :join_table => 'invitees_stories', :uniq => true, :association_foreign_key => :invitee_id, :foreign_key => :story_id
   
   accepts_nested_attributes_for :lines, :allow_destroy => true
-  attr_accessible :lines_attributes
+  attr_accessible :lines_attributes, :invitees
   
   # validate :last_line_by_a_new_user
   validate :story_is_of_correct_length
@@ -74,14 +76,14 @@ class Story < ActiveRecord::Base
   end
   
   def writable_by(user)
-    !finished? && involves?(user) && !last_line_by?(user)
+    !finished? && (self.user == user || invitees.include?(user)) && !last_line_by?(user)
     # true
   end
   
   def as_json(options)
     user_fields = {:only => [:uid, :first_name, :last_name]}
     lines_fields = {:only => [:text, :id], :include => {:user => user_fields}}
-    json = super(:include => {:user => user_fields, :lines => lines_fields})
+    json = super(:include => {:user => user_fields, :lines => lines_fields, :invitees => user_fields})
     json["writable"] = writable_by options[:current_user]
     json["finished"] = finished?
     json["teaser"] = "#{lines.first.text.slice(0, 20)}#{'...' if lines.first.text.length > 20}"

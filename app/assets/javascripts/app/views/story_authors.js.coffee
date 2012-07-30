@@ -4,5 +4,5 @@ App.Views.StoryAuthors = Backbone.View.extend
     @story = @options.story
     
   render: ->
-    $(@el).html(Handlebars.templates['app/templates/authors'](authors: @story.users.models))
+    $(@el).html(Handlebars.templates['app/templates/authors'](authors: @story.invitees.models.concat([@story.user])))
     @

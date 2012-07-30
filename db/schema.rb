@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120627085437) do
+ActiveRecord::Schema.define(:version => 20120727143404) do
 
   create_table "badges", :force => true do |t|
     t.string   "name"
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(:version => 20120627085437) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "invitees_stories", :id => false, :force => true do |t|
+    t.integer "invitee_id"
+    t.integer "story_id"
+  end
 
   create_table "lines", :force => true do |t|
     t.string   "text",       :limit => 140

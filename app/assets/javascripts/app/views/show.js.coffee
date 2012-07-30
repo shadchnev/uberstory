@@ -16,6 +16,7 @@ App.Views.Show = Backbone.View.extend
   initLineChangeHander: ->
     @story.lines.off()
     @story.lines.on "add", (line) =>
+      # TODO: you need to save the story here with the updated list of invitees!
       line.save null, 
         success: (reply)=>
           new App.Views.LineAdded(scores: reply, user: @user) 
@@ -24,7 +25,7 @@ App.Views.Show = Backbone.View.extend
   showNewLineModal: ->
     text = $(".add-new-line .new-line input").val().trim()
     return false if text is ''
-    new App.Views.SelectFriends(showBackButton: true, callback: (=> @addLine()), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
+    new App.Views.SelectFriends(showBackButton: true, callback: ((response)=> @addLine(response)), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
     false
     
   checkButtonState: ->
@@ -34,9 +35,10 @@ App.Views.Show = Backbone.View.extend
     else
       $("a#new-line-dialogue").removeClass('disabled')
   
-  addLine: ->
+  addLine: (response)->
     text = $(".add-new-line .new-line input").val().trim()
     line = new Line({text: text, story_id: @story.get('id')})
+    @story.invite(response.to) if response?.to?.length
     @story.lines.add(line)        
     false
 

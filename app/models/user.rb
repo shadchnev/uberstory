@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :cached_friends, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "friend_id", :include => [:scores, {:stories => [{:lines => :user}, :users]}]
   has_and_belongs_to_many :friend_of, :class_name => "User", :join_table => "users_friends", :uniq => true, :association_foreign_key => "user_id", :foreign_key => "friend_id"
+
+  has_and_belongs_to_many :stories_invited_to, :class_name => "Story", :join_table => 'invitees_stories', :uniq => true, :foreign_key => :invitee_id, :association_foreign_key => :story_id
   
   attr_accessible :uid, :first_name, :last_name
 
@@ -42,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def in_play_stories
-    stories_by_friends_and_myself.reject{|s| s.finished? }.sort_by{|s| s.created_at}.reverse
+    (stories_invited_to + stories).uniq.reject{|s| s.finished? }.sort_by{|s| s.created_at}.reverse
   end
 
   def token=(new_token)

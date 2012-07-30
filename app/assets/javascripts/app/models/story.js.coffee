@@ -13,9 +13,13 @@ window.Story = Backbone.Model.extend
   
   updateModels: ->
     @initUser() 
+    @initInvitees()
     @initLines()    
     @initUsers() 
     @setCoAuthors()
+
+  invite: (invitees) ->
+    @set(invitees: invitees)
     
   initUser: ->
     @user = new User(@attributes.user)
@@ -29,11 +33,15 @@ window.Story = Backbone.Model.extend
     users = _.uniq _.pluck(@lines.models, 'user'), false, (u)-> u.get("uid")
     @users.reset(users)
   
+  initInvitees: ->
+    @invitees = new App.Collections.Users()    
+    @invitees.reset(@get('invitees'))
+
+  
   toJSON: ->
     json = {story: _.clone(@attributes)}
     _.extend(json.story, {lines_attributes: _.map(@lines.toJSON(), (l)-> delete l.signed_request; l)})    
     _.extend(json, $.ajaxSettings.data)
-    
     
   authorName: ->
     @user.get('name')

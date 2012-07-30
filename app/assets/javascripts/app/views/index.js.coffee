@@ -32,8 +32,8 @@ App.Views.Index = Backbone.View.extend
     
   render: ->
     Handlebars.registerHelper "coAuthorsCount", ->
-      numberOfAuthors = @users.length - 1
-      res = @users.at(0).name()
+      numberOfAuthors = @users.length
+      res = @users.at(0)?.name()
       if numberOfAuthors > 1
         res += " and #{numberOfAuthors - 1} others" 
       res      

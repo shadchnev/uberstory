@@ -25,17 +25,17 @@ App.Views.NewStory = Backbone.View.extend
     $(@el).modal('hide')
     @remove()
     callback = (response) =>
-      if response
-        @createStory()
+      if response?.to        
+        @createStory(response.to)
       else
         @flash = "Sorry, you need to invite your friends so that they could get a chance to write new lines! It's not fun otherwise :)"
         @render()
     new App.Views.SelectFriends(callback: callback, user: @user, message: "I started writing a new story, help me finish it!")
 
     
-  createStory: ->
+  createStory: (invitees)->
     story = new Story()
-    # console.log("first line again: " + @firstLine)
+    story.invite(invitees)
     line = new Line(text: @firstLine)
     story.lines.add(line)
     story.save null,
