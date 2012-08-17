@@ -7,7 +7,6 @@ App.Views.NewStory = Backbone.View.extend
   initialize: -> 
     @user = @options.user
     @setElement $('#new-story-dialogue')
-    @render()
 
   toggleButtonState: -> 
     if !!@getFirstLine()
@@ -21,16 +20,17 @@ App.Views.NewStory = Backbone.View.extend
   showFriendsSelector: (event)->
     # return if $(event.target).hasClass('disabled')
     @firstLine = @getFirstLine()
-    # console.log("first line: " + @firstLine)    
+    console.log("first line: " + @firstLine)    
     $(@el).modal('hide')
     @remove()
     callback = (response) =>
       if response?.to        
-        @createStory(response.to)
+        @createStory(response.to)        
       else
         @flash = "Sorry, you need to invite your friends so that they could get a chance to write new lines! It's not fun otherwise :)"
         @render()
-    new App.Views.SelectFriends(callback: callback, user: @user, message: "I started writing a new story, help me finish it!")
+    @friendsSelector ||= new App.Views.SelectFriends(callback: callback, user: @user, message: "I started writing a new story, help me finish it!")
+    @friendsSelector.render()
 
     
   createStory: (invitees)->
@@ -43,7 +43,7 @@ App.Views.NewStory = Backbone.View.extend
         @trigger 'storyCreated', story    
 
   render: ->
-    $(".flash", @el).html(@flash) if @flash?.length
+    $(".flash", @el).html(@flash)# if @flash?.length
     @flash = ''
     $(@el).modal('show')
     @delegateEvents()

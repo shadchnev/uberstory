@@ -13,7 +13,7 @@ App.Views.SelectFriends = Backbone.View.extend
     @setElement $("#select-friends")
     @showBackButton = @options.showBackButton
     @callback = @options.callback
-    @render()
+    # @render()
 
   toggleButtonState: ->
     if $("input:checked", @el).length > 0
@@ -65,8 +65,10 @@ App.Views.SelectFriends = Backbone.View.extend
     false
     
   render: ->    
+    $('#filter', @el).val('')
     $('.go-back', @el).hide() unless @showBackButton
     html = Handlebars.templates['app/templates/friends_list'](friends: @user.friends.models)
     $('.friends-list', @el).empty().html html
+    @delegateEvents()
     $(@el).modal('show')    
     @

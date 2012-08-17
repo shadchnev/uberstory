@@ -7,7 +7,8 @@ App.Views.NewStoryLink = Backbone.View.extend
     @user = @options.user
     
   showNewStoryView: ->
-    @view = new App.Views.NewStory(user: @user)
+    @view ?= new App.Views.NewStory(user: @user)
+    @view.render()
     @view.on("storyCreated", (story)=> @trigger("storyCreated", story))
 
   render: ->
