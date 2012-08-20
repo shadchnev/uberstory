@@ -4,4 +4,4 @@ App.Views.Leaderboard = Backbone.View.extend
     @leaders = @options.leaders
 
   render: -> 
-    $(@el).html(Handlebars.templates['app/templates/leaderboard'] {leaders: @leaders})
+    $(@el).html(Handlebars.templates['app/templates/leaderboard'] {leaders: @leaders.models})

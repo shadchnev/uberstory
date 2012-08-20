@@ -13,7 +13,7 @@ App.Views.ShareStory = Backbone.View.extend
       method: 'send'
       name: "A story by #{@user.name()}"
       description: @story.teaser
-      link: "http://localhost:3000/#stories/#{@story.id}"
+      link: "http://uberstory.herokuapp.com/#stories/#{@story.id}"
     false
     
   render: ->

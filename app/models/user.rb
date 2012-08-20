@@ -23,8 +23,12 @@ class User < ActiveRecord::Base
     @stories_by_friends_and_myself ||= (stories_by_friends + own_stories).uniq
   end
 
+  def leaders
+    friends_and_myself.select{|f| f.score > 0}.take(10).sort_by(&:score).reverse.map{|f| {:id => f.id, :name => f.name, :score => f.score}}
+  end
+
   def top_stories
-    (Story.all(:include => [:lines, :users]) - stories_by_friends_and_myself).select{|s| s.finished? }.take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet    
+    (Story.all(:include => [:lines, :users])).select{|s| s.finished? }.take(NUM_STORIES_TO_SHOW) # popular means the number of likes but we don't have that yet    
   end
 
   def own_stories    

@@ -6,6 +6,7 @@ App.Views.Show = Backbone.View.extend
     'click #new-line-dialogue': 'showNewLineModal'
   
   initialize: ->
+    # console.log('initializing Show')
     @story = @options.story
     @user = @options.user
     @initLineChangeHander()
@@ -20,11 +21,13 @@ App.Views.Show = Backbone.View.extend
         success: (reply)=>
           new App.Views.LineAdded(scores: reply, user: @user) 
           @trigger 'storyUpdated', @story
+          @user.set("score", @user.get("score") + 10)
 
   showNewLineModal: ->
-    text = $(".add-new-line .new-line input").val().trim()
+    text = $(".add-new-line .new-line input", @el).val().trim()
     return false if text is ''
-    new App.Views.SelectFriends(showBackButton: true, callback: ((response)=> @addLine(response)), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
+    @friendsSelector ||= new App.Views.SelectFriends(showBackButton: true, callback: ((response)=> @addLine(response)), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
+    @friendsSelector.render()
     false
     
   checkButtonState: ->
@@ -34,7 +37,7 @@ App.Views.Show = Backbone.View.extend
     else
       $("a#new-line-dialogue").removeClass('disabled')
   
-  addLine: (response)->
+  addLine: (response)->    
     text = $(".add-new-line .new-line input").val().trim()
     line = new Line({text: text, story_id: @story.get('id')})
     @story.invite(response.to) if response?.to?.length

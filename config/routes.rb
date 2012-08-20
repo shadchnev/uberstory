@@ -10,18 +10,25 @@ Uberstory::Application.routes.draw do
   end
   resources :lines
   # resources :contacts
-   
-  match '/auth/:provider/callback', to: 'facebook#authenticated'
+
+  resources :users do
+    collection do
+      get "leaders"
+    end
+  end
+
+  
+  match '/auth/:provider/callback', :to => 'facebook#authenticated'
   
   root :to => 'facebook#init'
-  match "home", to: 'facebook#host_redirect', as: :host
-  match '/', to: 'facebook#init', method: :post
+  match "home", :to => 'facebook#host_redirect', :as => :host
+  match '/', :to => 'facebook#init', :method => :post
   
-  match '/canvas', to: 'canvas#index', as: :canvas
+  match '/canvas', :to => 'canvas#index', :as => :canvas
   
-  match 'contact-us', to: 'static#contact', as: :contact_us
-  match 'privacy', to: 'static#privacy', as: :privacy
-  match 'terms', to: 'static#terms', as: :terms
+  match 'contact-us', :to =>  'static#contact', :as =>  :contact_us
+  match 'privacy', :to =>  'static#privacy', :as =>  :privacy
+  match 'terms', :to =>  'static#terms', :as =>  :terms
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

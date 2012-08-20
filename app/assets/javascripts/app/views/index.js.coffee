@@ -11,6 +11,7 @@ App.Views.Index = Backbone.View.extend
     @topStories = @options.topStories
     @yourStories = @options.yourStories
     @friendsStories = @options.friendsStories    
+    @user = @options.user
     
   show: (event)->    
     document.location.hash = "#stories/" + @id(event.target)
@@ -20,7 +21,10 @@ App.Views.Index = Backbone.View.extend
     $('[name="story-id"]', $(element).parents(".story-intro")).val()
 
   showNudgeDialogue: ->
-    new App.Views.NudgeFriends(id: @id(event.target))
+    id = @id(event.target)
+    story = @inPlayStories.get(id) or @topStories.get(id) or @yourStories.get(id) or @friendsStories.get(id)
+    @nudge ||= new App.Views.NudgeFriends(story: story, user: @user)
+    @nudge.render()
 
   storyListTabs: (ev)->
     target = $(ev.target)
@@ -37,7 +41,7 @@ App.Views.Index = Backbone.View.extend
       if numberOfAuthors > 1
         res += " and #{numberOfAuthors - 1} others" 
       res      
-    storiesHtml = Handlebars.templates['app/templates/stories'] {inPlayStories: @inPlayStories, topStories: @topStories, yourStories: @yourStories, friendsStories: @friendsStories}
+    storiesHtml = Handlebars.templates['app/templates/stories'] {inPlayStories: @inPlayStories.models, topStories: @topStories.models, yourStories: @yourStories.models, friendsStories: @friendsStories.models}
     $(@el).html(storiesHtml)
     $(".scrollPane", @el).tinyscrollbar()
     # $(@el).html(@el)

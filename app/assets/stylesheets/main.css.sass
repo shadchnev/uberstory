@@ -16,8 +16,7 @@ body
     
 #game
   width: 750px
-  height: 550px
-  overflow: hidden
+  height: 550px  
   background: #591b00 image-url("global/background-main.jpg") 0 0 no-repeat
   margin: 20px auto 0 auto
   border: 1px solid #000
@@ -42,6 +41,7 @@ header
     text-align: center
     color: #ffc400
     margin-top: 10px
+    display: none
   #score-count, #badge-list
     width: 80%
     margin: 5px auto 0 auto
@@ -75,6 +75,24 @@ header
   width: $width - $sidebarWidth - 40px
   float: left
   padding: 20px
+
+  .dots
+    font-size: 60px
+    text-align: center
+    margin: -30px 0 -10px 0
+    color: #AAA
+    line-height: 50px
+
+  .blurred
+    color: transparent
+    text-shadow: 0 0 15px rgba(0,0,0,0.8)
+    .ie8 &
+      color: #999
+      filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=6)
+      -ms-filter: "progid:DXImageTransform.Microsoft.Blur(pixelRadius=6)"
+    .ie7 &
+      color: #999
+      background: image-url("ie7-blur.png") 0 0
   
   .story
     background: #e3ebf8
@@ -86,7 +104,7 @@ header
   .line
     overflow: hidden
     // padding: 20px
-    margin-bottom: 20px
+    margin-bottom: 15px
     .profile-picture
       float: left
       padding: 8px
@@ -98,13 +116,14 @@ header
       img
         float: right
         width: 30px
+        height: 30px
         @include single-box-shadow(rgba(0,0,0,0.5), 2px, 2px, 0)
     .text
       float: right
       width: 278px      
       margin-left: 0.5em
       p
-        margin: 0 0 0.5em 0
+        margin: 0.25em 0 0.25em 0
 
 
   #list-nav
@@ -181,7 +200,7 @@ header
   #completed
     .scrollPane
       .viewport
-        height: 300px
+        height: 290px !important
 
   .story-intro
     overflow: hidden
@@ -288,6 +307,7 @@ header
       padding: 10px
       background: rgba(249,243,161,0.4)
       @include border-radius(10px)
+      text-align: left
     .btn
       margin: 20px 0
 
@@ -305,8 +325,8 @@ header
         height: 100%
     .name
       width: 210px
-      float: right
-
+      display: inline-block
+      margin-left: 10px
     h3
       margin: 0 0 0.5em 0
       font-family: $headingFont
@@ -315,15 +335,27 @@ header
       text-shadow: 2px 2px 0 #000
       text-align: center
 
-    #author-list
+    #author-list, #leaders-list
       @include single-box-shadow(rgba(0,0,0,0.8), 3px, 3px, 0)
       background: #f9f3a1
       height: 200px
+    .leader
+      .score, .name
+        margin: 5px
+        display: inline-block
       
-  
+.add-new-line
+  .new-line
+    margin: 10px 0
+    input
+      width: 320px  
+
 .close-modal
   float: right
 
+.modal
+  .btn
+    margin: 5px
   
 footer
   height: $footerHeight

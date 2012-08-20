@@ -12,8 +12,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
     respond_to do |format|
       format.html do
-        @redirect_url = canvas_url(:anchor => "stories/#{@story.id}")
-        puts "REDIRECTING TO #{@redirect_url}"
+        @redirect_url = canvas_url(:anchor => "stories/#{@story.id}")        
         render :show, :layout => false
       end
       format.json  do
@@ -29,6 +28,7 @@ class StoriesController < ApplicationController
     if @story.save
       # flash[:notice] = "Boom, one shiny new story! Check back soon and watch the story grow."
       # redirect_to :action => :show, :id => @story.id
+      fire 'story.added', :target_id => @story.id
       render :json => {}, :status => :ok
     else
       render :json => {}, :status => :bad_request

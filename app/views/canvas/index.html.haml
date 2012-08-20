@@ -7,7 +7,7 @@
       = instance_variable_get("@#{v}").as_json(:current_user => current_user).to_json.html_safe
 
   #current-user
-    = current_user.as_json(:only => [:uid, :first_name, :last_name] ,:include => {:friends => {:methods => :name, :only => [:uid, :first_name, :last_name]}}).to_json.html_safe
+    = current_user.as_json(:only => [:uid, :first_name, :last_name], :methods => [:score], :include => {:friends => {:methods => :name, :only => [:uid, :first_name, :last_name]}}).to_json.html_safe
 
   #leaders
-    = current_user.friends_and_myself.select{|f| f.score > 0}.map{|f| {:name => f.name, :score => f.score}}.to_json.html_safe
+    = current_user.leaders.to_json.html_safe

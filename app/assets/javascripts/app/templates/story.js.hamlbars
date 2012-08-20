@@ -12,7 +12,8 @@
         = hb 'first lines.models' do 
           = hb '> app.templates.line'
         = hb 'if showSeparator' do
-          dot dot dot
+          .dots
+            &middot;&nbsp;&middot;&nbsp;&middot;
         = hb 'slice lines.models' do
           = hb '> app.templates.line'
       = hb '> app.templates.add_line'

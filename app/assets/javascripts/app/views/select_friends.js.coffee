@@ -10,7 +10,7 @@ App.Views.SelectFriends = Backbone.View.extend
     @user = @options.user
     @data = @options.data
     @message = @options.message
-    @setElement $("#select-friends")
+    @setElement $("#select-friends").clone()
     @showBackButton = @options.showBackButton
     @callback = @options.callback
     # @render()

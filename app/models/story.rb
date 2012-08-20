@@ -90,7 +90,8 @@ class Story < ActiveRecord::Base
     json["one_line_story"] = lines.size == 1
     json["involves_current_user"] = involves?(options[:current_user])
     json[:lines].map! do |line|
-      line["text"] = line["text"].gsub(/\w/) { ('a'..'z').to_a[rand(26)] } unless finished? || lines.last.id == line["id"]
+      line["visible"] = finished? || lines.last.id == line["id"]
+      line["text"] = line["text"].gsub(/\w/) { ('a'..'z').to_a[rand(26)] } unless line["visible"]
       line.delete('id')
       line
     end

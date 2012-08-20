@@ -8,6 +8,7 @@ App.Routers.Stories = Backbone.Router.extend
     @sidebarTopView         = new App.Views.Window(element: "#sidebar-top")
     @sidebarBottomView      = new App.Views.Window(element: "#sidebar-bottom")
     @homeLinkView           = new App.Views.Window(element: "#homelink")
+    @scoreView              = new App.Views.Window(element: "#score-count")
     @loadSeed()
 
   show: (id)->
@@ -16,15 +17,22 @@ App.Routers.Stories = Backbone.Router.extend
     @contentView.render         showStoryView
     @sidebarTopView.render      new App.Views.ShareStory(story: story, user: @user)
     @sidebarBottomView.render   new App.Views.StoryAuthors(story: story)
-    @homeLinkView.render        new App.Views.Homelink(story: story)    
+    @homeLinkView.render        new App.Views.Homelink(story: story)        
     showStoryView.on "storyUpdated", (story) =>      
-      console.log("catching the storyUpdated event")
+      # console.log("catching the storyUpdated event")
       @inPlayStories.fetch success: => 
         @index()
 
   loadSeed: ->
     @user ?= new User(JSON.parse $('#seed #current-user').text())
-    @leaders ?= JSON.parse($('#seed #leaders').text())
+    @user.on "change:score", =>      
+      @scoreView.render new App.Views.Score(user: @user)      
+      @leaders.fetch success: =>
+        @sidebarBottomView.render new App.Views.Leaderboard(leaders: @leaders)        
+
+    @scoreView.render new App.Views.Score(user: @user)
+    @leaders ?= new App.Collections.Leaders()
+    @leaders.reset JSON.parse($('#seed #leaders').text())
 
     
     @inPlayStories ?= new App.Collections.InPlayStories()    
@@ -40,17 +48,16 @@ App.Routers.Stories = Backbone.Router.extend
     @friendsStories.reset(JSON.parse $('#seed #friends_stories').text()) if $('#seed #friends_stories').length
         
   index: ->
-    @indexView = new App.Views.Index inPlayStories: @inPlayStories.models, topStories: @topStories.models, yourStories: @yourStories.models, friendsStories: @friendsStories.models
+    @indexView = new App.Views.Index inPlayStories: @inPlayStories, topStories: @topStories, yourStories: @yourStories, friendsStories: @friendsStories, user: @user
     @contentView.render @indexView
 
     @newStoryLinkView = new App.Views.NewStoryLink(user: @user)
     @sidebarTopView.render @newStoryLinkView
 
-    @newStoryLinkView.on "storyCreated", (story)=>
-      # @storyStartedView = new App.Views.StoryStarted()
+    @newStoryLinkView.on "storyCreated", (story)=>      
       @inPlayStories.fetch success: => 
-        @indexView.inPlayStories = @inPlayStories.models # fuck me, that's some ugly code. As if a setter would solve my problems, though
-        @indexView.render()
+        @indexView.inPlayStories = @inPlayStories
+        @contentView.render @indexView
 
     @sidebarBottomView.render new App.Views.Leaderboard(leaders: @leaders)
     @homeLinkView.render new App.Views.Homelink()

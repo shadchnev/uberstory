@@ -6,7 +6,7 @@ App.Views.NewStory = Backbone.View.extend
 
   initialize: -> 
     @user = @options.user
-    @setElement $('#new-story-dialogue')
+    @setElement $('#new-story-dialogue').clone()
 
   toggleButtonState: -> 
     if !!@getFirstLine()
@@ -20,7 +20,7 @@ App.Views.NewStory = Backbone.View.extend
   showFriendsSelector: (event)->
     # return if $(event.target).hasClass('disabled')
     @firstLine = @getFirstLine()
-    console.log("first line: " + @firstLine)    
+    # console.log("first line: " + @firstLine)    
     $(@el).modal('hide')
     @remove()
     callback = (response) =>
@@ -40,6 +40,7 @@ App.Views.NewStory = Backbone.View.extend
     story.lines.add(line)
     story.save null,
       success: =>         
+        @user.set("score", @user.get("score") + 25)
         @trigger 'storyCreated', story    
 
   render: ->

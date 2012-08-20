@@ -71,15 +71,12 @@ private
 
 
   def story_invited_to
-    puts "getting story_invited_to"
     return if params[:request_ids].blank?    
     request_ids = params[:request_ids].split(',')
-    puts "got ids: #{request_ids.inspect}"
     request = graph.get_object(request_ids.last)
-    puts "chose one: #{request.inspect}"
     story_id = request ? !request["data"].nil? && JSON.parse(request["data"])["story_id"] : nil
-    puts "extracted story_id: #{story_id}"
-    story_id ? Story.find(story_id) : nil #Story.all(:joins => :lines, :conditions => ['user_id in (?)', current_user.friend_of.map(&:id)]).last
+    story = story_id ? Story.find(story_id) : nil
+    story if story && story.writable_by(current_user)
   end
 
   def extract_token_and_user_id

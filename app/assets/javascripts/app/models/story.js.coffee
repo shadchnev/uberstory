@@ -36,6 +36,7 @@ window.Story = Backbone.Model.extend
   initInvitees: ->
     @invitees = new App.Collections.Users()    
     @invitees.reset(@get('invitees'))
+    @invitees.push(@user) if @invitees.where({id: @user.id}).length == 0
 
   
   toJSON: ->

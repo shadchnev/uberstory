@@ -19,4 +19,5 @@
 //= require 'app/models/story.js'
 //= require 'app/models/user.js'
 //= require 'app/models/line.js'
+//= require 'app/models/leader.js'
 //= require_tree .
