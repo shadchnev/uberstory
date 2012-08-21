@@ -62,7 +62,7 @@ window.Story = Backbone.Model.extend
       return extraFriends[0].get('first_name') if extraFriends.length == 1
       namesNumber = extraFriends.length - mentionedUsersNumber
       s = if namesNumber is 1 then '' else 's'
-      "#{namesNumber} other#{s}"
+      "#{namesNumber if namesNumber > 0} other#{s}" # there's a bug here somewhere      
       
     friendsToMention = @users.select ((e)=> currentUser.friends.any((u) -> e.uid == u.uid) )
     namesToMention = _.first friendsToMention, 2
