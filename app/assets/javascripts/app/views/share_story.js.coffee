@@ -14,6 +14,7 @@ App.Views.ShareStory = Backbone.View.extend
       name: "A story by #{@user.name()}"
       description: @story.teaser
       link: "http://uberstory.herokuapp.com/stories/#{@story.id}"
+      picture: "http://uberstory.herokuapp.com/assets/ubertales50.png"
     false
     
   render: ->
