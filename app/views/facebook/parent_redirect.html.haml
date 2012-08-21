@@ -1,5 +1,8 @@
 !!!
 %head
+    %meta{:property=> 'og:image', :content => 'http://uberstory.herokuapp.com/assets/ubertales50.png'}
+    %meta{:property=> 'og:title', :content => @page_title || "UberTales"}
+    %meta{:property=> 'og:site_name', :content => 'UberTales'}    
 %body
   :javascript
     window.top.location = "#{@redirect_url}"
