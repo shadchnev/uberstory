@@ -58,6 +58,7 @@ protected
   def redirect_url
     story = story_invited_to
     story = Story.find(params[:story_id]) if !story && params[:story_id]
+    @page_title = story.teaser if story
     story_url(story) if story
   end
 
