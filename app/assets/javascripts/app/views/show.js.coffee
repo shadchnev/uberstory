@@ -5,7 +5,7 @@ App.Views.Show = Backbone.View.extend
     'keyup .new-line input': 'checkButtonState'
     'click #new-line-dialogue': 'showNewLineModal'
     'click .invite-friends': 'inviteMoreFriends'
-    'click .invite-friends-back': 'inviteExistingPlayers'
+    'click .invite-friends-back': 'inviteFriendsBack'
   
   initialize: ->
     # console.log('initializing Show')
@@ -48,10 +48,14 @@ App.Views.Show = Backbone.View.extend
     @friendsSelector.render()
     false
 
-  inviteExistingPlayers: ->    
+  inviteFriendsBack: ->
+    @inviteExistingPlayers =>
+      new App.Views.Modal(message: "Great, we sent reminders to your friends!", title: "Well done!")  
+
+  inviteExistingPlayers: (thankYouCallback)->    
     callback = (response)=>
       return unless response?.to?.length
-      new App.Views.Modal(message: "Great, we sent reminders to your friends!", title: "Well done!")  
+      thankYouCallback() if thankYouCallback
     participants = _.intersection(@story.invitees.pluck("uid"), @user.friends.pluck("uid"))
     FB.ui
       method: 'apprequests'
