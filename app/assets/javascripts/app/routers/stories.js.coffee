@@ -18,9 +18,8 @@ App.Routers.Stories = Backbone.Router.extend
     @sidebarTopView.render      new App.Views.ShareStory(story: story, user: @user)
     @sidebarBottomView.render   new App.Views.StoryAuthors(story: story)
     @homeLinkView.render        new App.Views.Homelink(story: story)        
-    showStoryView.on "storyUpdated", (story) =>      
-      # console.log("catching the storyUpdated event")
-      @inPlayStories.fetch success: => 
+    showStoryView.on "storyUpdated", (story) =>
+      @inPlayStories.fetch success: =>
         @index()
 
   loadSeed: ->

@@ -4,7 +4,8 @@
     .author-picture
       %img{:src => hb('authorImage')}
     .detail
-      %h2= hb 'teaser'
+      %h2
+        %a.teaser{:href => "#"}= hb 'teaser'
       .other-authors
         = hb 'coAuthorsCount'
     %a.btn.read-story{:href => '#'} Read
@@ -15,17 +16,19 @@
       .author-picture
         %img{:src => hb('authorImage')}
       .detail
-        %h2= hb 'teaser'
+        %h2
+          %a.teaser{:href => "#"}= hb 'teaser'
         .other-authors
           = hb 'coAuthorsCount'
       %a.btn.your-turn{:href => '#'} Your turn
     =hb 'else'
-    .story-intro.nudge
+    .story-intro
       %input{:type=>'hidden', :name => 'story-id', :value => hb('id')}
       .author-picture
         %img{:src => hb('authorImage')}
       .detail
-        %h2= hb 'teaser'
+        %h2
+          %a.teaser{:href => "#"}= hb 'teaser'
         .other-authors
           = hb 'coAuthorsCount'
       %a.btn.nudge{:href => '#'} Nudge

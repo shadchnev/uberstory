@@ -36,7 +36,7 @@ window.Story = Backbone.Model.extend
   initInvitees: ->
     @invitees = new App.Collections.Users()    
     @invitees.reset(@get('invitees'))
-    @invitees.push(@user) if @invitees.where({id: @user.id}).length == 0
+    @invitees.push(@user) if @invitees.where({id: @user.uid}).length == 0
 
   
   toJSON: ->
@@ -64,9 +64,9 @@ window.Story = Backbone.Model.extend
       s = if namesNumber is 1 then '' else 's'
       "#{namesNumber} other#{s}"
       
-    friendsToMention = @users.select ((e)=> currentUser.friends.any((u) -> e.id == u.id) )
+    friendsToMention = @users.select ((e)=> currentUser.friends.any((u) -> e.uid == u.uid) )
     namesToMention = _.first friendsToMention, 2
     names = _.map namesToMention, ((u) -> u.get('first_name'))
-    names = names.join(", ")
+    names = names.join(if names.length > 2 then ", " else ' and ')
     names = _.compact([names, extraUsers(namesToMention.length)]).join(' and ')
     "Invite #{names} back"

@@ -13,7 +13,7 @@
       .invite-friends-line
         = hb 'unless attributes.one_line_story' do
           .button
-            %a.invite-friends.btn.btn-success.btn-large{:href => '#'}= hb 'friendsToInvite'              
+            %a.invite-friends-back.btn.btn-success.btn-large{:href => '#'}= hb 'friendsToInvite'              
         .button
           %a.invite-friends.btn.btn-success.btn-large{:href => '#'} Invite more friends to continue the story
       

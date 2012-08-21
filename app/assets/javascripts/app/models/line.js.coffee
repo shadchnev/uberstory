@@ -9,6 +9,7 @@ window.Line = Backbone.Model.extend
     @user = new User(@attributes.user)
     @text = @get("text")
     @visible = @get('visible')
+    @number = @get('number')
 
   authorImage: ->
     @user.image()

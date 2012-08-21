@@ -5,6 +5,7 @@ App.Views.Index = Backbone.View.extend
     'click .read-story, .your-turn': "show"
     'click .nudge': 'showNudgeDialogue'
     'click #list-nav a, #completed .nav-tabs a': 'storyListTabs'
+    'click .teaser': 'show'
 
   initialize: ->
     @inPlayStories = @options.inPlayStories

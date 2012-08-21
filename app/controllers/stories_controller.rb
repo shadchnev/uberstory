@@ -12,6 +12,7 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
     respond_to do |format|
       format.html do
+        @page_title = @story.teaser
         @redirect_url = canvas_url(:anchor => "stories/#{@story.id}")        
         render :show, :layout => false
       end
@@ -41,7 +42,7 @@ class StoriesController < ApplicationController
     new_line.user = current_user 
     @story = Story.find(params[:id])
     @story.lines << new_line
-    @story.invitees << new_invitees    
+    @story.invitees << new_invitees if new_invitees    
     if @story.save
       fire 'line.added', :target_id => @story.lines.last.id
       @story.notify_all_users_except(current_user)

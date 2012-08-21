@@ -4,6 +4,8 @@ App.Views.Show = Backbone.View.extend
   events:
     'keyup .new-line input': 'checkButtonState'
     'click #new-line-dialogue': 'showNewLineModal'
+    'click .invite-friends': 'inviteMoreFriends'
+    'click .invite-friends-back': 'inviteExistingPlayers'
   
   initialize: ->
     # console.log('initializing Show')
@@ -19,15 +21,15 @@ App.Views.Show = Backbone.View.extend
     @story.lines.on "add", (line) =>
       @story.save null,
         success: (reply)=>
-          new App.Views.LineAdded(scores: reply, user: @user) 
+          # new App.Views.LineAdded(scores: reply, user: @user) 
+          new App.Views.Modal(message: "You've scored 10 points for writing this line!", title: "Cool! This line will be quoted for centuries to come!")
           @trigger 'storyUpdated', @story
           @user.set("score", @user.get("score") + 10)
 
   showNewLineModal: ->
     text = $(".add-new-line .new-line input", @el).val().trim()
     return false if text is ''
-    @friendsSelector ||= new App.Views.SelectFriends(showBackButton: true, callback: ((response)=> @addLine(response)), user: @user, message: "Hey, I'm writing a funny story, help me finish it!", data: {story_id: @story.id}) 
-    @friendsSelector.render()
+    @addLine()
     false
     
   checkButtonState: ->
@@ -36,12 +38,36 @@ App.Views.Show = Backbone.View.extend
       $("a#new-line-dialogue").addClass('disabled')      
     else
       $("a#new-line-dialogue").removeClass('disabled')
-  
+
+  inviteMoreFriends: ->
+    callback = (response)=>
+      return unless response?.to?.length
+      @story.invite(response.to) 
+      new App.Views.Modal(message: "Great, your friends have got an invitation to join the story!", title: "Well done!")  
+    @friendsSelector ||= new App.Views.SelectFriends(callback: callback, user: @user, message: "I'm writing a story, help me finish it!")
+    @friendsSelector.render()
+    false
+
+  inviteExistingPlayers: ->    
+    callback = (response)=>
+      return unless response?.to?.length
+      new App.Views.Modal(message: "Great, we sent reminders to your friends!", title: "Well done!")  
+    participants = _.intersection(@story.invitees.pluck("uid"), @user.friends.pluck("uid"))
+    FB.ui
+      method: 'apprequests'
+      data: {story_id: @story.id}
+      message: 'Hey, please help me to finish a story on UberTales!'
+      title: "Only a few lines before our story is completed!"
+      to: participants
+      callback
+    false
+    
   addLine: (response)->    
     text = $(".add-new-line .new-line input").val().trim()
     line = new Line({text: text, story_id: @story.get('id')})
     @story.invite(response.to) if response?.to?.length
-    @story.lines.add(line)         
+    @story.lines.add(line)                 
+    @inviteExistingPlayers()
     false
 
   registerHelpers: ->

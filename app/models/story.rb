@@ -79,6 +79,10 @@ class Story < ActiveRecord::Base
     !finished? && (self.user == user || invitees.include?(user)) && !last_line_by?(user)
     # true
   end
+
+  def teaser
+    "#{lines.first.text.slice(0, 20)}#{'...' if lines.first.text.length > 20}"
+  end
   
   def as_json(options)
     user_fields = {:only => [:uid, :first_name, :last_name]}
@@ -86,10 +90,12 @@ class Story < ActiveRecord::Base
     json = super(:include => {:user => user_fields, :lines => lines_fields, :invitees => user_fields})
     json["writable"] = writable_by options[:current_user]
     json["finished"] = finished?
-    json["teaser"] = "#{lines.first.text.slice(0, 20)}#{'...' if lines.first.text.length > 20}"
+    json["teaser"] = teaser
     json["one_line_story"] = lines.size == 1
     json["involves_current_user"] = involves?(options[:current_user])
+    count = 0
     json[:lines].map! do |line|
+      line["number"] = count += 1
       line["visible"] = finished? || lines.last.id == line["id"]
       line["text"] = line["text"].gsub(/\w/) { ('a'..'z').to_a[rand(26)] } unless line["visible"]
       line.delete('id')

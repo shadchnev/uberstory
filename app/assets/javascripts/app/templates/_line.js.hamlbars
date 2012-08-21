@@ -1,5 +1,8 @@
 .line
   .profile-picture
+    .count
+      = succeed '.' do
+        = hb 'number'
     %img{:alt => hb("authorName"), :src => hb('authorImage')}
   .text
     %p{:class => "line-text {{#unless visible}} blurred {{/unless}}", "data-content" => "You need to write a new line to read the story", :title => "{{#unless visible}}No peeking!{{/unless}}"}
