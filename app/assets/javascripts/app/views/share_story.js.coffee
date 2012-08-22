@@ -18,9 +18,10 @@ App.Views.ShareStory = Backbone.View.extend
     false
     
   render: ->
-    template = Handlebars.templates['app/templates/sharing'] 
+    sharingTemplate = Handlebars.templates['app/templates/sharing'] 
+    rulesTemplate = Handlebars.templates['app/templates/rules'] 
     url = "http://uberstory.herokuapp.com/stories/#{@story.id}"
-    html = if @story.finished then template({url: url}) else ''    
+    html = if @story.finished then sharingTemplate({url: url}) else rulesTemplate()
     $(@el).html(html)   
     FB?.XFBML.parse(@el) # this will work when the story is rendered after the page is loaded, otherwise see _facebook.haml
     @
